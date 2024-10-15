@@ -6,15 +6,16 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:37:39 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/15 02:07:38 by tao              ###   ########.fr       */
+/*   Updated: 2024/10/15 03:02:38 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	ft_perror(void)
+void	ft_perror(char *msg_error)
 {
-	write(2, "Error\n", 7);
+	write(2, msg_error, ft_strlen(msg_error));
+	write(2, "\n", 1);
 	perror(0);
 	exit(EXIT_FAILURE);
 }
@@ -42,7 +43,7 @@ void	ft_free(char **map)
 	free(map);
 }
 
-int	ft_exit_mlx(t_data *data, int choice) // a update en fonction de la struc
+int	ft_exit_mlx(t_data *data, int choice)
 {
 	int	i;
 

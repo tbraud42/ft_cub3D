@@ -6,15 +6,25 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/15 02:15:19 by tao              ###   ########.fr       */
+/*   Updated: 2024/10/15 03:23:05 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-char **ft_creat_map(t_data *data, char *argv)
+void	ft_get_texture(t_data *data, int fd)
 {
-	(void)argv;
 	(void)data;
-	return (0);
+	(void)fd;
 }
+
+void	ft_init_data(t_data *data, char *argv)
+{
+	int	fd;
+
+	fd = open(argv, O_RDONLY);
+	if (fd == -1)
+		ft_perror("card opening failure");
+	ft_get_texture(data, fd);
+}
+

@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 04:56:39 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/15 02:17:55 by tao              ###   ########.fr       */
+/*   Updated: 2024/10/15 03:02:30 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,29 @@
 
 static void	ft_forward(t_data *data)
 {
+	printf("forward\n");
 	(void)data;
 }
 
 static void	ft_backward(t_data *data)
 {
+	printf("back\n");
 	(void)data;
 }
 
 static void	ft_left(t_data *data)
 {
+	printf("left\n");
 	(void)data;
 }
 
 static void	ft_right(t_data *data)
 {
+	printf("right\n");
 	(void)data;
 }
 
-int	ft_event(int keycode, t_data *data) // fonction principale mouvement
+int	ft_event(int keycode, t_data *data)
 {
 	if (keycode == ESCAPE)
 		ft_exit_mlx(data, 0);

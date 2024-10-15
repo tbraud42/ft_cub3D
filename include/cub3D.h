@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/15 02:20:17 by tao              ###   ########.fr       */
+/*   Updated: 2024/10/15 03:01:23 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,30 @@ typedef struct s_data
 	void	*mlx;
 	void	*mlx_win;
 	void	*img[8]; // texture
-	int		player[2];
+	int		player[2]; // placement dans la carte, on rajoute ici l'orientation?
+	int		color_top[3]; // couleur toit
+	int		color_floor[3]; // couleur sol
 }			t_data;
 
-//|----move----|
-int			ft_event(int keycode, t_data *data);
-
 //|----parsing----|
-char		**ft_creat_map(t_data *data, char *argv);
+void		ft_init_data(t_data *data, char *argv); // remplir la struct en lisant le doc
 
-//|-----gnl------|
-char		*get_next_line(int fd);
+//|----move----|
+int			ft_event(int keycode, t_data *data); // fonction pour les mouvements
 
 //|-----utils-----|
+int			ft_strlen(char *arr);
+char		*get_next_line(int fd);
 void		ft_bzero(char *s, size_t n);
 char		*ft_strdup(char *s);
 int			ft_strchr(char *s, int c);
 char		*ft_strjoin(char *s1, char *s2);
-int			ft_strlen(char *arr);
 void		ft_putnbr(size_t n);
 
 //|-----error-----|
 void		ft_free(char **map);
 void		ft_error(char *erno, int choice, char **map);
-void		ft_perror(void);
-int			ft_exit_mlx(t_data *data, int choice);
+void		ft_perror(char *msg_error);
+int			ft_exit_mlx(t_data *data, int choice); // fonction de free mlx et destruction des structures
 
 #endif /*CUB3D_H */
