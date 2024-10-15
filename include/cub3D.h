@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/04/27 02:13:36 by tbraud           ###   ########.fr       */
+/*   Updated: 2024/10/15 02:20:17 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
 # include "../mlx/mlx.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -27,27 +28,20 @@
 # define ON_DESTROY 17
 # define ESCAPE 65307
 
-typedef struct s_ptr
+typedef struct s_data
 {
 	char	**map;
 	void	*mlx;
 	void	*mlx_win;
 	void	*img[8]; // texture
-	int		exit[2];
 	int		player[2];
-	int		next[2];
-	size_t	index;
-	size_t	size_map;
-}			t_ptr;
+}			t_data;
 
 //|----move----|
-int			ft_event(int keycode, t_ptr *ptr);
+int			ft_event(int keycode, t_data *data);
 
 //|----parsing----|
-char		**ft_creat_map(char *argv[], size_t *size);
-void		ft_check_duplicates(char **map);
-int			ft_find_point(char **map, char to_find, int point[2]);
-void		ft_insert_map(t_ptr *ptr);
+char		**ft_creat_map(t_data *data, char *argv);
 
 //|-----gnl------|
 char		*get_next_line(int fd);
@@ -64,6 +58,6 @@ void		ft_putnbr(size_t n);
 void		ft_free(char **map);
 void		ft_error(char *erno, int choice, char **map);
 void		ft_perror(void);
-int			ft_exit_mlx(t_ptr *ptr, int choice);
+int			ft_exit_mlx(t_data *data, int choice);
 
 #endif /*CUB3D_H */

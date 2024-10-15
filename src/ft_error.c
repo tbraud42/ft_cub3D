@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:37:39 by tbraud            #+#    #+#             */
-/*   Updated: 2024/05/01 00:49:22 by tbraud           ###   ########.fr       */
+/*   Updated: 2024/10/15 02:07:38 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,23 @@ void	ft_free(char **map)
 	free(map);
 }
 
-int	ft_exit_mlx(t_ptr *ptr, int choice)
+int	ft_exit_mlx(t_data *data, int choice) // a update en fonction de la struc
 {
 	int	i;
 
 	i = 0;
 	while (i < 8)
 	{
-		if (ptr->img[i])
-			mlx_destroy_image(ptr->mlx, ptr->img[i]);
+		// if (data->img[i]) destroy des textures
+		// 	mlx_destroy_image(data->mlx, data->img[i]);
 		i++;
 	}
 	if (choice == 1)
 		write(2, "Error\n", 7);
-	mlx_destroy_window(ptr->mlx, ptr->mlx_win);
-	mlx_destroy_display(ptr->mlx);
-	free(ptr->mlx);
-	ft_free(ptr->map);
+	mlx_destroy_window(data->mlx, data->mlx_win);
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	ft_free(data->map);
 	exit(0);
 	return (0);
 }
