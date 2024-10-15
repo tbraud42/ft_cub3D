@@ -37,8 +37,8 @@ int	main(int argc, char *argv[])
 	data.mlx = mlx_init();
 	if (!data.mlx)
 		ft_error("mlx does not launch correctly\n", 1, data.map);
-	// data.mlx_win = mlx_new_window(data.mlx, (ft_strlen(data.map[0])) * 32,
-			// data.size_map * 32, "cub3D<3");
+	data.mlx_win = mlx_new_window(data.mlx, 900,
+			600, "cub3D<3");
 	mlx_hook(data.mlx_win, ON_KEYDOWN, (1L << 0), ft_event, &data);
 	mlx_hook(data.mlx_win, ON_DESTROY, (1L << 0), ft_exit_mlx, &data);
 	mlx_loop(data.mlx);
