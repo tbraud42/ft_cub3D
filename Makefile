@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tao <tao@student.42.fr>                    +#+  +:+       +#+         #
+#    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 18:10:28 by tbraud            #+#    #+#              #
-#    Updated: 2024/10/15 02:11:07 by tao              ###   ########.fr        #
+#    Updated: 2024/10/17 09:30:00 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,14 @@ SRC_DIR	:= src
 OBJ_DIR	:= obj
 
 CC		:= clang
-CFLAGS	:= -Wextra -Wall -Werror
+CFLAGS	:= -Wextra -Wall -Werror -gdwarf-4
 
 INCLUDE	:= -I ./include
 
 SRC		:=	ft_error.c \
 			ft_move.c \
 			ft_parse.c \
+			ft_split.c \
 			ft_utils.c \
 			get_next_line_utils.c \
 			get_next_line.c \

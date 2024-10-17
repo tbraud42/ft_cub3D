@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/15 03:01:23 by tao              ###   ########.fr       */
+/*   Updated: 2024/10/17 09:28:24 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,15 @@ typedef struct s_data
 	int		player[2]; // placement dans la carte, on rajoute ici l'orientation?
 	int		color_top[3]; // couleur toit
 	int		color_floor[3]; // couleur sol
+	char	*NO;
+	char	*SO;
+	char	*WE;
+	char	*EA;
 }			t_data;
 
 //|----parsing----|
 void		ft_init_data(t_data *data, char *argv); // remplir la struct en lisant le doc
-
+char    *ft_get_texture_path(char *cardinal, char *line, int i);
 //|----move----|
 int			ft_event(int keycode, t_data *data); // fonction pour les mouvements
 
@@ -53,6 +57,9 @@ char		*ft_strdup(char *s);
 int			ft_strchr(char *s, int c);
 char		*ft_strjoin(char *s1, char *s2);
 void		ft_putnbr(size_t n);
+int			ft_strncmp(char *first, char *second, size_t length);
+int			ft_atoi(const char *str);
+char		**ft_split(char const *s, char c);
 
 //|-----error-----|
 void		ft_free(char **map);

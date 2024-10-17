@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:37:39 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/15 03:02:38 by tao              ###   ########.fr       */
+/*   Updated: 2024/10/16 23:06:00 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,11 @@ int	ft_exit_mlx(t_data *data, int choice)
 	mlx_destroy_window(data->mlx, data->mlx_win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
-	ft_free(data->map);
+	//ft_free(data->map);
+	free(data->NO);
+	free(data->SO);
+	free(data->WE);
+	free(data->EA);
 	exit(0);
 	return (0);
 }
