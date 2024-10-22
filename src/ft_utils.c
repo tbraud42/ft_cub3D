@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 02:09:34 by tao               #+#    #+#             */
-/*   Updated: 2024/10/17 09:06:46 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/10/21 10:30:37 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,26 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (sum * sign);
+}
+
+int	ft_count_line(int fd, char *line)
+{
+	int nbr_line;
+
+	nbr_line = 0;
+	line = get_next_line(fd);
+	if (!line || line[0] == '\n')
+	{
+		free(line);
+		return (0);
+	}
+	while (line != NULL)
+	{
+		nbr_line++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	close(fd);
+	return (nbr_line);
 }

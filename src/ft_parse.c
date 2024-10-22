@@ -6,11 +6,40 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/17 10:18:31 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:09:43 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+char	**ft_get_map(char  **map, char *line, int fd, char *argv)
+{
+	int	nbr_line;
+	int i;
+
+	nbr_line = ft_count_line(fd, line);
+	map = malloc(sizeof(char *) * (nbr_line + 1));
+	if (!map)
+		return (NULL);
+	fd = open(argv, O_RDONLY);
+	if (fd == -1)
+		ft_perror("file opening failure");
+	i = 0;
+	while (line != NULL)
+	{
+		if (ft_strncmp(line, " ", 1) == 0 || ft_strncmp(line, "1", 1) == 0)
+		{
+			map[i] = ft_strdup(line);
+			if (!map[i])
+				return (NULL);
+			i++;
+		}
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	return (map);
+}
 
 int *ft_get_color(int *color, char *line)
 {
@@ -53,9 +82,9 @@ char    *ft_get_texture_path(char *cardinal, char *line, int i)
 	return (cardinal);
 }
 
-void    ft_get_texture(t_data *data, int fd)
+void    ft_get_texture(t_data *data, int fd, char *argv)
 {
-    char    *line;
+    char *line;
 	
     line = get_next_line(fd);
     while (line != NULL)
@@ -72,6 +101,8 @@ void    ft_get_texture(t_data *data, int fd)
 			ft_get_color(data->color_floor, line);
 		else if (ft_strncmp(line, "C ", 2) == 0)
 			ft_get_color(data->color_top, line);
+		else if (ft_strncmp(line, " ", 1) == 0 || ft_strncmp(line, "1", 1) == 0)
+			data->map = ft_get_map(data->map, line, fd, argv);
 		free(line);
 		line = get_next_line(fd);
     }
@@ -86,14 +117,12 @@ void    ft_init_data(t_data *data, char *argv)
     fd = open(argv, O_RDONLY);
 	if (fd == -1)
 		ft_perror("file opening failure");
-    ft_get_texture(data, fd);
-	printf("%s\n", data->NO);
-	i = 0;
-	while (i < 3)
+    ft_get_texture(data, fd, argv);
+	i= 0;
+	while (data->map[i])
 	{
-		printf("%i\n", data->color_top[i]);
-		i++;
+		printf("%s", data->map[i]);
+		i++;	
 	}
 	close(fd);
 }
-

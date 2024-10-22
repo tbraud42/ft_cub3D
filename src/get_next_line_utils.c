@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:23:00 by tbraud            #+#    #+#             */
-/*   Updated: 2024/04/18 21:32:16 by tbraud           ###   ########.fr       */
+/*   Updated: 2024/10/21 10:44:37 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ char	*ft_strdup(char *s)
 	int		i;
 	char	*dest;
 
-	i = 0;
-	while (s[i])
-		i++;
-	dest = malloc(sizeof(char) * (i + 1));
+	dest = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!dest)
 		return (0);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/17 09:28:24 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/10/19 10:53:40 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_data
 
 //|----parsing----|
 void		ft_init_data(t_data *data, char *argv); // remplir la struct en lisant le doc
-char    *ft_get_texture_path(char *cardinal, char *line, int i);
+char		*ft_get_texture_path(char *cardinal, char *line, int i);
 //|----move----|
 int			ft_event(int keycode, t_data *data); // fonction pour les mouvements
 
@@ -60,6 +60,7 @@ void		ft_putnbr(size_t n);
 int			ft_strncmp(char *first, char *second, size_t length);
 int			ft_atoi(const char *str);
 char		**ft_split(char const *s, char c);
+int			ft_count_line(int fd, char *line);
 
 //|-----error-----|
 void		ft_free(char **map);

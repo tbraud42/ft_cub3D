@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:19:33 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/15 02:56:30 by tao              ###   ########.fr       */
+/*   Updated: 2024/10/21 10:24:58 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int	main(int argc, char *argv[])
 	if (ft_test_input(argv[1]))
 		ft_error("pls give me a map with extension .cub\n", 0, 0);
 	ft_init_data(&data, argv[1]);
-	data.mlx = mlx_init();
-	if (!data.mlx)
-		ft_error("mlx does not launch correctly\n", 1, data.map);
-	data.mlx_win = mlx_new_window(data.mlx, 900,
-			600, "cub3D<3");
-	mlx_hook(data.mlx_win, ON_KEYDOWN, (1L << 0), ft_event, &data);
-	mlx_hook(data.mlx_win, ON_DESTROY, (1L << 0), ft_exit_mlx, &data);
-	mlx_loop(data.mlx);
+	// data.mlx = mlx_init();
+	// if (!data.mlx)
+	// 	ft_error("mlx does not launch correctly\n", 1, data.map);
+	// data.mlx_win = mlx_new_window(data.mlx, 900,
+	// 		600, "cub3D<3");
+	// mlx_hook(data.mlx_win, ON_KEYDOWN, (1L << 0), ft_event, &data);
+	// mlx_hook(data.mlx_win, ON_DESTROY, (1L << 0), ft_exit_mlx, &data);
+	// mlx_loop(data.mlx);
 }
