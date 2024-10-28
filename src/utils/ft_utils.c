@@ -6,23 +6,11 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 02:09:34 by tao               #+#    #+#             */
-/*   Updated: 2024/10/28 09:14:22 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/10/28 22:14:59 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-int	ft_strlen(char *arr)
-{
-	int	i;
-
-	if (!arr)
-		return (0);
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
-}
 
 int	ft_strncmp(char *first, char *second, size_t length)
 {

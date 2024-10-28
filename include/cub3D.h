@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/28 09:49:52 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/10/28 22:19:25 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int			ft_event(int keycode, t_data *data); // fonction pour les mouvements
 
 //|-----utils-----|
 int			ft_strlen(char *arr);
+int			ft_array_len(void **array);
 char		*get_next_line(int fd);
 void		ft_bzero(char *s, size_t n);
 char		*ft_strdup(char *s);

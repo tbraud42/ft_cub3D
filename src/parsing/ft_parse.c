@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/26 17:52:40 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/10/28 22:18:57 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ void	get_element_from_tab(char **tab, t_data *data)
 {
 	int i;
 	char *tmp;
+	int	tab_len;
 
 	i = 0;
-	while (tab[i])
+	tab_len = ft_array_len((void **)tab);
+	while (i < tab_len)
 	{
 		tmp = tab[i];
 		while (ft_isspace(*tmp))
