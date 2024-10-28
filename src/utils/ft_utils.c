@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 02:09:34 by tao               #+#    #+#             */
-/*   Updated: 2024/10/21 10:30:37 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/10/25 11:33:47 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +70,38 @@ int	ft_atoi(const char *str)
 	return (sum * sign);
 }
 
-int	ft_count_line(int fd, char *line)
+int	ft_isspace(int c)
 {
-	int nbr_line;
+	if (c == ' ' || c == '\t' || c == '\n'\
+			|| c == '\v' || c == '\f' || c == '\r')
+		return (1);
+	return (0);
+}
 
-	nbr_line = 0;
-	line = get_next_line(fd);
-	if (!line || line[0] == '\n')
+void	ft_strstrim(char *s)
+{
+	char	*read;
+	char	*end;
+	int		start;
+
+	if (!s)
+		return ;
+	read = s;
+	end = s;
+	start = 1;
+	end += ft_strlen(s) - 1;
+	while (end != s && ft_isspace(*end))
+		end--;
+	end++;
+	while (*read && read != end)
 	{
-		free(line);
-		return (0);
+		if (!ft_isspace(*read) || !start)
+		{
+			start = 0;
+			*s = *read;
+			s++;
+		}
+		read++;
 	}
-	while (line != NULL)
-	{
-		nbr_line++;
-		free(line);
-		line = get_next_line(fd);
-	}
-	free(line);
-	close(fd);
-	return (nbr_line);
+	*s = '\0';
 }

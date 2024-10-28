@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/19 10:53:40 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/10/26 17:58:55 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,16 @@ typedef struct s_data
 
 //|----parsing----|
 void		ft_init_data(t_data *data, char *argv); // remplir la struct en lisant le doc
-char		*ft_get_texture_path(char *cardinal, char *line, int i);
+char    	**ft_get_file_in_tab(int fd);
+int			is_valid_path(char *str);
+int			get_no(t_data *data, char *str);
+int			get_so(t_data *data, char *str);
+int			get_we(t_data *data, char *str);
+int			get_ea(t_data *data, char *str);
+int 		get_map_colors(t_data *data, char *str);
+int			duplicated_color(t_data * data, int i);
+int			get_ceiling_color(t_data *data, char *str, int i);
+int			get_floor_color(t_data *data, char *str, int i);
 //|----move----|
 int			ft_event(int keycode, t_data *data); // fonction pour les mouvements
 
@@ -60,12 +69,15 @@ void		ft_putnbr(size_t n);
 int			ft_strncmp(char *first, char *second, size_t length);
 int			ft_atoi(const char *str);
 char		**ft_split(char const *s, char c);
-int			ft_count_line(int fd, char *line);
+void		ft_strstrim(char *s);
+int			ft_isspace(int c);
 
 //|-----error-----|
 void		ft_free(char **map);
 void		ft_error(char *erno, int choice, char **map);
 void		ft_perror(char *msg_error);
 int			ft_exit_mlx(t_data *data, int choice); // fonction de free mlx et destruction des structures
+int			err_arg(void);
+int			err_color(int flag);
 
 #endif /*CUB3D_H */
