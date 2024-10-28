@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/26 17:58:55 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/10/28 09:49:52 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int			get_so(t_data *data, char *str);
 int			get_we(t_data *data, char *str);
 int			get_ea(t_data *data, char *str);
 int 		get_map_colors(t_data *data, char *str);
-int			duplicated_color(t_data * data, int i);
-int			get_ceiling_color(t_data *data, char *str, int i);
-int			get_floor_color(t_data *data, char *str, int i);
+int			duplicated_color(t_data *data, int flag);
+int			get_top_color(t_data *data, char *str);
+int			get_floor_color(t_data *data, char *str);
 //|----move----|
 int			ft_event(int keycode, t_data *data); // fonction pour les mouvements
 
@@ -71,13 +71,14 @@ int			ft_atoi(const char *str);
 char		**ft_split(char const *s, char c);
 void		ft_strstrim(char *s);
 int			ft_isspace(int c);
+void		ft_putstr_fd(char *s, int fd);
 
 //|-----error-----|
 void		ft_free(char **map);
 void		ft_error(char *erno, int choice, char **map);
 void		ft_perror(char *msg_error);
 int			ft_exit_mlx(t_data *data, int choice); // fonction de free mlx et destruction des structures
-int			err_arg(void);
-int			err_color(int flag);
+int			error_arg(void);
+int			error_color(int flag);
 
 #endif /*CUB3D_H */

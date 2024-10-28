@@ -6,11 +6,24 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:42:04 by brguicho          #+#    #+#             */
-/*   Updated: 2024/10/25 12:33:42 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/10/28 09:28:16 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+int	is_valid_path(char *str)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	if (len <= 4)
+		return (1);
+	if (str[len - 4] != '.' || str[len - 3] != 'x' || str[len - 2] != 'p' || str[len
+		- 1] != 'm')
+		return (0);
+	return (1);
+}
 
 int	get_no(t_data *data, char *str)
 {

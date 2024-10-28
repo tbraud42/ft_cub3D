@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 09:27:30 by brguicho          #+#    #+#             */
-/*   Updated: 2024/10/17 09:27:53 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/10/28 08:54:05 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char	**ft_free_tab(char **tab, int size)
 		i++;
 	}
 	free(tab);
-	return (tab);
+	return (NULL);
 }
 
 static char	**ft_copy_words(char **strs, const char *str, char c, int words_nbr)

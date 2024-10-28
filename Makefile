@@ -6,7 +6,7 @@
 #    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 18:10:28 by tbraud            #+#    #+#              #
-#    Updated: 2024/10/26 17:50:46 by brguicho         ###   ########.fr        #
+#    Updated: 2024/10/28 09:29:33 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME	:= cub3D
 SRC_DIR	:= src/
 OBJ_DIR	:= obj/
 
-CC		:= clang
+CC		:= gcc
 CFLAGS	:= -Wextra -Wall -Werror
 
 INCLUDE	:= -I ./include
@@ -31,6 +31,7 @@ SRC		:=	src/main.c \
 			src/utils/ft_utils.c \
 			src/utils/get_next_line_utils.c \
 			src/utils/get_next_line.c \
+			src/utils/ft_putstr_fd.c\
 
 OBJ		:= $(addprefix $(OBJ_DIR),$(SRC:%.c=%.o))
 
