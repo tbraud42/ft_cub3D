@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:19:33 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/29 00:15:58 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:11:07 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ int	main(int argc, char *argv[])
 	data.SO = NULL;
 	data.WE = NULL;
 	data.EA = NULL;
+	data.map = NULL;
+	data.color_floor[0] = 0;
+	data.color_floor[1] = 0;
+	data.color_floor[2] = 0;
+	data.color_top[0] = 0;
+	data.color_top[1] = 0;
+	data.color_top[2] = 0;
 	if (argc != 2 || !argv[1])
 		ft_error("pls give me one map please\n", 0, 0);
 	if (ft_test_input(argv[1]))

@@ -6,7 +6,7 @@
 #    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 18:10:28 by tbraud            #+#    #+#              #
-#    Updated: 2024/10/28 22:20:20 by brguicho         ###   ########.fr        #
+#    Updated: 2024/10/30 09:54:17 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_DIR	:= src/
 OBJ_DIR	:= obj/
 
 CC		:= gcc
-CFLAGS	:= -Wextra -Wall -Werror -gdwarf-4
+CFLAGS	:= -Wextra -Wall -Werror -g
 
 INCLUDE	:= -I ./include
 
@@ -33,6 +33,7 @@ SRC		:=	src/main.c \
 			src/utils/get_next_line.c \
 			src/utils/ft_putstr_fd.c\
 			src/utils/len.c\
+			src/utils/alloc.c\
 
 OBJ		:= $(addprefix $(OBJ_DIR),$(SRC:%.c=%.o))
 

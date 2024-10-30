@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/28 22:19:25 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/10/30 09:15:19 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char		**ft_split(char const *s, char c);
 void		ft_strstrim(char *s);
 int			ft_isspace(int c);
 void		ft_putstr_fd(char *s, int fd);
+void		*ft_calloc(size_t nmemb, size_t size);
 
 //|-----error-----|
 void		ft_free(char **map);
