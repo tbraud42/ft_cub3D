@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/30 09:15:19 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:23:23 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ typedef struct s_data
 	void	*mlx;
 	void	*mlx_win;
 	void	*img[8]; // texture
-	int		player[2]; // placement dans la carte, on rajoute ici l'orientation?
+	float	player[2]; // placement dans la carte, on rajoute ici l'orientation?
+	char	player_orientation;
 	int		color_top[3]; // couleur toit
 	int		color_floor[3]; // couleur sol
 	char	*NO;
@@ -55,8 +56,11 @@ int 		get_map_colors(t_data *data, char *str);
 int			duplicated_color(t_data *data, int flag);
 int			get_top_color(t_data *data, char *str);
 int			get_floor_color(t_data *data, char *str);
+int			is_duplicated_player(char **map);
+
 //|----move----|
 int			ft_event(int keycode, t_data *data); // fonction pour les mouvements
+void 		ft_get_position(t_data *data);
 
 //|-----utils-----|
 int			ft_strlen(char *arr);

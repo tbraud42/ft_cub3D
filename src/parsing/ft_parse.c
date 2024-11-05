@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/30 11:14:45 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:54:37 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ void    ft_init_data(t_data *data, char *argv)
 {
     int		fd;
 	char	**tab;
-	int i;
 
     fd = open(argv, O_RDONLY);
 	if (fd == -1)
@@ -123,13 +122,10 @@ void    ft_init_data(t_data *data, char *argv)
     tab = ft_get_file_in_tab(fd);
 	close(fd);
 	get_element_from_tab(tab, data);
-	i = 0;
-	while (data->map[i])
+	if (is_duplicated_player(data->map) == 1)
 	{
-		printf("%s\n", data->map[i]);
-		i++;
+		ft_free_all();
+		return ;
 	}
-	printf("color floor : %i , %i , %i \n", data->color_floor[0], data->color_floor[1], data->color_floor[2]);
-	printf("color top : %i , %i , %i \n", data->color_top[0], data->color_top[1], data->color_top[2]);
-	printf("texture path : NO: %s , SO: %s, WE: %s, EA: %s", data->NO, data->SO, data->WE, data->EA);
+	ft_get_position(data);
 }
