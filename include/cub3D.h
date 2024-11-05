@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/30 09:15:19 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:13:16 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,27 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <math.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 20
 # endif
 
+# define PI 3.14159265358
+# define P2 PI/2
+# define P3 3*PI/2
+
 # define ON_KEYDOWN 2
 # define ON_DESTROY 17
 # define ESCAPE 65307
+
+typedef struct s_img
+{
+	void	*img;
+	char	*relative_path;
+	int		img_width;
+	int		img_height;
+}			t_img;
 
 typedef struct s_data
 {
@@ -34,13 +47,18 @@ typedef struct s_data
 	void	*mlx;
 	void	*mlx_win;
 	void	*img[8]; // texture
-	int		player[2]; // placement dans la carte, on rajoute ici l'orientation?
+	float	player[2]; // placement dans la carte, on rajoute ici l'orientation?
+	float	d_player[3]; // direction
 	int		color_top[3]; // couleur toit
 	int		color_floor[3]; // couleur sol
 	char	*NO;
 	char	*SO;
 	char	*WE;
 	char	*EA;
+
+	int		size_map[2];
+	t_img	tmp_a;
+	t_img	tmp_b;
 }			t_data;
 
 //|----parsing----|
@@ -82,5 +100,10 @@ void		ft_perror(char *msg_error);
 int			ft_exit_mlx(t_data *data, int choice); // fonction de free mlx et destruction des structures
 int			error_arg(void);
 int			error_color(int flag);
+
+//|-------tmp-------|
+int	ft_draw_map(t_data *data);
+int	ft_display_window(t_data *data);
+void	ft_raycasting(t_data *data, int mapX, int mapY);
 
 #endif /*CUB3D_H */
