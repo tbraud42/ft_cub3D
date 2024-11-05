@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 04:56:39 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/05 10:16:05 by tao              ###   ########.fr       */
+/*   Updated: 2024/11/05 10:34:52 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int	ft_draw_map(t_data *data)
 		j = 0;
 		while (data->map[i][j]) {
 			if (data->map[i][j] == 'N') {
-				data->player[1] = i * data->tmp_b.img_width;
-				data->player[0] = j * data->tmp_b.img_height;
+				data->player[1] = i * data->tmp_b.img_width + 10;
+				data->player[0] = j * data->tmp_b.img_height + 10;
 				data->d_player[2] = PI / 2;
 				data->d_player[0] = cosf(data->d_player[2]) * 10;
 				data->d_player[1] = sinf(data->d_player[2]) * 10;
@@ -124,7 +124,7 @@ int	ft_display_window(t_data *data)
 		i++;
 	}
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_b.img, data->player[0], data->player[1]);
-	// ft_raycasting(data, data->size_map[0], data->size_map[1]);
+	ft_raycasting(data, data->size_map[0], data->size_map[1]);
 	return (0);
 }
 
