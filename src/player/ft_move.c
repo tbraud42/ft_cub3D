@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 04:56:39 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/05 10:34:52 by tao              ###   ########.fr       */
+/*   Updated: 2024/11/06 02:55:39 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	ft_forward(t_data *data)
 	// mlx_pixel_put(data->mlx, data->mlx_win, data->player[0], data->player[1] + 1, 0x00000000);
 	// mlx_pixel_put(data->mlx, data->mlx_win, data->player[0] + 1, data->player[1] + 1, 0x00000000);
 
+	// if (data->map[(int)(data->player[0] + data->d_player[0])][(int)(data->player[1] + data->d_player[1])] == 1)
+	// 	return ;
 	data->player[0] += data->d_player[0];
 	data->player[1] += data->d_player[1];
 	// mlx_pixel_put(data->mlx, data->mlx_win, data->player[0], data->player[1], 0x000000FF);
@@ -28,6 +30,8 @@ static void	ft_backward(t_data *data)
 	// mlx_pixel_put(data->mlx, data->mlx_win, data->player[0], data->player[1], 0x00000000);
 	// mlx_pixel_put(data->mlx, data->mlx_win, data->player[0] + 1, data->player[1], 0x00000000);
 
+	// if (data->map[(int)(data->player[0] - data->d_player[0])][(int)(data->player[1] - data->d_player[1])] == 1)
+	// 	return ;
 	data->player[0] -= data->d_player[0];
 	data->player[1] -= data->d_player[1];
 	// mlx_pixel_put(data->mlx, data->mlx_win, data->player[0], data->player[1] + 1, 0x000000FF);
@@ -113,7 +117,7 @@ int	ft_display_window(t_data *data)
 {
 	int	i = 0, j;
 
-	mlx_clear_window(data->mlx, data->mlx_win);
+	mlx_clear_window(data->mlx, data->mlx_win); // pas obligatoire, on va repasser sur tout les pixel
 	while(data->map[i]) {
 		j = 0;
 		while (data->map[i][j]) {
@@ -124,7 +128,8 @@ int	ft_display_window(t_data *data)
 		i++;
 	}
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_b.img, data->player[0], data->player[1]);
-	ft_raycasting(data, data->size_map[0], data->size_map[1]);
+	ft_mouse(data);
+	// ft_raycasting(data, data->size_map[0], data->size_map[1]);
 	return (0);
 }
 
@@ -132,7 +137,7 @@ int	ft_display_window(t_data *data)
 // {
 // 	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
 // }
-
+// mapX = 6  mapY = 3
 // d_player 1 = pdx 2 = pdy 3 = pa
 // player 0 = px 1 = py
 
@@ -177,9 +182,10 @@ void	ft_raycasting(t_data *data, int mapX, int mapY)
 		}
 		while (dof < 8)
 		{
-			mx = (int)(rx)>>6;
+			mx = (int)(rx)>>6; // division par 64
 			my = (int)(ry)>>6;
 			mp = my * mapX + mx;
+			printf("%d\n", mp);
 			if (mp > 0 && mp < mapX * mapY && data->map[mx][my * mapX] == 1) // hit wall
 			{
 				dof = 8;
@@ -239,3 +245,18 @@ void	ft_raycasting(t_data *data, int mapX, int mapY)
 // {
 
 // }
+
+
+int	ft_mouse(t_data *data)
+{
+	int	x;
+	int	y;
+
+	mlx_mouse_get_pos(data->mlx, data->mlx_win, &x, &y);
+	if (x > 512)
+		ft_right(data);
+	else if (x < 512)
+		ft_left(data);
+	mlx_mouse_move(data->mlx, data->mlx_win, 512, 256);
+	return (0);
+}

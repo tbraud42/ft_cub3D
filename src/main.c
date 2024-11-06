@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:19:33 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/05 10:12:46 by tao              ###   ########.fr       */
+/*   Updated: 2024/11/05 18:25:23 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ int	main(int argc, char *argv[])
 	data.mlx_win = mlx_new_window(data.mlx, 1024, 512, "cub3D<3");
 	if (!data.mlx_win)
 		ft_error("somthing wrong with the mlx windows\n", 0, 0);
+	mlx_mouse_hide(data.mlx, data.mlx_win); // pas sur
+	mlx_mouse_move(data.mlx, data.mlx_win, 512, 256);
 	mlx_loop_hook(data.mlx, ft_display_window, &data);
+	// mlx_loop_hook(data.mlx, ft_mouse, &data);
 	mlx_hook(data.mlx_win, ON_KEYDOWN, (1L << 0), ft_event, &data);
 	mlx_hook(data.mlx_win, ON_DESTROY, (1L << 0), ft_exit_mlx, &data);
 	mlx_loop(data.mlx);
