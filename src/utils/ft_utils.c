@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 02:09:34 by tao               #+#    #+#             */
-/*   Updated: 2024/10/28 22:14:59 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:04:04 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,23 @@ void	ft_strstrim(char *s)
 		read++;
 	}
 	*s = '\0';
+}
+
+char **ft_copy_tab(char **tab)
+{
+	int i;
+	int	size;
+	char **copy;
+	
+	size = ft_array_len((void **)tab);
+	copy = ft_calloc(sizeof(char *), (size + 1));
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (tab[i])
+	{
+		copy[i] = ft_strdup(tab[i]);
+		i++;
+	}
+	return (copy);
 }

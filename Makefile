@@ -6,7 +6,7 @@
 #    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 18:10:28 by tbraud            #+#    #+#              #
-#    Updated: 2024/11/05 10:07:35 by brguicho         ###   ########.fr        #
+#    Updated: 2024/11/07 11:02:06 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC		:=	src/main.c \
 			src/parsing/ft_parse.c \
 			src/parsing/ft_get_colors.c \
 			src/parsing/ft_get_texture_path.c \
+			src/parsing/ft_verif_map.c \
 			src/utils/ft_split.c \
 			src/utils/ft_utils.c \
 			src/utils/get_next_line_utils.c \

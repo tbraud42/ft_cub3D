@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/05 10:54:37 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:00:31 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void    ft_init_data(t_data *data, char *argv)
 {
     int		fd;
 	char	**tab;
+	char	**copy;
 
     fd = open(argv, O_RDONLY);
 	if (fd == -1)
@@ -124,8 +125,16 @@ void    ft_init_data(t_data *data, char *argv)
 	get_element_from_tab(tab, data);
 	if (is_duplicated_player(data->map) == 1)
 	{
-		ft_free_all();
 		return ;
 	}
 	ft_get_position(data);
+	copy = ft_copy_tab(data->map);
+	int i;
+	i = 0;
+	while (copy[i])
+	{
+		printf("%s\n", copy[i]);
+		i++;
+	}
+	
 }
