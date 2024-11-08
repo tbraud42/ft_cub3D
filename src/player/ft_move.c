@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 04:56:39 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/06 02:55:39 by tao              ###   ########.fr       */
+/*   Updated: 2024/11/08 01:01:40 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,36 @@ int	ft_display_window(t_data *data)
 	}
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_b.img, data->player[0], data->player[1]);
 	ft_mouse(data);
-	// ft_raycasting(data, data->size_map[0], data->size_map[1]);
+	ft_raycasting(data, data->size_map[0], data->size_map[1]);
 	return (0);
+}
+void draw_line(void *mlx, void *win, int x0, int y0, int x1, int y1, int color)
+{
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
+    int sx = (x0 < x1) ? 1 : -1;
+    int sy = (y0 < y1) ? 1 : -1;
+    int err = dx - dy;
+    int e2;
+	int	i = 0;
+
+    while (i < 10) {
+        mlx_pixel_put(mlx, win, x0, y0, color); // Affiche le pixel courant
+
+        // Arrête la boucle si on est arrivé au point final
+        if (x0 == x1 && y0 == y1)
+            break;
+        e2 = 2 * err;
+        if (e2 > -dy) {
+            err -= dy;
+            x0 += sx;
+        }
+        if (e2 < dx) {
+            err += dx;
+            y0 += sy;
+        }
+		i++;
+    }
 }
 
 // float	dist(float ax, float ay, float bx, float by)// , float ang
@@ -143,7 +171,7 @@ int	ft_display_window(t_data *data)
 
 void	ft_raycasting(t_data *data, int mapX, int mapY)
 {
-	int		r, mx, my, mp, dof;
+	int		r, mx, my, dof;
 	float	rx, ry, ra, xo, yo;
 	float	aTan;
 	float	nTan;
@@ -184,11 +212,11 @@ void	ft_raycasting(t_data *data, int mapX, int mapY)
 		{
 			mx = (int)(rx)>>6; // division par 64
 			my = (int)(ry)>>6;
-			mp = my * mapX + mx;
-			printf("%d\n", mp);
-			if (mp > 0 && mp < mapX * mapY && data->map[mx][my * mapX] == 1) // hit wall
+			// mp = my * mapX + mx;
+			if (mx >= 0 && mx < mapX && my >= 0 && my < mapY)// Access the map correctly as data->map[my][mx]
 			{
-				dof = 8;
+				if (data->map[my][mx] == '1') // check if wall hit
+					dof = 8; // wall hit, stop searching
 			}
 			else // next block
 			{
@@ -224,10 +252,11 @@ void	ft_raycasting(t_data *data, int mapX, int mapY)
 		{
 			mx = (int)(rx)>>6;
 			my = (int)(ry)>>6;
-			mp = my * mapX + mx;
-			if (mp > 0 && mp < mapX * mapY && data->map[mx][my * mapX] == 1) // hit wall
+			// mp = my * mapX + mx;
+			if (mx >= 0 && mx < mapX && my >= 0 && my < mapY)// Access the map correctly as data->map[my][mx]
 			{
-				dof = 8;
+				if (data->map[my][mx] == '1') // check if wall hit
+					dof = 8; // wall hit, stop searching
 			}
 			else // next block
 			{
@@ -238,13 +267,10 @@ void	ft_raycasting(t_data *data, int mapX, int mapY)
 		}
 		r++;
 	}
-	// draw_line();
+	draw_line(data->mlx, data->mlx_win, (int)px, (int)py, (int)rx, (int)ry, 0xFF0000);
 }
 
-// void	draw_line(t_data *data)
-// {
 
-// }
 
 
 int	ft_mouse(t_data *data)
