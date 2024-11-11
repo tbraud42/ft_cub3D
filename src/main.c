@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:19:33 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/05 18:25:23 by tao              ###   ########.fr       */
+/*   Updated: 2024/11/11 21:51:43 by tbraud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int argc, char *argv[])
 	data.mlx_win = mlx_new_window(data.mlx, 1024, 512, "cub3D<3");
 	if (!data.mlx_win)
 		ft_error("somthing wrong with the mlx windows\n", 0, 0);
-	mlx_mouse_hide(data.mlx, data.mlx_win); // pas sur
+	// mlx_mouse_hide(data.mlx, data.mlx_win); // pas sur
 	mlx_mouse_move(data.mlx, data.mlx_win, 512, 256);
 	mlx_loop_hook(data.mlx, ft_display_window, &data);
 	// mlx_loop_hook(data.mlx, ft_mouse, &data);

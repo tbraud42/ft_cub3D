@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_move.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 04:56:39 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/08 20:30:39 by tao              ###   ########.fr       */
+/*   Updated: 2024/11/11 21:50:39 by tbraud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,12 @@ int	ft_draw_map(t_data *data)
 		perror(NULL);
 		return (0);
 	}
+	data->tmp_c.img = mlx_xpm_file_to_image(data->mlx, "./black.xpm", &data->tmp_c.img_width, &data->tmp_c.img_height);
+	if (data->tmp_c.img == NULL) {
+		write(2, "error black\n", 13);
+		perror(NULL);
+		return (0);
+	}
 	while(data->map[i]) {
 		j = 0;
 		while (data->map[i][j]) {
@@ -117,12 +123,14 @@ int	ft_display_window(t_data *data)
 {
 	int	i = 0, j;
 
-	mlx_clear_window(data->mlx, data->mlx_win); // pas obligatoire, on va repasser sur tout les pixel
+	// mlx_clear_window(data->mlx, data->mlx_win); // pas obligatoire, on va repasser sur tout les pixel
 	while(data->map[i]) {
 		j = 0;
 		while (data->map[i][j]) {
 			if (data->map[i][j] == '1')
 				mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_a.img, j * data->tmp_a.img_height, i * data->tmp_a.img_width);
+			else if (data->map[i][j] == '0' || data->map[i][j] == 'N')
+				mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_c.img, j * data->tmp_c.img_height, i * data->tmp_c.img_width);
 			j++;
 		}
 		i++;
