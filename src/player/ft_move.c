@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 04:56:39 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/08 01:01:40 by tao              ###   ########.fr       */
+/*   Updated: 2024/11/08 20:30:39 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ int	ft_draw_map(t_data *data)
 		j = 0;
 		while (data->map[i][j]) {
 			if (data->map[i][j] == 'N') {
-				data->player[1] = i * data->tmp_b.img_width + 10;
-				data->player[0] = j * data->tmp_b.img_height + 10;
+				data->player[1] = i * data->tmp_a.img_width;
+				data->player[0] = j * data->tmp_a.img_height;
 				data->d_player[2] = PI / 2;
 				data->d_player[0] = cosf(data->d_player[2]) * 10;
 				data->d_player[1] = sinf(data->d_player[2]) * 10;
@@ -127,11 +127,12 @@ int	ft_display_window(t_data *data)
 		}
 		i++;
 	}
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_b.img, data->player[0], data->player[1]);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_b.img, data->player[0] - 5, data->player[1] - 5);
 	ft_mouse(data);
 	ft_raycasting(data, data->size_map[0], data->size_map[1]);
 	return (0);
 }
+
 void draw_line(void *mlx, void *win, int x0, int y0, int x1, int y1, int color)
 {
     int dx = abs(x1 - x0);
@@ -142,10 +143,8 @@ void draw_line(void *mlx, void *win, int x0, int y0, int x1, int y1, int color)
     int e2;
 	int	i = 0;
 
-    while (i < 10) {
-        mlx_pixel_put(mlx, win, x0, y0, color); // Affiche le pixel courant
-
-        // Arrête la boucle si on est arrivé au point final
+    while (i < 30) {
+        mlx_pixel_put(mlx, win, x0, y0, color);
         if (x0 == x1 && y0 == y1)
             break;
         e2 = 2 * err;
@@ -161,114 +160,222 @@ void draw_line(void *mlx, void *win, int x0, int y0, int x1, int y1, int color)
     }
 }
 
-// float	dist(float ax, float ay, float bx, float by)// , float ang
-// {
-// 	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
-// }
-// mapX = 6  mapY = 3
-// d_player 1 = pdx 2 = pdy 3 = pa
-// player 0 = px 1 = py
-
 void	ft_raycasting(t_data *data, int mapX, int mapY)
 {
-	int		r, mx, my, dof;
-	float	rx, ry, ra, xo, yo;
-	float	aTan;
-	float	nTan;
-	float	px, py;
-	// float	disH = 1000000, hx = px, hy = py;// pour la suite
-	// float	disV = 1000000, vx = px, vy = py;// pour la suite
+    int r, mx, my, dof;
+    float rx, ry, ra, xo, yo;
+    float aTan, nTan;
+    float px = data->player[0];
+    float py = data->player[1];
 
-	ra = data->d_player[2];
-	px = data->player[0];
-	py = data->player[1];
-	r = 0;
-	while (r < 1)
-	{
-		// Horizontale lines
-		dof = 0;
-		aTan = -1/tan(ra);
-		if (ra > PI) // up
-		{
-			ry = (((int)py>>6)<<6) - 0.0001;
-			rx = (py - ry) * aTan + px;
-			yo = -64;
-			xo = -yo * aTan;
-		}
-		if (ra < PI) // down
-		{
-			ry = (((int)py>>6)<<6) + 64;
-			rx = (py - ry) * aTan + px;
-			yo = 64;
-			xo = -yo * aTan;
-		}
-		if (ra == 0 || ra == PI)
-		{
-			rx = px;
-			ry = py;
-			dof = 8;
-		}
-		while (dof < 8)
-		{
-			mx = (int)(rx)>>6; // division par 64
-			my = (int)(ry)>>6;
-			// mp = my * mapX + mx;
-			if (mx >= 0 && mx < mapX && my >= 0 && my < mapY)// Access the map correctly as data->map[my][mx]
-			{
-				if (data->map[my][mx] == '1') // check if wall hit
-					dof = 8; // wall hit, stop searching
-			}
-			else // next block
-			{
-				rx += xo;
-				ry +=yo;
-				dof += 1;
-			}
-		}
-		// Verticale line
-		dof = 0;
-		nTan = -tan(ra);
-		if (ra > P2 && ra < P3) // left
-		{
-			rx = (((int)px>>6)<<6) - 0.0001;
-			ry = (px - rx) * nTan + py;
-			xo = -64;
-			yo = -xo * nTan;
-		}
-		if (ra < P2 || ra > P3) // right
-		{
-			rx = (((int)px>>6)<<6) + 64;
-			ry = (px - rx) * nTan + py;
-			xo = 64;
-			yo = -xo * nTan;
-		}
-		if (ra == 0 || ra == PI)
-		{
-			rx = px;
-			ry = py;
-			dof = 8;
-		}
-		while (dof < 8)
-		{
-			mx = (int)(rx)>>6;
-			my = (int)(ry)>>6;
-			// mp = my * mapX + mx;
-			if (mx >= 0 && mx < mapX && my >= 0 && my < mapY)// Access the map correctly as data->map[my][mx]
-			{
-				if (data->map[my][mx] == '1') // check if wall hit
-					dof = 8; // wall hit, stop searching
-			}
-			else // next block
-			{
-				rx += xo;
-				ry +=yo;
-				dof += 1;
-			}
-		}
-		r++;
-	}
-	draw_line(data->mlx, data->mlx_win, (int)px, (int)py, (int)rx, (int)ry, 0xFF0000);
+    ra = data->d_player[2];
+
+    // On parcourt les rayons
+    for (r = 0; r < 1; r++) {
+        // Raycasting Horizontal
+        dof = 0;
+        aTan = -1 / tan(ra);
+
+        if (ra > M_PI) { // Rayon vers le haut
+            ry = (((int)py >> 6) << 6) - 0.0001;
+            rx = (py - ry) * aTan + px;
+            yo = -64;
+            xo = -yo * aTan;
+        } else if (ra < M_PI) { // Rayon vers le bas
+            ry = (((int)py >> 6) << 6) + 64;
+            rx = (py - ry) * aTan + px;
+            yo = 64;
+            xo = -yo * aTan;
+        } else { // Rayon horizontal
+            rx = px;
+            ry = py;
+            dof = 8;
+        }
+
+        while (dof < 8) {
+            mx = (int)(rx) >> 6;
+            my = (int)(ry) >> 6;
+            if (mx >= 0 && mx < mapX && my >= 0 && my < mapY && data->map[my][mx] == '1') { // Mur
+                dof = 8; // Arrête la recherche, mur trouvé
+            } else { // Prochain bloc
+                rx += xo;
+                ry += yo;
+                dof++;
+            }
+        }
+
+        // Raycasting Vertical
+        dof = 0;
+        nTan = -tan(ra);
+
+        if (ra > M_PI_2 && ra < 3 * M_PI_2) { // Vers la gauche
+            rx = (((int)px >> 6) << 6) - 0.0001;
+            ry = (px - rx) * nTan + py;
+            xo = -64;
+            yo = -xo * nTan;
+        } else if (ra < M_PI_2 || ra > 3 * M_PI_2) { // Vers la droite
+            rx = (((int)px >> 6) << 6) + 64;
+            ry = (px - rx) * nTan + py;
+            xo = 64;
+            yo = -xo * nTan;
+        } else { // Rayon vertical
+            rx = px;
+            ry = py;
+            dof = 8;
+        }
+
+        while (dof < 8) {
+            mx = (int)(rx) >> 6;
+            my = (int)(ry) >> 6;
+            if (mx >= 0 && mx < mapX && my >= 0 && my < mapY && data->map[my][mx] == '1') { // Mur
+                dof = 8;
+            } else { // Prochain bloc
+                rx += xo;
+                ry += yo;
+                dof++;
+            }
+        }
+
+        // Dessiner le rayon à l'écran depuis le joueur jusqu'au point d'intersection
+        draw_line(data->mlx, data->mlx_win, (int)px, (int)py, (int)rx, (int)ry, 0xFF0000);
+    }
 }
+
+// void draw_line(void *mlx, void *win, int x0, int y0, int x1, int y1, int color)
+// {
+//     int dx = abs(x1 - x0);
+//     int dy = abs(y1 - y0);
+//     int sx = (x0 < x1) ? 1 : -1;
+//     int sy = (y0 < y1) ? 1 : -1;
+//     int err = dx - dy;
+//     int e2;
+// 	int	i = 0;
+
+//     while (i < 30) {
+//         mlx_pixel_put(mlx, win, x0, y0, color);
+//         if (x0 == x1 && y0 == y1)
+//             break;
+//         e2 = 2 * err;
+//         if (e2 > -dy) {
+//             err -= dy;
+//             x0 += sx;
+//         }
+//         if (e2 < dx) {
+//             err += dx;
+//             y0 += sy;
+//         }
+// 		i++;
+//     }
+// }
+
+// // float	dist(float ax, float ay, float bx, float by)// , float ang
+// // {
+// // 	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
+// // }
+// // mapX = 6  mapY = 3
+// // d_player 1 = pdx 2 = pdy 3 = pa
+// // player 0 = px 1 = py
+
+// void	ft_raycasting(t_data *data, int mapX, int mapY)
+// {
+// 	int		r, mx, my, dof;
+// 	float	rx, ry, ra, xo, yo;
+// 	float	aTan;
+// 	float	nTan;
+// 	float	px, py;
+// 	// float	disH = 1000000, hx = px, hy = py;// pour la suite
+// 	// float	disV = 1000000, vx = px, vy = py;// pour la suite
+
+// 	ra = data->d_player[2];
+// 	px = data->player[0];
+// 	py = data->player[1];
+// 	r = 0;
+// 	while (r < 1)
+// 	{
+// 		// Horizontale lines
+// 		dof = 0;
+// 		aTan = -1/tan(ra);
+// 		if (ra > PI) // up
+// 		{
+// 			ry = (((int)py>>6)<<6) - 0.0001;
+// 			rx = (py - ry) * aTan + px;
+// 			yo = -64;
+// 			xo = -yo * aTan;
+// 		}
+// 		if (ra < PI) // down
+// 		{
+// 			ry = (((int)py>>6)<<6) + 64;
+// 			rx = (py - ry) * aTan + px;
+// 			yo = 64;
+// 			xo = -yo * aTan;
+// 		}
+// 		if (ra == 0 || ra == PI)
+// 		{
+// 			rx = px;
+// 			ry = py;
+// 			dof = 8;
+// 		}
+// 		while (dof < 8)
+// 		{
+// 			mx = (int)(rx)>>6; // division par 64
+// 			my = (int)(ry)>>6;
+// 			// mp = my * mapX + mx;
+// 			if (mx >= 0 && mx < mapX && my >= 0 && my < mapY)// Access the map correctly as data->map[my][mx]
+// 			{
+// 				if (data->map[my][mx] == '1') // check if wall hit
+// 					dof = 8; // wall hit, stop searching
+// 			}
+// 			else // next block
+// 			{
+// 				rx += xo;
+// 				ry +=yo;
+// 				dof += 1;
+// 			}
+// 		}
+// 		// Verticale line
+// 		dof = 0;
+// 		nTan = -tan(ra);
+// 		if (ra > P2 && ra < P3) // left
+// 		{
+// 			rx = (((int)px>>6)<<6) - 0.0001;
+// 			ry = (px - rx) * nTan + py;
+// 			xo = -64;
+// 			yo = -xo * nTan;
+// 		}
+// 		if (ra < P2 || ra > P3) // right
+// 		{
+// 			rx = (((int)px>>6)<<6) + 64;
+// 			ry = (px - rx) * nTan + py;
+// 			xo = 64;
+// 			yo = -xo * nTan;
+// 		}
+// 		if (ra == 0 || ra == PI)
+// 		{
+// 			rx = px;
+// 			ry = py;
+// 			dof = 8;
+// 		}
+// 		while (dof < 8)
+// 		{
+// 			mx = (int)(rx)>>6;
+// 			my = (int)(ry)>>6;
+// 			// mp = my * mapX + mx;
+// 			if (mx >= 0 && mx < mapX && my >= 0 && my < mapY)// Access the map correctly as data->map[my][mx]
+// 			{
+// 				if (data->map[my][mx] == '1') // check if wall hit
+// 					dof = 8; // wall hit, stop searching
+// 			}
+// 			else // next block
+// 			{
+// 				rx += xo;
+// 				ry +=yo;
+// 				dof += 1;
+// 			}
+// 		}
+// 		r++;
+// 	}
+// 	draw_line(data->mlx, data->mlx_win, (int)px, (int)py, (int)rx, (int)ry, 0xFF0000);
+// }
 
 
 
