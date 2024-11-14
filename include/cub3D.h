@@ -6,7 +6,7 @@
 /*   By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/11 21:20:05 by tbraud           ###   ########.fr       */
+/*   Updated: 2024/11/14 05:51:30 by tbraud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 20
 # endif
-
-# define PI 3.14159265358
-# define P2 PI/2
-# define P3 3*PI/2
 
 # define ON_KEYDOWN 2
 # define ON_DESTROY 17
@@ -107,5 +103,7 @@ int	ft_draw_map(t_data *data);
 int	ft_display_window(t_data *data);
 void	ft_raycasting(t_data *data, int mapX, int mapY);
 int	ft_mouse(t_data *data);
+float deg_to_rad(float angle);
+int fix_ang(int a);
 
 #endif /*CUB3D_H */

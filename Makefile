@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
+#    By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 18:10:28 by tbraud            #+#    #+#              #
-#    Updated: 2024/10/30 09:54:17 by brguicho         ###   ########.fr        #
+#    Updated: 2024/11/14 00:56:16 by tbraud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ INCLUDE	:= -I ./include
 SRC		:=	src/main.c \
 			src/error/ft_error.c \
 			src/player/ft_move.c \
+			src/player/ft_raycasting.c \
 			src/parsing/ft_parse.c \
 			src/parsing/ft_get_colors.c \
 			src/parsing/ft_get_texture_path.c \

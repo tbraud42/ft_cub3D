@@ -6,7 +6,7 @@
 /*   By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 04:56:39 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/11 21:50:39 by tbraud           ###   ########.fr       */
+/*   Updated: 2024/11/14 06:03:51 by tbraud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,42 @@
 
 static void	ft_forward(t_data *data)
 {
-	// mlx_pixel_put(data->mlx, data->mlx_win, data->player[0], data->player[1] + 1, 0x00000000);
-	// mlx_pixel_put(data->mlx, data->mlx_win, data->player[0] + 1, data->player[1] + 1, 0x00000000);
-
-	// if (data->map[(int)(data->player[0] + data->d_player[0])][(int)(data->player[1] + data->d_player[1])] == 1)
-	// 	return ;
-	data->player[0] += data->d_player[0];
-	data->player[1] += data->d_player[1];
-	// mlx_pixel_put(data->mlx, data->mlx_win, data->player[0], data->player[1], 0x000000FF);
-	// mlx_pixel_put(data->mlx, data->mlx_win, data->player[0] + 1, data->player[1], 0x000000FF);
+	data->player[0] += data->d_player[0] * 5;
+	data->player[1] -= data->d_player[1] * 5;
+	// printf("player = %f, %f", data->player[0], data->player[1]);
 }
 
 static void	ft_backward(t_data *data)
 {
-	// mlx_pixel_put(data->mlx, data->mlx_win, data->player[0], data->player[1], 0x00000000);
-	// mlx_pixel_put(data->mlx, data->mlx_win, data->player[0] + 1, data->player[1], 0x00000000);
-
-	// if (data->map[(int)(data->player[0] - data->d_player[0])][(int)(data->player[1] - data->d_player[1])] == 1)
-	// 	return ;
-	data->player[0] -= data->d_player[0];
-	data->player[1] -= data->d_player[1];
-	// mlx_pixel_put(data->mlx, data->mlx_win, data->player[0], data->player[1] + 1, 0x000000FF);
-	// mlx_pixel_put(data->mlx, data->mlx_win, data->player[0] + 1, data->player[1] + 1, 0x000000FF);
+	data->player[0] -= data->d_player[0] * 5;
+	data->player[1] += data->d_player[1] * 5;
+	// printf("player = %f, %f", data->player[0], data->player[1]);
 }
 
 static void	ft_left(t_data *data)
 {
-	data->d_player[2] -= 0.1;
+	data->d_player[2] += 0.1;
 	if (data->d_player[2] < 0)
-		data->d_player[2] += 2 * PI;
-	data->d_player[0] = cosf(data->d_player[2]) * 10;
-	data->d_player[1] = sinf(data->d_player[2]) * 10;
+		data->d_player[2] += 2 * M_PI;
+	data->d_player[0] = cosf(data->d_player[2]) * 2;
+	data->d_player[1] = sinf(data->d_player[2]) * 2;
+	// data->d_player[2] -= 5;
+	// data->d_player[2] = fix_ang(data->d_player[2]);
+	// data->d_player[0] = cos(deg_to_rad(data->d_player[2]));
+	// data->d_player[1] = -sin(deg_to_rad(data->d_player[2]));
 }
 
 static void	ft_right(t_data *data)
 {
-	data->d_player[2] += 0.1;
-	if (data->d_player[2] > 2 * PI)
-		data->d_player[2] -= 2 *PI;
-	data->d_player[0] = cosf(data->d_player[2]) * 10;
-	data->d_player[1] = sinf(data->d_player[2]) * 10;
-
+	data->d_player[2] -= 0.1;
+	if (data->d_player[2] > 2 * M_PI)
+		data->d_player[2] -= 2 * M_PI;
+	data->d_player[0] = cosf(data->d_player[2]) * 2;
+	data->d_player[1] = sinf(data->d_player[2]) * 2;
+	// data->d_player[2] += 5;
+	// data->d_player[2] = fix_ang(data->d_player[2]);
+	// data->d_player[0] = cos(deg_to_rad(data->d_player[2]));
+	// data->d_player[1] = -sin(deg_to_rad(data->d_player[2]));
 }
 
 int	ft_event(int keycode, t_data *data)
@@ -103,9 +98,11 @@ int	ft_draw_map(t_data *data)
 			if (data->map[i][j] == 'N') {
 				data->player[1] = i * data->tmp_a.img_width;
 				data->player[0] = j * data->tmp_a.img_height;
-				data->d_player[2] = PI / 2;
-				data->d_player[0] = cosf(data->d_player[2]) * 10;
-				data->d_player[1] = sinf(data->d_player[2]) * 10;
+				data->d_player[2] = 1.5708;
+				data->d_player[0] = cosf(data->d_player[2]) * 5;
+				data->d_player[1] = sinf(data->d_player[2]) * 5;
+				// data->d_player[0] = cos(deg_to_rad(data->d_player[2]));
+				// data->d_player[1] = -sin(deg_to_rad(data->d_player[2]));
 			}
 			j++;
 		}
@@ -141,262 +138,15 @@ int	ft_display_window(t_data *data)
 	return (0);
 }
 
-void draw_line(void *mlx, void *win, int x0, int y0, int x1, int y1, int color)
-{
-    int dx = abs(x1 - x0);
-    int dy = abs(y1 - y0);
-    int sx = (x0 < x1) ? 1 : -1;
-    int sy = (y0 < y1) ? 1 : -1;
-    int err = dx - dy;
-    int e2;
-	int	i = 0;
-
-    while (i < 30) {
-        mlx_pixel_put(mlx, win, x0, y0, color);
-        if (x0 == x1 && y0 == y1)
-            break;
-        e2 = 2 * err;
-        if (e2 > -dy) {
-            err -= dy;
-            x0 += sx;
-        }
-        if (e2 < dx) {
-            err += dx;
-            y0 += sy;
-        }
-		i++;
-    }
-}
-
-void	ft_raycasting(t_data *data, int mapX, int mapY)
-{
-    int r, mx, my, dof;
-    float rx, ry, ra, xo, yo;
-    float aTan, nTan;
-    float px = data->player[0];
-    float py = data->player[1];
-
-    ra = data->d_player[2];
-
-    // On parcourt les rayons
-    for (r = 0; r < 1; r++) {
-        // Raycasting Horizontal
-        dof = 0;
-        aTan = -1 / tan(ra);
-
-        if (ra > M_PI) { // Rayon vers le haut
-            ry = (((int)py >> 6) << 6) - 0.0001;
-            rx = (py - ry) * aTan + px;
-            yo = -64;
-            xo = -yo * aTan;
-        } else if (ra < M_PI) { // Rayon vers le bas
-            ry = (((int)py >> 6) << 6) + 64;
-            rx = (py - ry) * aTan + px;
-            yo = 64;
-            xo = -yo * aTan;
-        } else { // Rayon horizontal
-            rx = px;
-            ry = py;
-            dof = 8;
-        }
-
-        while (dof < 8) {
-            mx = (int)(rx) >> 6;
-            my = (int)(ry) >> 6;
-            if (mx >= 0 && mx < mapX && my >= 0 && my < mapY && data->map[my][mx] == '1') { // Mur
-                dof = 8; // Arrête la recherche, mur trouvé
-            } else { // Prochain bloc
-                rx += xo;
-                ry += yo;
-                dof++;
-            }
-        }
-
-        // Raycasting Vertical
-        dof = 0;
-        nTan = -tan(ra);
-
-        if (ra > M_PI_2 && ra < 3 * M_PI_2) { // Vers la gauche
-            rx = (((int)px >> 6) << 6) - 0.0001;
-            ry = (px - rx) * nTan + py;
-            xo = -64;
-            yo = -xo * nTan;
-        } else if (ra < M_PI_2 || ra > 3 * M_PI_2) { // Vers la droite
-            rx = (((int)px >> 6) << 6) + 64;
-            ry = (px - rx) * nTan + py;
-            xo = 64;
-            yo = -xo * nTan;
-        } else { // Rayon vertical
-            rx = px;
-            ry = py;
-            dof = 8;
-        }
-
-        while (dof < 8) {
-            mx = (int)(rx) >> 6;
-            my = (int)(ry) >> 6;
-            if (mx >= 0 && mx < mapX && my >= 0 && my < mapY && data->map[my][mx] == '1') { // Mur
-                dof = 8;
-            } else { // Prochain bloc
-                rx += xo;
-                ry += yo;
-                dof++;
-            }
-        }
-
-        // Dessiner le rayon à l'écran depuis le joueur jusqu'au point d'intersection
-        draw_line(data->mlx, data->mlx_win, (int)px, (int)py, (int)rx, (int)ry, 0xFF0000);
-    }
-}
-
-// void draw_line(void *mlx, void *win, int x0, int y0, int x1, int y1, int color)
-// {
-//     int dx = abs(x1 - x0);
-//     int dy = abs(y1 - y0);
-//     int sx = (x0 < x1) ? 1 : -1;
-//     int sy = (y0 < y1) ? 1 : -1;
-//     int err = dx - dy;
-//     int e2;
-// 	int	i = 0;
-
-//     while (i < 30) {
-//         mlx_pixel_put(mlx, win, x0, y0, color);
-//         if (x0 == x1 && y0 == y1)
-//             break;
-//         e2 = 2 * err;
-//         if (e2 > -dy) {
-//             err -= dy;
-//             x0 += sx;
-//         }
-//         if (e2 < dx) {
-//             err += dx;
-//             y0 += sy;
-//         }
-// 		i++;
-//     }
-// }
-
-// // float	dist(float ax, float ay, float bx, float by)// , float ang
-// // {
-// // 	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
-// // }
-// // mapX = 6  mapY = 3
-// // d_player 1 = pdx 2 = pdy 3 = pa
-// // player 0 = px 1 = py
-
-// void	ft_raycasting(t_data *data, int mapX, int mapY)
-// {
-// 	int		r, mx, my, dof;
-// 	float	rx, ry, ra, xo, yo;
-// 	float	aTan;
-// 	float	nTan;
-// 	float	px, py;
-// 	// float	disH = 1000000, hx = px, hy = py;// pour la suite
-// 	// float	disV = 1000000, vx = px, vy = py;// pour la suite
-
-// 	ra = data->d_player[2];
-// 	px = data->player[0];
-// 	py = data->player[1];
-// 	r = 0;
-// 	while (r < 1)
-// 	{
-// 		// Horizontale lines
-// 		dof = 0;
-// 		aTan = -1/tan(ra);
-// 		if (ra > PI) // up
-// 		{
-// 			ry = (((int)py>>6)<<6) - 0.0001;
-// 			rx = (py - ry) * aTan + px;
-// 			yo = -64;
-// 			xo = -yo * aTan;
-// 		}
-// 		if (ra < PI) // down
-// 		{
-// 			ry = (((int)py>>6)<<6) + 64;
-// 			rx = (py - ry) * aTan + px;
-// 			yo = 64;
-// 			xo = -yo * aTan;
-// 		}
-// 		if (ra == 0 || ra == PI)
-// 		{
-// 			rx = px;
-// 			ry = py;
-// 			dof = 8;
-// 		}
-// 		while (dof < 8)
-// 		{
-// 			mx = (int)(rx)>>6; // division par 64
-// 			my = (int)(ry)>>6;
-// 			// mp = my * mapX + mx;
-// 			if (mx >= 0 && mx < mapX && my >= 0 && my < mapY)// Access the map correctly as data->map[my][mx]
-// 			{
-// 				if (data->map[my][mx] == '1') // check if wall hit
-// 					dof = 8; // wall hit, stop searching
-// 			}
-// 			else // next block
-// 			{
-// 				rx += xo;
-// 				ry +=yo;
-// 				dof += 1;
-// 			}
-// 		}
-// 		// Verticale line
-// 		dof = 0;
-// 		nTan = -tan(ra);
-// 		if (ra > P2 && ra < P3) // left
-// 		{
-// 			rx = (((int)px>>6)<<6) - 0.0001;
-// 			ry = (px - rx) * nTan + py;
-// 			xo = -64;
-// 			yo = -xo * nTan;
-// 		}
-// 		if (ra < P2 || ra > P3) // right
-// 		{
-// 			rx = (((int)px>>6)<<6) + 64;
-// 			ry = (px - rx) * nTan + py;
-// 			xo = 64;
-// 			yo = -xo * nTan;
-// 		}
-// 		if (ra == 0 || ra == PI)
-// 		{
-// 			rx = px;
-// 			ry = py;
-// 			dof = 8;
-// 		}
-// 		while (dof < 8)
-// 		{
-// 			mx = (int)(rx)>>6;
-// 			my = (int)(ry)>>6;
-// 			// mp = my * mapX + mx;
-// 			if (mx >= 0 && mx < mapX && my >= 0 && my < mapY)// Access the map correctly as data->map[my][mx]
-// 			{
-// 				if (data->map[my][mx] == '1') // check if wall hit
-// 					dof = 8; // wall hit, stop searching
-// 			}
-// 			else // next block
-// 			{
-// 				rx += xo;
-// 				ry +=yo;
-// 				dof += 1;
-// 			}
-// 		}
-// 		r++;
-// 	}
-// 	draw_line(data->mlx, data->mlx_win, (int)px, (int)py, (int)rx, (int)ry, 0xFF0000);
-// }
-
-
-
-
 int	ft_mouse(t_data *data)
 {
 	int	x;
 	int	y;
 
 	mlx_mouse_get_pos(data->mlx, data->mlx_win, &x, &y);
-	if (x > 512)
+	if (x > 512) // doit etre variable sur la taille de l'ecran
 		ft_right(data);
-	else if (x < 512)
+	else if (x < 512) // doit etre variable sur la taille de l'ecran
 		ft_left(data);
 	mlx_mouse_move(data->mlx, data->mlx_win, 512, 256);
 	return (0);
