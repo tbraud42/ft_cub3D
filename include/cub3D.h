@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/07 10:57:15 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:15:10 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,14 @@ int 		get_map_colors(t_data *data, char *str);
 int			duplicated_color(t_data *data, int flag);
 int			get_top_color(t_data *data, char *str);
 int			get_floor_color(t_data *data, char *str);
-int			is_duplicated_player(char **map);
+int			is_map_valid(t_data *data);
 
 //|----move----|
 int			ft_event(int keycode, t_data *data); // fonction pour les mouvements
 void 		ft_get_position(t_data *data);
 
 //|-----utils-----|
+void		ft_free_array(char **map);
 int			ft_strlen(char *arr);
 int			ft_array_len(void **array);
 char		*get_next_line(int fd);

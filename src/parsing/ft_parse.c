@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/07 11:00:31 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/18 16:49:16 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,13 +128,8 @@ void    ft_init_data(t_data *data, char *argv)
 		return ;
 	}
 	ft_get_position(data);
-	copy = ft_copy_tab(data->map);
-	int i;
-	i = 0;
-	while (copy[i])
+	if (!is_map_valid(data))
 	{
-		printf("%s\n", copy[i]);
-		i++;
+		
 	}
-	
 }

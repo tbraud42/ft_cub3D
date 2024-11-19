@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:37:39 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/28 09:23:43 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:14:22 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,6 @@ void	ft_error(char *erno, int choice, char **map)
 	if (erno)
 		write(2, erno, ft_strlen(erno));
 	exit(EXIT_FAILURE);
-}
-
-void	ft_free(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
 }
 
 int	ft_exit_mlx(t_data *data, int choice)
