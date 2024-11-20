@@ -1,52 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   len.c                                              :+:      :+:    :+:   */
+/*   verif_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 22:14:41 by brguicho          #+#    #+#             */
-/*   Updated: 2024/11/20 09:46:12 by brguicho         ###   ########.fr       */
+/*   Created: 2024/11/20 09:40:08 by brguicho          #+#    #+#             */
+/*   Updated: 2024/11/20 10:00:37 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	ft_strlen(char *arr)
-{
-	int	i;
 
-	if (!arr)
-		return (0);
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
-}
-int	ft_array_len(void **array)
-{
-	int	i;
-
-	i = 0;
-	if (!array)
-		return (0);
-	while (array[i])
-		i++;
-	return (i);
-}
-
-int get_size_line_max(char **arr)
+char	**realloc_copy_map(char **cpy)
 {
 	int i;
-	int size_max;
-
+	
+	
 	i = 0;
-	size_max = 0;
-	while (arr[i])
+	while (cpy[i])
 	{
-		if (ft_strlen(arr[i]) > size_max)
-			size_max = ft_strlen(arr[i]);
-		i++;	
+		cpy[i] = ft_realloc(cpy[i], get_size_line_max(cpy));
+		i++;
 	}
-	return (size_max);
+	return (cpy);
 }

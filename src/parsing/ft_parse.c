@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/18 16:49:16 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/20 10:01:15 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		get_path_and_colors(t_data *data, char **arr, size_t i)
 	if (error == 1)
 	{
 		ft_free(arr);
+		ft_free_all(data);
 		return (error);
 	}
 	return (error);
@@ -104,10 +105,9 @@ char **ft_get_file_in_tab(int fd)
 		line = get_next_line(fd);
     }
 	tmp_tab = ft_split(tmp, '\n');
+	free(tmp);
 	if (!tmp_tab)
 		return (NULL);
-	if (line)
-		free(line);
 	return (tmp_tab);
 }
 
@@ -115,7 +115,6 @@ void    ft_init_data(t_data *data, char *argv)
 {
     int		fd;
 	char	**tab;
-	char	**copy;
 
     fd = open(argv, O_RDONLY);
 	if (fd == -1)
@@ -123,13 +122,11 @@ void    ft_init_data(t_data *data, char *argv)
     tab = ft_get_file_in_tab(fd);
 	close(fd);
 	get_element_from_tab(tab, data);
-	if (is_duplicated_player(data->map) == 1)
-	{
-		return ;
-	}
+	ft_free(tab);
 	ft_get_position(data);
 	if (!is_map_valid(data))
 	{
-		
+		ft_free_all(data);
 	}
+
 }

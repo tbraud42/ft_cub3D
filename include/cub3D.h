@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/18 19:15:10 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/20 10:00:33 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int			duplicated_color(t_data *data, int flag);
 int			get_top_color(t_data *data, char *str);
 int			get_floor_color(t_data *data, char *str);
 int			is_map_valid(t_data *data);
+char		**realloc_copy_map(char **cpy);
 
 //|----move----|
 int			ft_event(int keycode, t_data *data); // fonction pour les mouvements
@@ -80,6 +81,9 @@ int			ft_isspace(int c);
 void		ft_putstr_fd(char *s, int fd);
 void		*ft_calloc(size_t nmemb, size_t size);
 char 		**ft_copy_tab(char **tab);
+void		ft_free_all(t_data *data);
+int			get_size_line_max(char **arr);
+void		*ft_realloc(void *ptr, size_t newsize);
 
 //|-----error-----|
 void		ft_free(char **map);

@@ -6,7 +6,7 @@
 #    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 18:10:28 by tbraud            #+#    #+#              #
-#    Updated: 2024/11/07 11:02:06 by brguicho         ###   ########.fr        #
+#    Updated: 2024/11/20 09:46:43 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC		:=	src/main.c \
 			src/parsing/ft_get_colors.c \
 			src/parsing/ft_get_texture_path.c \
 			src/parsing/ft_verif_map.c \
+			src/parsing/verif_map_utils.c \
 			src/utils/ft_split.c \
 			src/utils/ft_utils.c \
 			src/utils/get_next_line_utils.c \
@@ -36,6 +37,7 @@ SRC		:=	src/main.c \
 			src/utils/ft_putstr_fd.c\
 			src/utils/len.c\
 			src/utils/alloc.c\
+			src/utils/free.c
 
 OBJ		:= $(addprefix $(OBJ_DIR),$(SRC:%.c=%.o))
 
