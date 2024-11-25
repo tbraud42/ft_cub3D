@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 09:19:55 by brguicho          #+#    #+#             */
-/*   Updated: 2024/11/19 09:22:22 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:13:20 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ void	ft_free_all(t_data *data)
 		free(data->WE);
 	if (data->EA)
 		free(data->EA);
-    if (data->map)
-      ft_free(data->map);
+	if (data->map)
+		ft_free(data->map);
 }

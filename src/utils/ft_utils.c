@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 02:09:34 by tao               #+#    #+#             */
-/*   Updated: 2024/11/07 11:04:04 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:15:05 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,12 @@ void	ft_strstrim(char *s)
 	*s = '\0';
 }
 
-char **ft_copy_tab(char **tab)
+char	**ft_copy_tab(char **tab)
 {
-	int i;
-	int	size;
-	char **copy;
-	
+	int		i;
+	int		size;
+	char	**copy;
+
 	size = ft_array_len((void **)tab);
 	copy = ft_calloc(sizeof(char *), (size + 1));
 	if (!copy)

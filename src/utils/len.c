@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 22:14:41 by brguicho          #+#    #+#             */
-/*   Updated: 2024/11/20 09:46:12 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:11:56 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	ft_strlen(char *arr)
 		i++;
 	return (i);
 }
+
 int	ft_array_len(void **array)
 {
 	int	i;
@@ -35,10 +36,10 @@ int	ft_array_len(void **array)
 	return (i);
 }
 
-int get_size_line_max(char **arr)
+int	get_size_line_max(char **arr)
 {
-	int i;
-	int size_max;
+	int	i;
+	int	size_max;
 
 	i = 0;
 	size_max = 0;
@@ -46,7 +47,7 @@ int get_size_line_max(char **arr)
 	{
 		if (ft_strlen(arr[i]) > size_max)
 			size_max = ft_strlen(arr[i]);
-		i++;	
+		i++;
 	}
 	return (size_max);
 }
