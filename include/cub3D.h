@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/14 05:51:30 by tbraud           ###   ########.fr       */
+/*   Updated: 2024/11/27 09:11:51 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ void	ft_raycasting(t_data *data, int mapX, int mapY);
 int	ft_mouse(t_data *data);
 float deg_to_rad(float angle);
 int fix_ang(int a);
+void	draw_col(t_data *data, int col, int lineH, int lineOff);
 
 #endif /*CUB3D_H */

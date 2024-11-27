@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_move.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 04:56:39 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/14 06:03:51 by tbraud           ###   ########.fr       */
+/*   Updated: 2024/11/27 09:14:14 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	ft_left(t_data *data)
 	data->d_player[2] += 0.1;
 	if (data->d_player[2] < 0)
 		data->d_player[2] += 2 * M_PI;
-	data->d_player[0] = cosf(data->d_player[2]) * 2;
-	data->d_player[1] = sinf(data->d_player[2]) * 2;
+	data->d_player[0] = cosf(data->d_player[2]) * 5;
+	data->d_player[1] = sinf(data->d_player[2]) * 5;
 	// data->d_player[2] -= 5;
 	// data->d_player[2] = fix_ang(data->d_player[2]);
 	// data->d_player[0] = cos(deg_to_rad(data->d_player[2]));
@@ -44,8 +44,8 @@ static void	ft_right(t_data *data)
 	data->d_player[2] -= 0.1;
 	if (data->d_player[2] > 2 * M_PI)
 		data->d_player[2] -= 2 * M_PI;
-	data->d_player[0] = cosf(data->d_player[2]) * 2;
-	data->d_player[1] = sinf(data->d_player[2]) * 2;
+	data->d_player[0] = cosf(data->d_player[2]) * 5;
+	data->d_player[1] = sinf(data->d_player[2]) * 5;
 	// data->d_player[2] += 5;
 	// data->d_player[2] = fix_ang(data->d_player[2]);
 	// data->d_player[0] = cos(deg_to_rad(data->d_player[2]));
@@ -118,21 +118,21 @@ int	ft_draw_map(t_data *data)
 
 int	ft_display_window(t_data *data)
 {
-	int	i = 0, j;
+	// int	i = 0, j;
 
-	// mlx_clear_window(data->mlx, data->mlx_win); // pas obligatoire, on va repasser sur tout les pixel
-	while(data->map[i]) {
-		j = 0;
-		while (data->map[i][j]) {
-			if (data->map[i][j] == '1')
-				mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_a.img, j * data->tmp_a.img_height, i * data->tmp_a.img_width);
-			else if (data->map[i][j] == '0' || data->map[i][j] == 'N')
-				mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_c.img, j * data->tmp_c.img_height, i * data->tmp_c.img_width);
-			j++;
-		}
-		i++;
-	}
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_b.img, data->player[0] - 5, data->player[1] - 5);
+	// // mlx_clear_window(data->mlx, data->mlx_win); // pas obligatoire, on va repasser sur tout les pixel
+	// while(data->map[i]) {
+	// 	j = 0;
+	// 	while (data->map[i][j]) {
+	// 		if (data->map[i][j] == '1')
+	// 			mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_a.img, j * data->tmp_a.img_height, i * data->tmp_a.img_width);
+	// 		else if (data->map[i][j] == '0' || data->map[i][j] == 'N')
+	// 			mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_c.img, j * data->tmp_c.img_height, i * data->tmp_c.img_width);
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
+	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_b.img, data->player[0] - 5, data->player[1] - 5);
 	ft_mouse(data);
 	ft_raycasting(data, data->size_map[0], data->size_map[1]);
 	return (0);
