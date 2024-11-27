@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/20 10:01:15 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/27 11:18:41 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char	**ft_get_map(char **tab, int tab_len, int start)
 	return (map);
 }
 
-void	get_element_from_tab(char **tab, t_data *data)
+int	get_element_from_tab(char **tab, t_data *data)
 {
 	int i;
 	char *tmp;
@@ -77,11 +77,11 @@ void	get_element_from_tab(char **tab, t_data *data)
 		if (*tmp == '1' || *tmp == '0')
 			break;
 		if (get_path_and_colors(data, tab, i))
-			return ;
+			return (0);
 		i++;
 	}
 	data->map = ft_get_map(tab, tab_len, i);
-	
+	return (1);
 }
 
 char **ft_get_file_in_tab(int fd)
@@ -121,8 +121,12 @@ void    ft_init_data(t_data *data, char *argv)
 		ft_perror("file opening failure");
     tab = ft_get_file_in_tab(fd);
 	close(fd);
-	get_element_from_tab(tab, data);
-	ft_free(tab);
+	if (get_element_from_tab(tab, data) == 0)
+	{
+		ft_free_all(data);
+		return ;
+	}
+		ft_free(tab);
 	ft_get_position(data);
 	if (!is_map_valid(data))
 	{
