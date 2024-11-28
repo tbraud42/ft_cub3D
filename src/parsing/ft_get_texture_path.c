@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:42:04 by brguicho          #+#    #+#             */
-/*   Updated: 2024/10/30 10:09:12 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/28 22:16:26 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,20 @@ int	get_no(t_data *data, char *str)
 	{
 		str += 2;
 		if (ft_isspace(*str) == 0)
-			return (0); // return error msg + free si besoin
+			return (error_texture(1));
 		if	(!is_valid_path(str))
-			return (0); // return error msg + free si besoin
+			return (error_texture(2));
 		while (ft_isspace(*str))
 			str++;
 		fd = open(str, O_RDONLY);
 		if (fd < 0)
-			return (0); // echec ouverture path
+			return (error_texture(3));
+		close(fd);
 		if (data->NO)
-			return (0); // info duplique 
+			return (error_texture(4));
 		data->NO = ft_strdup(str);
 		if (!data->NO)
-			return (0); //return error msg + free si besoin
+			return (error_texture(5));
 	}
 	return (1);
 }
@@ -58,19 +59,20 @@ int	get_so(t_data *data, char *str)
 	{
 		str += 2;
 		if (ft_isspace(*str) == 0)
-			return (0); // return error msg + free si besoin
+			return (error_texture(1));
 		if	(!is_valid_path(str))
-			return (0); // return error msg + free si besoin
+			return (error_texture(2));
 		while (ft_isspace(*str))
 			str++;
 		fd = open(str, O_RDONLY);
 		if (fd < 0)
-			return (0); // echec ouverture path
+			return (error_texture(3));
+		close(fd);
 		if (data->SO)
-			return (0); // info duplique 
+			return (error_texture(4));
 		data->SO = ft_strdup(str);
 		if (!data->SO)
-			return (0); //return error msg + free si besoin
+			return (error_texture(5)); 
 	}
 	return (1);
 }
@@ -83,19 +85,20 @@ int	get_ea(t_data *data, char *str)
 	{
 		str += 2;
 		if (ft_isspace(*str) == 0)
-			return (0); // return error msg + free si besoin
+			return (error_texture(1));
 		if	(!is_valid_path(str))
-			return (0); // return error msg + free si besoin
+			return (error_texture(2));
 		while (ft_isspace(*str))
 			str++;
 		fd = open(str, O_RDONLY);
 		if (fd < 0)
-			return (0); // echec ouverture path
+			return (error_texture(3));
+		close(fd);
 		if (data->EA)
-			return (0); // info duplique 
+			return (error_texture(4));
 		data->EA = ft_strdup(str);
 		if (!data->EA)
-			return (0); //return error msg + free si besoin
+			return (error_texture(5));
 	}
 	return (1);
 }
@@ -108,19 +111,20 @@ int	get_we(t_data *data, char *str)
 	{
 		str += 2;
 		if (ft_isspace(*str) == 0)
-			return (0); // return error msg + free si besoin
+			return (error_texture(1));
 		if	(!is_valid_path(str))
-			return (0); // return error msg + free si besoin
+			return (error_texture(2));
 		while (ft_isspace(*str))
 			str++;
 		fd = open(str, O_RDONLY);
 		if (fd < 0)
-			return (0); // echec ouverture path
+			return (error_texture(3));
+		close(fd);
 		if (data->WE)
-			return (0); // info duplique 
+			return (error_texture(4));
 		data->WE = ft_strdup(str);
 		if (!data->WE)
-			return (0); //return error msg + free si besoin
+			return (error_texture(5));
 	}
 	return (1);
 }

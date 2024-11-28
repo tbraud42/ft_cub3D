@@ -6,7 +6,7 @@
 #    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 18:10:28 by tbraud            #+#    #+#              #
-#    Updated: 2024/11/20 09:46:43 by brguicho         ###   ########.fr        #
+#    Updated: 2024/11/28 22:17:35 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ INCLUDE	:= -I ./include
 
 SRC		:=	src/main.c \
 			src/error/ft_error.c \
+			src/error/parsing_error.c \
 			src/player/ft_move.c \
 			src/player/ft_position.c \
 			src/parsing/ft_parse.c \

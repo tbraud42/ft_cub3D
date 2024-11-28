@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:34:55 by brguicho          #+#    #+#             */
-/*   Updated: 2024/11/22 11:16:25 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/28 21:45:23 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	get_floor_color(t_data *data, char *str)
 		ft_free(tmp_tab);
 		return (1);
 	}
+	error_color(5);
 	ft_free(tmp_tab);
 	return (0);
 }
@@ -50,6 +51,7 @@ int	get_top_color(t_data *data, char *str)
 		ft_free(tmp_tab);
 		return (1);
 	}
+	error_color(4);
 	ft_free(tmp_tab);
 	return (0);
 }

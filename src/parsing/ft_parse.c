@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/27 11:18:41 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/28 21:56:25 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,6 @@ int		get_path_and_colors(t_data *data, char **arr, size_t i)
 		error = 1;
 	if (!error && !get_map_colors(data, arr[i]))
 		error = 1;
-	if (error == 1)
-	{
-		ft_free(arr);
-		ft_free_all(data);
-		return (error);
-	}
 	return (error);
 }
 static char	**ft_get_map(char **tab, int tab_len, int start)
@@ -132,5 +126,4 @@ void    ft_init_data(t_data *data, char *argv)
 	{
 		ft_free_all(data);
 	}
-
 }

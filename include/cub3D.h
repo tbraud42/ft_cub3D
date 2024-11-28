@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/20 10:00:33 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/28 22:16:53 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ void		ft_perror(char *msg_error);
 int			ft_exit_mlx(t_data *data, int choice); // fonction de free mlx et destruction des structures
 int			error_arg(void);
 int			error_color(int flag);
+int 		error_texture(int flag);
 
 #endif /*CUB3D_H */
