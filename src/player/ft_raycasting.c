@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 00:53:07 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/27 10:02:32 by tao              ###   ########.fr       */
+/*   Updated: 2024/12/02 17:15:46 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,24 +184,51 @@ void ft_raycasting(t_data *data, int mapX, int mapY) {
 	}
 }
 
-
 int	create_trgb(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
+// void	draw_col(t_data *data, int col, int lineH, int lineOff)
+// {
+// 	int	i = 0;
+
+// 	while (i < 256)
+// 	{
+// 		if (i < lineH)
+// 			mlx_pixel_put(data->mlx, data->mlx_win, col, i, create_trgb(0, 0, 0, 0));
+// 		else if (i < lineOff)
+// 			mlx_pixel_put(data->mlx, data->mlx_win, col, i, create_trgb(0, 255, 0, 0));
+// 		else
+// 			mlx_pixel_put(data->mlx, data->mlx_win, col, i, create_trgb(0, 0, 0, 0));
+// 		i++;
+// 	}
+// }
+
 void	draw_col(t_data *data, int col, int lineH, int lineOff)
 {
 	int	i = 0;
+	int	j, k;
 
+	col = col * 17;
 	while (i < 256)
 	{
-		if (i < lineH)
-			mlx_pixel_put(data->mlx, data->mlx_win, col, i, create_trgb(0, 0, 0, 0));
-		else if (i < lineOff)
-			mlx_pixel_put(data->mlx, data->mlx_win, col, i, create_trgb(0, 255, 0, 0));
-		else
-			mlx_pixel_put(data->mlx, data->mlx_win, col, i, create_trgb(0, 0, 0, 0));
+		j = 0;
+		while (j < 17)
+		{
+			k = 0;
+			while (k < 4)
+			{
+				if (i < lineH)
+					mlx_pixel_put(data->mlx, data->mlx_win, col + j, (i * 2) + k, create_trgb(0, 0, 0, 0));
+				else if (i < lineOff)
+					mlx_pixel_put(data->mlx, data->mlx_win, col + j, (i * 2) + k, create_trgb(0, 255, 0, 0));
+				else
+					mlx_pixel_put(data->mlx, data->mlx_win, col + j, (i * 2) + k, create_trgb(0, 0, 0, 0));
+				k++;
+			}
+			j++;
+		}
 		i++;
 	}
 }
