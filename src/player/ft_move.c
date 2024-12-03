@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_move.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 04:56:39 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/29 18:57:38 by tao              ###   ########.fr       */
+/*   Updated: 2024/12/03 20:26:12 by tbraud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	ft_forward(t_data *data)
 {
+	// if ((int)(data->d_player[0] * 5)) cree les hiy wall
 	data->player[0] += data->d_player[0] * 5;
 	data->player[1] -= data->d_player[1] * 5;
 	// printf("player = %f, %f", data->player[0], data->player[1]);
@@ -28,7 +29,7 @@ static void	ft_backward(t_data *data)
 
 static void	ft_left(t_data *data)
 {
-	data->d_player[2] += 0.1;
+	data->d_player[2] -= 0.1;
 	if (data->d_player[2] < 0)
 		data->d_player[2] += 2 * M_PI;
 	data->d_player[0] = cosf(data->d_player[2]) * 5;
@@ -41,7 +42,7 @@ static void	ft_left(t_data *data)
 
 static void	ft_right(t_data *data)
 {
-	data->d_player[2] -= 0.1;
+	data->d_player[2] += 0.1;
 	if (data->d_player[2] > 2 * M_PI)
 		data->d_player[2] -= 2 * M_PI;
 	data->d_player[0] = cosf(data->d_player[2]) * 5;

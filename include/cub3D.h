@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/27 09:11:51 by tao              ###   ########.fr       */
+/*   Updated: 2024/12/03 17:50:21 by tbraud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 # define ON_KEYDOWN 2
 # define ON_DESTROY 17
 # define ESCAPE 65307
+
+# define PI 3.1415926535
+# define P2 1.5707963267
+# define P3 4.7123889803
 
 typedef struct s_img
 {

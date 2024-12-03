@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_raycasting.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 00:53:07 by tbraud            #+#    #+#             */
-/*   Updated: 2024/12/02 17:15:46 by tao              ###   ########.fr       */
+/*   Updated: 2024/12/03 22:12:24 by tbraud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,14 @@ float fix_ang_rad(float a) // modulo 360 angle en radiant
 	return (a);
 }
 
+float	dist(float ax, float ay, float bx, float by)// , float ang
+{
+	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
+}
+
 void ft_raycasting(t_data *data, int mapX, int mapY) {
 	int dof, mx, my; // raport raycasting/map
 	float rx, ry, ra, xo, yo, vx, vy; // les float pour les point
-	float px = data->player[0];
-	float py = data->player[1];
 	float disV = dist_max, disH = dist_max; // distance vertival et horizontal
 	float Tan;
 	int	i = 0;
@@ -79,29 +82,29 @@ void ft_raycasting(t_data *data, int mapX, int mapY) {
 	ra = fix_ang_rad(data->d_player[2] - 0.523599);
 	// printf("%f\n", ra)
 
-	// raycast verticale
 	while (i < 60)
 	{
+		// vertical line
 		dof = 0;
-		Tan = tan(ra);
-		if (cos(ra) > 0.001)  // Vers la droite
+		Tan = -tan(ra);
+		if (ra > P2 && ra < P3)  // Vers la droite
 		{
-			rx = (((int)px >> 6) << 6) + size_one_block;
-			ry = (px - rx) * Tan + py;
-			xo = size_one_block;
-			yo = -xo * Tan;
-		}
-		else if (cos(ra) < -0.001)  // Vers la gauche
-		{
-			rx = (((int)px >> 6) << 6) - 0.0001;
-			ry = (px - rx) * Tan + py;
+			rx = (((int)data->player[0] >> 6) << 6) - 0.0001;
+			ry = (data->player[0] - rx) * Tan + data->player[1];
 			xo = -size_one_block;
 			yo = -xo * Tan;
 		}
-		else  // Regard droit ou gauche
+		if (ra < P2 || ra > P3)  // Vers la gauche
 		{
-			rx = px;
-			ry = py;
+			rx = (((int)data->player[0] >> 6) << 6) + size_one_block;
+			ry = (data->player[0] - rx) * Tan + data->player[1];
+			xo = size_one_block;
+			yo = -xo * Tan;
+		}
+		else if (ra == 0 || ra == PI)  // Regard droit ou gauche
+		{
+			rx = data->player[0];
+			ry = data->player[1];
 			dof = 8;
 		}
 		while (dof < 8) {
@@ -109,7 +112,8 @@ void ft_raycasting(t_data *data, int mapX, int mapY) {
 			my = (int)(ry) >> 6;
 			if (mx >= 0 && mx < mapX && my >= 0 && my < mapY && data->map[my][mx] == '1')
 			{
-				disV = cosf(ra) * (rx - px) - sinf(ra) * (ry - py);  // Calcul de la distance
+				disV = dist(data->player[0], data->player[1], rx, ry);
+				// disV = cosf(ra) * (rx - data->player[0]) - sinf(ra) * (ry - data->player[1]);  // Calcul de la distance
 				vx = rx;
 				vy = ry;
 				break;
@@ -123,27 +127,27 @@ void ft_raycasting(t_data *data, int mapX, int mapY) {
 			}
 		}
 
-		// raycast horizontal
+		// horizontal
 		dof = 0;
-		Tan = 1.0 / Tan;
-		if (sin(ra) > 0.001)  // Vers le haut
+		Tan = -1.0 / tan(ra);
+		if (ra > PI)  // Vers le haut
 		{
-			ry = (((int)py >> 6) << 6) - 0.0001;
-			rx = (py - ry) * Tan + px;
+			ry = (((int)data->player[1] >> 6) << 6) - 0.0001;
+			rx = (data->player[1] - ry) * Tan + data->player[0];
 			yo = -size_one_block;
 			xo = -yo * Tan;
 		}
-		else if (sin(ra) < -0.001)  // Vers le bas
+		if (ra < PI)  // Vers le bas
 		{
-			ry = (((int)py >> 6) << 6) + size_one_block;
-			rx = (py - ry) * Tan + px;
+			ry = (((int)data->player[1] >> 6) << 6) + size_one_block;
+			rx = (data->player[1] - ry) * Tan + data->player[0];
 			yo = size_one_block;
 			xo = -yo * Tan;
 		}
-		else  // Droit ou gauche
+		else if (ra == 0 || ra == PI)  // Droit ou gauche
 		{
-			rx = px;
-			ry = py;
+			rx = data->player[0];
+			ry = data->player[1];
 			dof = 8;
 		}
 		while (dof < 8) {
@@ -151,7 +155,8 @@ void ft_raycasting(t_data *data, int mapX, int mapY) {
 			my = (int)(ry) >> 6;
 			if (mx >= 0 && mx < mapX && my >= 0 && my < mapY && data->map[my][mx] == '1')
 			{
-				disH = cosf(ra) * (rx - px) - sinf(ra) * (ry - py);  // Calcul de la distance
+				disH = dist(data->player[0], data->player[1], rx, ry);
+				// disH = cosf(ra) * (rx - data->player[0]) - sinf(ra) * (ry - data->player[1]);  // Calcul de la distance
 				break;
 			}
 			else
@@ -172,12 +177,12 @@ void ft_raycasting(t_data *data, int mapX, int mapY) {
 		}
 		// int ca = \FixAng(pa-ra);
 		// disH = disH*cos(degToRad(ca));
-		int lineH = (64*320)/(disH);
+		int lineH = (64*200)/(disH);
 		if(lineH>512) // ??
 			lineH=512;
 		int lineOff = 160 - (lineH>>1);
 		draw_col(data, i, lineH, lineOff);
-		// draw_line(data->mlx, data->mlx_win, (int)px, (int)py, (int)rx, (int)ry, 0xFF0000);
+		// draw_line(data->mlx, data->mlx_win, (int)data->player[0], (int)data->player[1], (int)rx, (int)ry, 0xFF0000);
 		i++;
 		ra = fix_ang_rad(ra + 0.0174533); // incrementation de ra
 		// ra = fix_ang_rad(ra - (60 * M_PI / 180) / 60.0);
