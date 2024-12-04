@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/28 22:16:53 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/12/04 08:10:50 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,34 @@
 # define ON_DESTROY 17
 # define ESCAPE 65307
 
+# define S_WIDTH 600
+# define S_HEIGHT 900
+
+typedef struct s_raycast
+{
+	double 	dir_x;
+	double 	dir_y;
+	double 	plane_y;
+	double 	plane_x;
+	double 	sidedist_x;
+	double 	sidedist_y;
+	double	camera_x;
+	double	deltadist_x;
+	double	deltadist_y;
+	double 	perpwalldist;
+	double	ray_x;
+	double	ray_y;
+	int		side_wall;
+	int		hit_wall;
+	int		step_x;
+	int		step_y;
+	int 	map_x;
+	int 	map_y;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+}				t_raycast;
+
 typedef struct s_data
 {
 	char	**map;
@@ -42,7 +70,11 @@ typedef struct s_data
 	char	*SO;
 	char	*WE;
 	char	*EA;
+	t_raycast *raycast;
 }			t_data;
+
+
+
 
 //|----parsing----|
 void		ft_init_data(t_data *data, char *argv); // remplir la struct en lisant le doc
