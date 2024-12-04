@@ -6,7 +6,7 @@
 #    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 18:10:28 by tbraud            #+#    #+#              #
-#    Updated: 2024/11/28 22:17:35 by brguicho         ###   ########.fr        #
+#    Updated: 2024/12/04 13:58:26 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,15 +22,18 @@ INCLUDE	:= -I ./include
 
 
 SRC		:=	src/main.c \
+			src/init.c \
 			src/error/ft_error.c \
 			src/error/parsing_error.c \
 			src/player/ft_move.c \
 			src/player/ft_position.c \
+			src/player/ft_direction.c \
 			src/parsing/ft_parse.c \
 			src/parsing/ft_get_colors.c \
 			src/parsing/ft_get_texture_path.c \
 			src/parsing/ft_verif_map.c \
 			src/parsing/verif_map_utils.c \
+			src/render/raycasting.c \
 			src/utils/ft_split.c \
 			src/utils/ft_utils.c \
 			src/utils/get_next_line_utils.c \

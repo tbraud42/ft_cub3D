@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 09:47:41 by brguicho          #+#    #+#             */
-/*   Updated: 2024/11/18 19:20:45 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:26:36 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void ft_get_position(t_data *data)
 				|| data->map[i][j] == 'E'
 				|| data->map[i][j] == 'W')
 			{
-				data->player[0] = (float) i;
-				data->player[1] = (float) j;
-				data->player_orientation = data->map[i][j];
+				data->player.pos_y = (double) i;
+				data->player.pos_x = (double) j;
+				data->player.dir = data->map[i][j];
 				return ;
 			}
 			j++;

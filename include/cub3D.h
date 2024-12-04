@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/12/04 08:17:35 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/12/04 14:02:03 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <math.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 20
@@ -31,50 +32,70 @@
 # define S_WIDTH 600
 # define S_HEIGHT 900
 
-typedef struct s_raycast
+typedef struct s_img
 {
-	double 	dir_x;
-	double 	dir_y;
-	double 	plane_y;
-	double 	plane_x;
-	double 	sidedist_x;
-	double 	sidedist_y;
+	void	*img;
+	int		*addr;
+	int		pixel_bits;
+	int		size_line;
+	int		endian;
+}	t_img;
+
+typedef struct s_ray
+{
 	double	camera_x;
-	double	deltadist_x;
-	double	deltadist_y;
-	double 	perpwalldist;
-	double	ray_x;
-	double	ray_y;
-	int		side_wall;
-	int		hit_wall;
+	double	dir_x;
+	double	dir_y;
+	int		map_x;
+	int		map_y;
 	int		step_x;
 	int		step_y;
-	int 	map_x;
-	int 	map_y;
+	double	sidedist_x;
+	double	sidedist_y;
+	double	deltadist_x;
+	double	deltadist_y;
+	double	wall_dist;
+	double	wall_x;
+	int		side;
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
-}				t_raycast;
+}	t_ray;
+
+typedef struct s_player
+{
+	char	dir;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	int		has_moved;
+	int		move_x;
+	int		move_y;
+	int		rotate;
+}	t_player;
 
 typedef struct s_data
 {
 	char	**map;
 	void	*mlx;
 	void	*mlx_win;
-	void	*img[8]; // texture
-	float	player[2]; // placement dans la carte, on rajoute ici l'orientation?
-	char	player_orientation;
 	int		color_top[3]; // couleur toit
 	int		color_floor[3]; // couleur sol
 	char	*NO;
 	char	*SO;
 	char	*WE;
 	char	*EA;
-	t_raycast *raycast;
+	t_ray ray;
+	t_player player;
 }			t_data;
 
+//|-----init-----|
+void 		init_data(t_data *data);
 //|----parsing----|
-void		ft_init_data(t_data *data, char *argv); // remplir la struct en lisant le doc
+int			ft_parse_data(t_data *data, char *argv); // remplir la struct en lisant le doc
 char    	**ft_get_file_in_tab(int fd);
 int			is_valid_path(char *str);
 int			get_no(t_data *data, char *str);
@@ -91,6 +112,7 @@ char		**realloc_copy_map(char **cpy);
 //|----move----|
 int			ft_event(int keycode, t_data *data); // fonction pour les mouvements
 void 		ft_get_position(t_data *data);
+void		init_player_direction(t_data *data);
 
 //|-----utils-----|
 void		ft_free_array(char **map);
@@ -122,5 +144,7 @@ int			ft_exit_mlx(t_data *data, int choice); // fonction de free mlx et destruct
 int			error_arg(void);
 int			error_color(int flag);
 int 		error_texture(int flag);
+
+
 
 #endif /*CUB3D_H */

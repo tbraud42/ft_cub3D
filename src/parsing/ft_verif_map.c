@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 09:25:51 by brguicho          #+#    #+#             */
-/*   Updated: 2024/11/20 09:52:02 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/12/04 14:24:32 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,10 @@ int	is_map_valid(t_data *data)
 		return (0);
 	copy_map = ft_copy_tab(data->map);
 	copy_map = realloc_copy_map(copy_map);
-	ft_spread(copy_map, (int)data->player[1], (int)data->player[0], ft_array_len((void **) data->map) - 1);
+	copy_map = ft_copy_tab(data->map);
+	ft_spread(copy_map, (int)data->player.pos_x, (int)data->player.pos_y, ft_array_len((void **) data->map) - 1);
+	for(int x = 0; x < ft_array_len((void **) copy_map); x++)
+		printf("%s\n", copy_map[x]);
 	i = -1;
 	while (copy_map[++i])
 	{

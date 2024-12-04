@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/28 21:56:25 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/12/04 14:01:16 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ char **ft_get_file_in_tab(int fd)
 	return (tmp_tab);
 }
 
-void    ft_init_data(t_data *data, char *argv)
+int    ft_parse_data(t_data *data, char *argv)
 {
     int		fd;
 	char	**tab;
@@ -118,12 +118,14 @@ void    ft_init_data(t_data *data, char *argv)
 	if (get_element_from_tab(tab, data) == 0)
 	{
 		ft_free_all(data);
-		return ;
+		return (0);
 	}
 		ft_free(tab);
 	ft_get_position(data);
 	if (!is_map_valid(data))
 	{
 		ft_free_all(data);
+		return (0);
 	}
+	return (1);
 }
