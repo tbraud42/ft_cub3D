@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/12/03 17:50:21 by tbraud           ###   ########.fr       */
+/*   Updated: 2024/12/11 18:11:09 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,12 @@ int			error_color(int flag);
 //|-------tmp-------|
 int	ft_draw_map(t_data *data);
 int	ft_display_window(t_data *data);
-void	ft_raycasting(t_data *data, int mapX, int mapY);
+void	ft_raycasting(t_data *data, char *img, int mapX, int mapY);
 int	ft_mouse(t_data *data);
 float deg_to_rad(float angle);
 int fix_ang(int a);
 void	draw_col(t_data *data, int col, int lineH, int lineOff);
+void mlx_pixel_put_img(int *win, int x0, int y0, int color);
+int	create_trgb(int t, int r, int g, int b);
 
 #endif /*CUB3D_H */

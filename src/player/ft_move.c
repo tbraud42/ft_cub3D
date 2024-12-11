@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_move.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 04:56:39 by tbraud            #+#    #+#             */
-/*   Updated: 2024/12/03 20:26:12 by tbraud           ###   ########.fr       */
+/*   Updated: 2024/12/11 18:16:11 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ static void	ft_forward(t_data *data)
 {
 	// if ((int)(data->d_player[0] * 5)) cree les hiy wall
 	data->player[0] += data->d_player[0] * 5;
-	data->player[1] -= data->d_player[1] * 5;
+	data->player[1] += data->d_player[1] * 5;
 	// printf("player = %f, %f", data->player[0], data->player[1]);
 }
 
 static void	ft_backward(t_data *data)
 {
 	data->player[0] -= data->d_player[0] * 5;
-	data->player[1] += data->d_player[1] * 5;
+	data->player[1] -= data->d_player[1] * 5;
 	// printf("player = %f, %f", data->player[0], data->player[1]);
 }
 
@@ -116,26 +116,56 @@ int	ft_draw_map(t_data *data)
 	return (0);
 }
 
+int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
+
+int a, b;
+
+void mlx_pixel_put_img(int *win, int x0, int y0, int color)
+{
+	if (x0 > 64 * 7 || y0 > 64 * 5 || x0 < 0 || y0 < 0)
+		return ;
+	int *pos = win + (y0 * 64 * 7 + x0); // tu changera le 64 * 7
+	*pos = color;
+	// *pos = (1 >> 24 | 1 >> 16 | 1 >> 8 | 100);
+}
+
+void	mlx_put_image_to_window_bis(char *infoMQ, int j, int i, int height, int widht, int color)
+{
+	for (int x = 0; x < height; x++)
+	{
+		for (int y = 0; y < widht; y++)
+		{
+			mlx_pixel_put_img((int *)infoMQ, j + x, y + i, color);
+		}
+	}
+}
 
 int	ft_display_window(t_data *data)
 {
-	// int	i = 0, j;
+	void	*mQ;
+	int	i = 0, j;
+	int	c;
 
-	// // mlx_clear_window(data->mlx, data->mlx_win); // pas obligatoire, on va repasser sur tout les pixel
-	// while(data->map[i]) {
-	// 	j = 0;
-	// 	while (data->map[i][j]) {
-	// 		if (data->map[i][j] == '1')
-	// 			mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_a.img, j * data->tmp_a.img_height, i * data->tmp_a.img_width);
-	// 		else if (data->map[i][j] == '0' || data->map[i][j] == 'N')
-	// 			mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_c.img, j * data->tmp_c.img_height, i * data->tmp_c.img_width);
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
-	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->tmp_b.img, data->player[0] - 5, data->player[1] - 5);
+	mQ = mlx_new_image(data->mlx, 64 * 7, 64 * 5);
+	char	*infoMQ = mlx_get_data_addr(mQ, &a, &b, &c);
+	while(data->map[i]) {
+		j = 0;
+		while (data->map[i][j]) {
+			if (data->map[i][j] == '1')
+				mlx_put_image_to_window_bis(infoMQ, j * data->tmp_a.img_height, i * data->tmp_a.img_width, data->tmp_a.img_height, data->tmp_a.img_width, 0xFFFFFFFF);
+			else if (data->map[i][j] == '0' || data->map[i][j] == 'N')
+				mlx_put_image_to_window_bis(infoMQ, j * data->tmp_c.img_height, i * data->tmp_c.img_width, data->tmp_b.img_height, data->tmp_b.img_width, 0xFF000000);
+			j++;
+		}
+		i++;
+	}
+	mlx_put_image_to_window_bis(infoMQ, data->player[0] - 5, data->player[1] - 5, 9, 9, create_trgb(255, 0, 0, 255));
 	ft_mouse(data);
-	ft_raycasting(data, data->size_map[0], data->size_map[1]);
+	ft_raycasting(data, infoMQ, data->size_map[0], data->size_map[1]);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, mQ, 0, 0);
 	return (0);
 }
 
