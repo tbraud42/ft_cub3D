@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:19:33 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/27 09:13:53 by tao              ###   ########.fr       */
+/*   Updated: 2024/12/20 13:17:59 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(int argc, char *argv[])
 	data.color_top[0] = 0;
 	data.color_top[1] = 0;
 	data.color_top[2] = 0;
+	data.img_r = NULL;
 	if (argc != 2 || !argv[1])
 		ft_error("pls give me one map please\n", 0, 0);
 	if (ft_test_input(argv[1]))
@@ -53,7 +54,7 @@ int	main(int argc, char *argv[])
 	if (!data.mlx_win)
 		ft_error("somthing wrong with the mlx windows\n", 0, 0);
 	mlx_mouse_hide(data.mlx, data.mlx_win); // pas sur
-	mlx_mouse_move(data.mlx, data.mlx_win, 512, 256);
+	mlx_mouse_move(data.mlx, data.mlx_win, height, widht);
 	mlx_loop_hook(data.mlx, ft_display_window, &data);
 	// mlx_loop_hook(data.mlx, ft_mouse, &data);
 	mlx_hook(data.mlx_win, ON_KEYDOWN, (1L << 0), ft_event, &data);

@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/12/11 18:11:09 by tao              ###   ########.fr       */
+/*   Updated: 2024/12/20 20:20:35 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@
 # define PI 3.1415926535
 # define P2 1.5707963267
 # define P3 4.7123889803
+
+#define widht 1024
+#define height 512
+
+#define fov 60
+#define num_ray 60
 
 typedef struct s_img
 {
@@ -60,6 +66,7 @@ typedef struct s_data
 	t_img	tmp_a;
 	t_img	tmp_b;
 	t_img	tmp_c;
+	void	*img_r;
 }			t_data;
 
 //|----parsing----|
@@ -108,8 +115,8 @@ int	ft_display_window(t_data *data);
 void	ft_raycasting(t_data *data, char *img, int mapX, int mapY);
 int	ft_mouse(t_data *data);
 float deg_to_rad(float angle);
-int fix_ang(int a);
-void	draw_col(t_data *data, int col, int lineH, int lineOff);
+float fix_ang_rad(float a);
+void draw_col(int *win, int i, int column_width, float lineH, float lineOff, int color);
 void mlx_pixel_put_img(int *win, int x0, int y0, int color);
 int	create_trgb(int t, int r, int g, int b);
 
