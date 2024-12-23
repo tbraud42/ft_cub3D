@@ -6,7 +6,7 @@
 #    By: tao <tao@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 18:10:28 by tbraud            #+#    #+#              #
-#    Updated: 2024/12/23 01:50:26 by tao              ###   ########.fr        #
+#    Updated: 2024/12/23 04:42:42 by tao              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,12 @@ SRC		:=	src/main.c \
 			src/init.c \
 			src/error/ft_error.c \
 			src/error/parsing_error.c \
+			src/player/ft_direction.c \
+			src/player/ft_init_raycast.c \
 			src/player/ft_move.c \
 			src/player/ft_position.c \
-			src/player/ft_direction.c \
 			src/player/ft_raycasting.c \
+			src/player/put_pixel.c \
 			src/parsing/ft_parse.c \
 			src/parsing/ft_get_colors.c \
 			src/parsing/ft_get_texture_path.c \

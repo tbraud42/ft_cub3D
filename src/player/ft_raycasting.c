@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 00:53:07 by tbraud            #+#    #+#             */
-/*   Updated: 2024/12/23 01:34:53 by tao              ###   ########.fr       */
+/*   Updated: 2024/12/23 04:36:23 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,27 @@ double	dist(double ax, double ay, double bx, double by)// , double ang
 	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
 }
 
-void ft_raycasting(t_data *data, char *win, int mapX, int mapY)
+int	ft_hit_avaible(t_data *data, int x, int y)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (data->map[i] && i < y)
+		i++;
+	if (!data->map[i] || i != y)
+		return (0);
+	while (data->map[i][j] && j < x)
+		j++;
+	if (j != x)
+		return (0);
+	if (data->map[i][j] == '1')
+		return (1);
+	return (0);
+}
+
+void ft_raycasting(t_data *data, char *win)
 {
 	int dof, mx, my; // rapport raycasting/map
 	double rx, ry, ra, xo, yo, vx, vy; // les doubles pour les points d'intersection
@@ -67,7 +87,7 @@ void ft_raycasting(t_data *data, char *win, int mapX, int mapY)
 	int i = 0;
 
 	// Convertir ra en radians une seule fois
-	ra = fix_ang_rad(data->d_player[2] + deg_to_rad(fov / 2));
+	ra = fix_ang_rad(data->d_player[2] + deg_to_rad(num_ray / 2));
 
 	while (i < num_ray) {
 		// Raycast vertical
@@ -94,7 +114,7 @@ void ft_raycasting(t_data *data, char *win, int mapX, int mapY)
 		while (dof < 8) {
 			mx = (int)(rx) >> 6;
 			my = (int)(ry) >> 6;
-			if (mx >= 0 && mx < mapX && my >= 0 && my < mapY && data->map[my][mx] == '1') {
+			if (ft_hit_avaible(data, mx, my)) {
 				disV = dist(data->player[0], data->player[1], rx, ry);
 				dof = 8;
 			} else {
@@ -130,7 +150,7 @@ void ft_raycasting(t_data *data, char *win, int mapX, int mapY)
 		while (dof < 8) {
 			mx = (int)(rx) >> 6;
 			my = (int)(ry) >> 6;
-			if (mx >= 0 && mx < mapX && my >= 0 && my < mapY && data->map[my][mx] == '1') {
+			if (ft_hit_avaible(data, mx, my)) {
 				disH = dist(data->player[0], data->player[1], rx, ry);
 				dof = 8;
 			} else {
@@ -149,14 +169,14 @@ void ft_raycasting(t_data *data, char *win, int mapX, int mapY)
 		}
 
 		float ca = fix_ang_rad(data->d_player[2] - ra);
-        disH = disH * cos(ca);
+		disH = disH * cos(ca);
 
-        // Calcul de la hauteur de la colonne (distance inversement proportionnelle)
-        int lineH = (40 * height) / disH; // changer le 40
-        if (lineH > height) lineH = height; // Limiter la hauteur à la taille de l'écran
-        int lineOff = (height / 2) - (lineH / 2); // Centrer la colonne verticalement
+		// Calcul de la hauteur de la colonne (distance inversement proportionnelle)
+		int lineH = (40 * height) / disH; // changer le 40
+		if (lineH > height) lineH = height; // Limiter la hauteur à la taille de l'écran
+		int lineOff = (height / 2) - (lineH / 2); // Centrer la colonne verticalement
 
-		draw_col((int *)win, i, widht / fov, lineH, lineOff, 0xFFFFFF);
+		draw_col((int *)win, i, widht / num_ray, lineH, lineOff, 0xFFFFFF);
 
 		// draw_line(data->mlx, (int *)win, (int)data->player[0], (int)data->player[1], (int)rx, (int)ry, create_trgb(255, 255, 0, 0));
 		i++;
@@ -189,7 +209,6 @@ void ft_raycasting(t_data *data, char *win, int mapX, int mapY)
 // 		}
 // 	}
 // }
-
 
 void draw_col(int *win, int i, int column_width, float lineH, float lineOff, int color) // ici on remplace par les texture ?
 {

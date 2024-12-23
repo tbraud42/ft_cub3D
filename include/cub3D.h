@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/12/23 01:34:29 by tao              ###   ########.fr       */
+/*   Updated: 2024/12/23 03:56:47 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_data
 	char	**map;
 	void	*mlx;
 	void	*mlx_win;
-	void	*img[8]; // texture
 	double	player[2]; // placement dans la carte, on rajoute ici l'orientation?
 	double	d_player[3]; // direction
 	int		color_top[3]; // couleur toit
@@ -64,8 +63,8 @@ typedef struct s_data
 	char	*WE;
 	char	*EA;
 
-	int		size_map[2];
-	void	*img_r;
+	void	*img_raycast;
+
 	void	*img_map;
 
 }			t_data;
@@ -124,9 +123,8 @@ int			error_color(int flag);
 int 		error_texture(int flag);
 
 //|-------tmp-------|
-int	ft_draw_map(t_data *data);
 int	ft_display_window(t_data *data);
-void	ft_raycasting(t_data *data, char *img, int mapX, int mapY);
+void	ft_raycasting(t_data *data, char *img);
 int	ft_mouse(t_data *data);
 double deg_to_rad(double angle);
 double fix_ang_rad(double a);

@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:19:33 by tbraud            #+#    #+#             */
-/*   Updated: 2024/12/23 01:46:53 by tao              ###   ########.fr       */
+/*   Updated: 2024/12/23 04:25:19 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ int	main(int argc, char *argv[])
 		ft_error("pls give me a map with extension .cub\n", 0, 0);
 	if (ft_parse_data(&data, argv[1]) == 0)
 		return (1);
+	data.player[0] *= size_one_block;
+	data.player[1] *= size_one_block;
 	data.mlx = mlx_init();
 	if (!data.mlx)
 		ft_error("mlx does not launch correctly\n", 1, data.map);
-	ft_draw_map(&data);
 	data.mlx_win = mlx_new_window(data.mlx, widht, height, "cub3D<3");
 	if (!data.mlx_win)
 		ft_error("somthing wrong with the mlx windows\n", 0, 0);
