@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 09:14:49 by brguicho          #+#    #+#             */
-/*   Updated: 2024/11/22 11:13:31 by brguicho         ###   ########.fr       */
+/*   Created: 2024/11/19 09:19:55 by brguicho          #+#    #+#             */
+/*   Updated: 2024/11/22 11:13:20 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	ft_putchar_fd(char c, int fd)
+void	ft_free(char **map)
 {
-	write(fd, &c, 1);
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+void	ft_free_all(t_data *data)
 {
-	int	index;
-
-	index = 0;
-	if (s == NULL)
-		return ;
-	while (s[index])
-	{
-		ft_putchar_fd(s[index], fd);
-		index++;
-	}
+	if (data->NO)
+		free(data->NO);
+	if (data->SO)
+		free(data->SO);
+	if (data->WE)
+		free(data->WE);
+	if (data->EA)
+		free(data->EA);
+	if (data->map)
+		ft_free(data->map);
 }

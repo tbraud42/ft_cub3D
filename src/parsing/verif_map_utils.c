@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   verif_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 09:14:49 by brguicho          #+#    #+#             */
-/*   Updated: 2024/11/22 11:13:31 by brguicho         ###   ########.fr       */
+/*   Created: 2024/11/20 09:40:08 by brguicho          #+#    #+#             */
+/*   Updated: 2024/11/20 10:00:37 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
 
-void	ft_putstr_fd(char *s, int fd)
+char	**realloc_copy_map(char **cpy)
 {
-	int	index;
-
-	index = 0;
-	if (s == NULL)
-		return ;
-	while (s[index])
+	int i;
+	
+	
+	i = 0;
+	while (cpy[i])
 	{
-		ft_putchar_fd(s[index], fd);
-		index++;
+		cpy[i] = ft_realloc(cpy[i], get_size_line_max(cpy));
+		i++;
 	}
+	return (cpy);
 }

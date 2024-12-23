@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2024/10/30 11:14:45 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/12/04 14:01:16 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ int		get_path_and_colors(t_data *data, char **arr, size_t i)
 		error = 1;
 	if (!error && !get_map_colors(data, arr[i]))
 		error = 1;
-	if (error == 1)
-	{
-		ft_free(arr);
-		return (error);
-	}
 	return (error);
 }
 static char	**ft_get_map(char **tab, int tab_len, int start)
@@ -60,7 +55,7 @@ static char	**ft_get_map(char **tab, int tab_len, int start)
 	return (map);
 }
 
-void	get_element_from_tab(char **tab, t_data *data)
+int	get_element_from_tab(char **tab, t_data *data)
 {
 	int i;
 	char *tmp;
@@ -76,11 +71,11 @@ void	get_element_from_tab(char **tab, t_data *data)
 		if (*tmp == '1' || *tmp == '0')
 			break;
 		if (get_path_and_colors(data, tab, i))
-			return ;
+			return (0);
 		i++;
 	}
 	data->map = ft_get_map(tab, tab_len, i);
-	
+	return (1);
 }
 
 char **ft_get_file_in_tab(int fd)
@@ -104,32 +99,33 @@ char **ft_get_file_in_tab(int fd)
 		line = get_next_line(fd);
     }
 	tmp_tab = ft_split(tmp, '\n');
+	free(tmp);
 	if (!tmp_tab)
 		return (NULL);
-	if (line)
-		free(line);
 	return (tmp_tab);
 }
 
-void    ft_init_data(t_data *data, char *argv)
+int    ft_parse_data(t_data *data, char *argv)
 {
     int		fd;
 	char	**tab;
-	int i;
 
     fd = open(argv, O_RDONLY);
 	if (fd == -1)
 		ft_perror("file opening failure");
     tab = ft_get_file_in_tab(fd);
 	close(fd);
-	get_element_from_tab(tab, data);
-	i = 0;
-	while (data->map[i])
+	if (get_element_from_tab(tab, data) == 0)
 	{
-		printf("%s\n", data->map[i]);
-		i++;
+		ft_free_all(data);
+		return (0);
 	}
-	printf("color floor : %i , %i , %i \n", data->color_floor[0], data->color_floor[1], data->color_floor[2]);
-	printf("color top : %i , %i , %i \n", data->color_top[0], data->color_top[1], data->color_top[2]);
-	printf("texture path : NO: %s , SO: %s, WE: %s, EA: %s", data->NO, data->SO, data->WE, data->EA);
+		ft_free(tab);
+	ft_get_position(data);
+	if (!is_map_valid(data))
+	{
+		ft_free_all(data);
+		return (0);
+	}
+	return (1);
 }

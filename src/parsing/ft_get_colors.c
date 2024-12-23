@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:34:55 by brguicho          #+#    #+#             */
-/*   Updated: 2024/10/28 11:01:09 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/11/28 21:45:23 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	get_floor_color(t_data *data, char *str)
 {
-	char **tmp_tab;
+	char	**tmp_tab;
 
 	tmp_tab = ft_split(str, ',');
 	if (!tmp_tab)
@@ -23,19 +23,20 @@ int	get_floor_color(t_data *data, char *str)
 		&& ft_atoi(tmp_tab[1]) >= 0 && ft_atoi(tmp_tab[1]) <= 255
 		&& ft_atoi(tmp_tab[2]) >= 0 && ft_atoi(tmp_tab[2]) <= 255)
 	{
-		data->color_floor[0]= ft_atoi(tmp_tab[0]);
-		data->color_floor[1]= ft_atoi(tmp_tab[1]);
-		data->color_floor[2]= ft_atoi(tmp_tab[2]);
+		data->color_floor[0] = ft_atoi(tmp_tab[0]);
+		data->color_floor[1] = ft_atoi(tmp_tab[1]);
+		data->color_floor[2] = ft_atoi(tmp_tab[2]);
 		ft_free(tmp_tab);
 		return (1);
 	}
+	error_color(5);
 	ft_free(tmp_tab);
 	return (0);
 }
 
 int	get_top_color(t_data *data, char *str)
 {
-	char **tmp_tab;
+	char	**tmp_tab;
 
 	tmp_tab = ft_split(str, ',');
 	if (!tmp_tab)
@@ -44,12 +45,13 @@ int	get_top_color(t_data *data, char *str)
 		&& ft_atoi(tmp_tab[1]) >= 0 && ft_atoi(tmp_tab[1]) <= 255
 		&& ft_atoi(tmp_tab[2]) >= 0 && ft_atoi(tmp_tab[2]) <= 255)
 	{
-		data->color_top[0]= ft_atoi(tmp_tab[0]);
-		data->color_top[1]= ft_atoi(tmp_tab[1]);
-		data->color_top[2]= ft_atoi(tmp_tab[2]);
+		data->color_top[0] = ft_atoi(tmp_tab[0]);
+		data->color_top[1] = ft_atoi(tmp_tab[1]);
+		data->color_top[2] = ft_atoi(tmp_tab[2]);
 		ft_free(tmp_tab);
 		return (1);
 	}
+	error_color(4);
 	ft_free(tmp_tab);
 	return (0);
 }
@@ -77,7 +79,7 @@ int	duplicated_color(t_data *data, int flag)
 	return (1);
 }
 
-int get_map_colors(t_data *data, char *str)
+int	get_map_colors(t_data *data, char *str)
 {
 	if (!ft_strncmp(str, "F", 1))
 	{

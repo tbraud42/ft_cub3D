@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/12/20 20:20:35 by tao              ###   ########.fr       */
+/*   Updated: 2024/12/23 01:34:29 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,24 @@
 # define ESCAPE 65307
 
 # define PI 3.1415926535
-# define P2 1.5707963267
-# define P3 4.7123889803
 
-#define widht 1024
-#define height 512
+# define widht 1024
+# define height 512
 
-#define fov 60
-#define num_ray 60
+# define fov 60
+# define num_ray 60
+
+# define size_one_block 64
+// variable selon les texture ?
 
 typedef struct s_img
 {
 	void	*img;
-	char	*relative_path;
-	int		img_width;
-	int		img_height;
-}			t_img;
+	int		*addr;
+	int		pixel_bits;
+	int		size_line;
+	int		endian;
+}	t_img;
 
 typedef struct s_data
 {
@@ -53,8 +55,8 @@ typedef struct s_data
 	void	*mlx;
 	void	*mlx_win;
 	void	*img[8]; // texture
-	float	player[2]; // placement dans la carte, on rajoute ici l'orientation?
-	float	d_player[3]; // direction
+	double	player[2]; // placement dans la carte, on rajoute ici l'orientation?
+	double	d_player[3]; // direction
 	int		color_top[3]; // couleur toit
 	int		color_floor[3]; // couleur sol
 	char	*NO;
@@ -63,14 +65,15 @@ typedef struct s_data
 	char	*EA;
 
 	int		size_map[2];
-	t_img	tmp_a;
-	t_img	tmp_b;
-	t_img	tmp_c;
 	void	*img_r;
+	void	*img_map;
+
 }			t_data;
 
+//|-----init-----|
+void 		init_data(t_data *data);
 //|----parsing----|
-void		ft_init_data(t_data *data, char *argv); // remplir la struct en lisant le doc
+int			ft_parse_data(t_data *data, char *argv); // remplir la struct en lisant le doc
 char    	**ft_get_file_in_tab(int fd);
 int			is_valid_path(char *str);
 int			get_no(t_data *data, char *str);
@@ -81,10 +84,16 @@ int 		get_map_colors(t_data *data, char *str);
 int			duplicated_color(t_data *data, int flag);
 int			get_top_color(t_data *data, char *str);
 int			get_floor_color(t_data *data, char *str);
+int			is_map_valid(t_data *data);
+char		**realloc_copy_map(char **cpy);
+
 //|----move----|
 int			ft_event(int keycode, t_data *data); // fonction pour les mouvements
+void 		ft_get_position(t_data *data);
+void		init_player_direction(t_data *data);
 
 //|-----utils-----|
+void		ft_free_array(char **map);
 int			ft_strlen(char *arr);
 int			ft_array_len(void **array);
 char		*get_next_line(int fd);
@@ -100,6 +109,10 @@ void		ft_strstrim(char *s);
 int			ft_isspace(int c);
 void		ft_putstr_fd(char *s, int fd);
 void		*ft_calloc(size_t nmemb, size_t size);
+char 		**ft_copy_tab(char **tab);
+void		ft_free_all(t_data *data);
+int			get_size_line_max(char **arr);
+void		*ft_realloc(void *ptr, size_t newsize);
 
 //|-----error-----|
 void		ft_free(char **map);
@@ -108,14 +121,15 @@ void		ft_perror(char *msg_error);
 int			ft_exit_mlx(t_data *data, int choice); // fonction de free mlx et destruction des structures
 int			error_arg(void);
 int			error_color(int flag);
+int 		error_texture(int flag);
 
 //|-------tmp-------|
 int	ft_draw_map(t_data *data);
 int	ft_display_window(t_data *data);
 void	ft_raycasting(t_data *data, char *img, int mapX, int mapY);
 int	ft_mouse(t_data *data);
-float deg_to_rad(float angle);
-float fix_ang_rad(float a);
+double deg_to_rad(double angle);
+double fix_ang_rad(double a);
 void draw_col(int *win, int i, int column_width, float lineH, float lineOff, int color);
 void mlx_pixel_put_img(int *win, int x0, int y0, int color);
 int	create_trgb(int t, int r, int g, int b);
