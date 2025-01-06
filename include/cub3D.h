@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2024/12/23 03:56:47 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/06 15:29:11 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void		*ft_calloc(size_t nmemb, size_t size);
 char 		**ft_copy_tab(char **tab);
 void		ft_free_all(t_data *data);
 int			get_size_line_max(char **arr);
-void		*ft_realloc(void *ptr, size_t newsize);
+void		*ft_realloc(void *ptr, size_t newsize, size_t old_size);
 
 //|-----error-----|
 void		ft_free(char **map);

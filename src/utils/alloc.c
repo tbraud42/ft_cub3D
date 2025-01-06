@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 09:09:45 by brguicho          #+#    #+#             */
-/*   Updated: 2024/11/22 11:12:16 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:16:47 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (array);
 }
 
-void	*ft_realloc(void *ptr, size_t newsize)
+void	*ft_realloc(void *ptr, size_t newsize, size_t old_size)
 {
 	char	*newptr;
 	size_t	cursize;
 
 	if (ptr == 0)
 		return (malloc(newsize));
-	cursize = sizeof(ptr);
+	cursize = old_size;
 	if (newsize <= cursize)
 		return (ptr);
 	newptr = ft_calloc(newsize, sizeof(ptr));
