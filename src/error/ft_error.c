@@ -6,13 +6,13 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:37:39 by tbraud            #+#    #+#             */
-/*   Updated: 2024/11/28 22:18:23 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/08 21:27:06 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void ft_perror(char *msg_error)
+void	ft_perror(char *msg_error)
 {
 	write(2, msg_error, ft_strlen(msg_error));
 	write(2, "\n", 1);
@@ -45,12 +45,7 @@ int	ft_exit_mlx(t_data *data, int choice)
 		write(2, "Error\n", 7);
 	mlx_destroy_window(data->mlx, data->mlx_win);
 	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	//ft_free(data->map);
-	free(data->NO);
-	free(data->SO);
-	free(data->WE);
-	free(data->EA);
+	ft_free_all(data);
 	exit(0);
 	return (0);
 }

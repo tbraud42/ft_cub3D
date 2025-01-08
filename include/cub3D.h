@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/06 15:29:11 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/08 21:19:33 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int			get_top_color(t_data *data, char *str);
 int			get_floor_color(t_data *data, char *str);
 int			is_map_valid(t_data *data);
 char		**realloc_copy_map(char **cpy);
+int			check_wall(char **copy_map);
 
 //|----move----|
 int			ft_event(int keycode, t_data *data); // fonction pour les mouvements
@@ -121,6 +122,7 @@ int			ft_exit_mlx(t_data *data, int choice); // fonction de free mlx et destruct
 int			error_arg(void);
 int			error_color(int flag);
 int 		error_texture(int flag);
+int			error_map();
 
 //|-------tmp-------|
 int	ft_display_window(t_data *data);

@@ -6,13 +6,13 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2024/12/04 14:01:16 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/08 21:01:27 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int		get_path_and_colors(t_data *data, char **arr, size_t i)
+int	get_path_and_colors(t_data *data, char **arr, size_t i)
 {
 	size_t	error;
 
@@ -30,11 +30,12 @@ int		get_path_and_colors(t_data *data, char **arr, size_t i)
 		error = 1;
 	return (error);
 }
+
 static char	**ft_get_map(char **tab, int tab_len, int start)
 {
-	char **map;
-	int size;
-	int	i;
+	char	**map;
+	int		size;
+	int		i;
 
 	size = tab_len - start;
 	map = ft_calloc(sizeof(char *), size + 1);
@@ -57,9 +58,9 @@ static char	**ft_get_map(char **tab, int tab_len, int start)
 
 int	get_element_from_tab(char **tab, t_data *data)
 {
-	int i;
-	char *tmp;
-	int	tab_len;
+	int		i;
+	int		tab_len;
+	char	*tmp;
 
 	i = 0;
 	tab_len = ft_array_len((void **)tab);
@@ -69,7 +70,7 @@ int	get_element_from_tab(char **tab, t_data *data)
 		while (ft_isspace(*tmp))
 			tmp++;
 		if (*tmp == '1' || *tmp == '0')
-			break;
+			break ;
 		if (get_path_and_colors(data, tab, i))
 			return (0);
 		i++;
@@ -78,17 +79,17 @@ int	get_element_from_tab(char **tab, t_data *data)
 	return (1);
 }
 
-char **ft_get_file_in_tab(int fd)
+char	**ft_get_file_in_tab(int fd)
 {
-    char *line;
-	char *tmp;
-	char **tmp_tab;
-	
+	char	*line;
+	char	*tmp;
+	char	**tmp_tab;
+
 	tmp_tab = NULL;
-    line = get_next_line(fd);
+	line = get_next_line(fd);
 	tmp = ft_strdup("");
-    while (line != NULL)
-    {
+	while (line != NULL)
+	{
 		tmp = ft_strjoin(tmp, line);
 		if (!tmp)
 		{
@@ -97,7 +98,7 @@ char **ft_get_file_in_tab(int fd)
 		}
 		free(line);
 		line = get_next_line(fd);
-    }
+	}
 	tmp_tab = ft_split(tmp, '\n');
 	free(tmp);
 	if (!tmp_tab)
@@ -105,22 +106,22 @@ char **ft_get_file_in_tab(int fd)
 	return (tmp_tab);
 }
 
-int    ft_parse_data(t_data *data, char *argv)
+int	ft_parse_data(t_data *data, char *argv)
 {
-    int		fd;
+	int		fd;
 	char	**tab;
 
-    fd = open(argv, O_RDONLY);
+	fd = open(argv, O_RDONLY);
 	if (fd == -1)
 		ft_perror("file opening failure");
-    tab = ft_get_file_in_tab(fd);
+	tab = ft_get_file_in_tab(fd);
 	close(fd);
 	if (get_element_from_tab(tab, data) == 0)
 	{
 		ft_free_all(data);
 		return (0);
 	}
-		ft_free(tab);
+	ft_free(tab);
 	ft_get_position(data);
 	if (!is_map_valid(data))
 	{
