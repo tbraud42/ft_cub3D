@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 00:53:07 by tbraud            #+#    #+#             */
-/*   Updated: 2024/12/23 04:36:23 by tao              ###   ########.fr       */
+/*   Updated: 2024/12/28 09:07:33 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void ft_raycasting(t_data *data, char *win)
 	int i = 0;
 
 	// Convertir ra en radians une seule fois
-	ra = fix_ang_rad(data->d_player[2] + deg_to_rad(num_ray / 2));
+	ra = fix_ang_rad(data->d_player[2] + deg_to_rad(fov / 2));
 
 	while (i < num_ray) {
 		// Raycast vertical
@@ -168,19 +168,18 @@ void ft_raycasting(t_data *data, char *win)
 			disH = disV;
 		}
 
-		float ca = fix_ang_rad(data->d_player[2] - ra);
-		disH = disH * cos(ca);
+		disH = disH * cos(fix_ang_rad(data->d_player[2] - ra));
 
 		// Calcul de la hauteur de la colonne (distance inversement proportionnelle)
-		int lineH = (40 * height) / disH; // changer le 40
+		int lineH = (size_one_block * height) / disH;
 		if (lineH > height) lineH = height; // Limiter la hauteur à la taille de l'écran
 		int lineOff = (height / 2) - (lineH / 2); // Centrer la colonne verticalement
 
-		draw_col((int *)win, i, widht / num_ray, lineH, lineOff, 0xFFFFFF);
+		draw_col((int *)win, i, (widht + num_ray * 0.45) / num_ray, lineH, lineOff, 0xFFFFFF);
 
 		// draw_line(data->mlx, (int *)win, (int)data->player[0], (int)data->player[1], (int)rx, (int)ry, create_trgb(255, 255, 0, 0));
 		i++;
-		ra = fix_ang_rad(ra - deg_to_rad(fov / num_ray)); // incrementation de ra
+		ra = fix_ang_rad(ra - deg_to_rad(fov) / num_ray); // incrementation de ra
 	}
 }
 
