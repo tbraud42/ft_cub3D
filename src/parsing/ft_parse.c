@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/08 21:01:27 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/17 01:26:42 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int	ft_parse_data(t_data *data, char *argv)
 	close(fd);
 	if (get_element_from_tab(tab, data) == 0)
 	{
+		ft_free(tab);
 		ft_free_all(data);
 		return (0);
 	}
