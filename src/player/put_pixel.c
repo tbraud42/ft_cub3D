@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 04:43:26 by tao               #+#    #+#             */
-/*   Updated: 2024/12/23 04:43:31 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/17 05:34:20 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	create_trgb(int t, int r, int g, int b)
 
 void mlx_pixel_put_img(int *win, int x0, int y0, int color)
 {
-	if (x0 > widht || y0 > height || x0 < 0 || y0 < 0)
+	if (x0 > widht - 1 || y0 > height || x0 < 0 || y0 < 0)
 		return ;
 	int *pos = win + (y0 * widht + x0);
 	*pos = color;

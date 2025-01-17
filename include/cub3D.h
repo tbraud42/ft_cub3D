@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/08 21:19:33 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/17 06:05:34 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,38 +35,38 @@
 # define height 512
 
 # define fov 60
-# define num_ray 60
+# define num_ray 180
 
 # define size_one_block 64
-// variable selon les texture ?
 
-typedef struct s_img
-{
+# define NO 0
+# define SO 1
+# define WE 2
+# define EA 3
+
+typedef struct s_texture {
+	char	*file;
 	void	*img;
-	int		*addr;
-	int		pixel_bits;
+	char	*addr_data;
+	int		*data;
+	int		img_w;
+	int		img_h;
+	int		bpp;
 	int		size_line;
 	int		endian;
-}	t_img;
+} t_texture;
 
 typedef struct s_data
 {
 	char	**map;
 	void	*mlx;
 	void	*mlx_win;
+	void	*img_raycast; // peu etre a changer dans textures
 	double	player[2]; // placement dans la carte, on rajoute ici l'orientation?
 	double	d_player[3]; // direction
 	int		color_top[3]; // couleur toit
 	int		color_floor[3]; // couleur sol
-	char	*NO;
-	char	*SO;
-	char	*WE;
-	char	*EA;
-
-	void	*img_raycast;
-
-	void	*img_map;
-
+	t_texture texture[4];
 }			t_data;
 
 //|-----init-----|
@@ -85,7 +85,6 @@ int			get_top_color(t_data *data, char *str);
 int			get_floor_color(t_data *data, char *str);
 int			is_map_valid(t_data *data);
 char		**realloc_copy_map(char **cpy);
-int			check_wall(char **copy_map);
 
 //|----move----|
 int			ft_event(int keycode, t_data *data); // fonction pour les mouvements
@@ -112,7 +111,7 @@ void		*ft_calloc(size_t nmemb, size_t size);
 char 		**ft_copy_tab(char **tab);
 void		ft_free_all(t_data *data);
 int			get_size_line_max(char **arr);
-void		*ft_realloc(void *ptr, size_t newsize, size_t old_size);
+void		*ft_realloc(void *ptr, size_t newsize);
 
 //|-----error-----|
 void		ft_free(char **map);
@@ -122,7 +121,6 @@ int			ft_exit_mlx(t_data *data, int choice); // fonction de free mlx et destruct
 int			error_arg(void);
 int			error_color(int flag);
 int 		error_texture(int flag);
-int			error_map();
 
 //|-------tmp-------|
 int	ft_display_window(t_data *data);
@@ -130,8 +128,9 @@ void	ft_raycasting(t_data *data, char *img);
 int	ft_mouse(t_data *data);
 double deg_to_rad(double angle);
 double fix_ang_rad(double a);
-void draw_col(int *win, int i, int column_width, float lineH, float lineOff, int color);
 void mlx_pixel_put_img(int *win, int x0, int y0, int color);
 int	create_trgb(int t, int r, int g, int b);
+void	ft_init_texture(t_data *data);
+void draw_col_with_texture(int *win, int i, int column_width, float lineH, float lineOff, double wall_hit_x, double wall_hit_y, int is_vertical, t_data *data);
 
 #endif /*CUB3D_H */

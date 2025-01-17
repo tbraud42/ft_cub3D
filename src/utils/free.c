@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 09:19:55 by brguicho          #+#    #+#             */
-/*   Updated: 2024/11/22 11:13:20 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/16 20:36:06 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	ft_free(char **map)
 
 void	ft_free_all(t_data *data)
 {
-	if (data->NO)
-		free(data->NO);
-	if (data->SO)
-		free(data->SO);
-	if (data->WE)
-		free(data->WE);
-	if (data->EA)
-		free(data->EA);
+	if (data->texture[NO].file)
+		free(data->texture[NO].file);
+	if (data->texture[SO].file)
+		free(data->texture[SO].file);
+	if (data->texture[WE].file)
+		free(data->texture[WE].file);
+	if (data->texture[EA].file)
+		free(data->texture[EA].file);
 	if (data->map)
 		ft_free(data->map);
 }

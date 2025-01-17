@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 00:53:07 by tbraud            #+#    #+#             */
-/*   Updated: 2024/12/28 09:07:33 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/17 22:22:18 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,11 +161,13 @@ void ft_raycasting(t_data *data, char *win)
 		}
 
 		// Comparer disH et disV pour afficher le point d'impact le plus proche
+		int side = 0;
 		if(disV < disH)
 		{
 			rx = vx;
 			ry = vy;
 			disH = disV;
+			side++;
 		}
 
 		disH = disH * cos(fix_ang_rad(data->d_player[2] - ra));
@@ -175,7 +177,15 @@ void ft_raycasting(t_data *data, char *win)
 		if (lineH > height) lineH = height; // Limiter la hauteur à la taille de l'écran
 		int lineOff = (height / 2) - (lineH / 2); // Centrer la colonne verticalement
 
-		draw_col((int *)win, i, (widht + num_ray * 0.45) / num_ray, lineH, lineOff, 0xFFFFFF);
+		// Calculer l'offset dans la texture
+		// int tex_offset = (int)(rx) % data->texture[0].img_w;
+		// Afficher la colonne avec la texture
+
+		draw_col_with_texture((int *)win, i, (widht + num_ray * 0.45) / num_ray, lineH, lineOff,
+                      rx, ry, side, data);
+		// draw_col_with_texture((int *)win, i, (widht + num_ray * 0.45) / num_ray, lineH, lineOff, tex_offset, data); // tmp pour texture
+
+		// draw_col((int *)win, i, (widht + num_ray * 0.45) / num_ray, lineH, lineOff, 0xFFFFFF);
 
 		// draw_line(data->mlx, (int *)win, (int)data->player[0], (int)data->player[1], (int)rx, (int)ry, create_trgb(255, 255, 0, 0));
 		i++;
@@ -183,37 +193,44 @@ void ft_raycasting(t_data *data, char *win)
 	}
 }
 
-// void draw_line(t_data *data, int x1, int y1, int color) // mini map
-// {
-// 	int dx = abs(x1 - x0);
-// 	int dy = abs(y1 - y0);
-// 	int sx = (x0 < x1) ? 1 : -1; // direction de x
-// 	int sy = (y0 < y1) ? 1 : -1; // direction de y
-// 	int err = dx - dy; // erreur initiale
 
-// 	while (1) {
-// 		mlx_pixel_put_img(win, x0, y0, color);
-// 		if (x0 == x1 && y0 == y1) // cas d'arret
-// 			break;
-// 		int e2 = 2 * err; // Mise à jour de l'erreur et des coordonnées x et y
-// 		if (e2 > -dy)
-// 		{
-// 			err -= dy;
-// 			x0 += sx;
-// 		}
-// 		if (e2 < dx)
-// 		{
-// 			err += dx;
-// 			y0 += sy;
-// 		}
-// 	}
-// }
-
-void draw_col(int *win, int i, int column_width, float lineH, float lineOff, int color) // ici on remplace par les texture ?
+void draw_col_with_texture(int *win, int i, int column_width, float lineH, float lineOff,
+                           double wall_hit_x, double wall_hit_y, int is_vertical, t_data *data)
 {
-    for (int x = 0; x < column_width; x++) {
-        for (int y = 0; y < (int)lineH; y++) {
-            mlx_pixel_put_img(win, i * column_width + x, (int)(lineOff + y), color);
-        }
-    }
+	t_texture tmp = data->texture[0];
+	int floor_color = create_trgb(255, data->color_floor[0], data->color_floor[1], data->color_floor[2]);
+	int ceiling_color = create_trgb(255, data->color_top[0], data->color_top[1], data->color_top[2]);
+
+	int x = 0;
+	while (x < column_width) {
+		int y = 0;
+		// plafond
+		while (y < (int)lineOff) {
+			mlx_pixel_put_img(win, i * column_width + x, y, ceiling_color);
+			y++;
+		}
+		// texture
+		while (y < (int)(lineOff + lineH)) {
+			// Calculer la position y dans la texture (mapper la hauteur de la colonne à 64)
+			int tex_y = (int)(((y - lineOff) / lineH) * tmp.img_h) % tmp.img_h;
+			// Calculer la position x dans la texture
+			int tex_x;
+			if (is_vertical) {
+				// Si le mur touché est vertical
+				tex_x = (int)(wall_hit_y) % tmp.img_w;
+			} else {
+				// Si le mur touché est horizontal
+				tex_x = (int)(wall_hit_x) % tmp.img_w;
+			}
+			int color = tmp.data[tex_y * tmp.img_w + tex_x];
+			mlx_pixel_put_img(win, i * column_width + x, y, color);
+			y++;
+		}
+		// sol
+		while (y < height) {
+			mlx_pixel_put_img(win, i * column_width + x, y, floor_color);
+			y++;
+		}
+		x++;
+	}
 }
