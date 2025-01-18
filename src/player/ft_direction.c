@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_direction.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:27:54 by brguicho          #+#    #+#             */
-/*   Updated: 2024/12/23 01:44:24 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/18 12:55:03 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	init_player_direction(t_data *data)
 	else if (data->d_player[2] == 'E')
 		data->d_player[2] = PI / 2;
 	else if (data->d_player[2] == 'S')
-		data->d_player[2] = 0; // inverser avec lui
+		data->d_player[2] = 0;
 	else if (data->d_player[2] == 'N')
-		data->d_player[2] = PI; // je crois faut inverser
+		data->d_player[2] = PI;
 	data->d_player[0] = cosf(data->d_player[2]) * 5;
 	data->d_player[1] = sinf(data->d_player[2]) * 5;
 }

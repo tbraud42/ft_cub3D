@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_position.c                                      :+:      :+:    :+:   */
+/*   ft_mouse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 09:47:41 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/18 12:39:59 by brguicho         ###   ########.fr       */
+/*   Created: 2025/01/18 12:39:01 by brguicho          #+#    #+#             */
+/*   Updated: 2025/01/18 12:42:18 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	ft_get_position(t_data *data)
+int	ft_mouse(t_data *data)
 {
-	int	i;
-	int	j;
+	int	x;
+	int	y;
+	int	widht_comp;
 
-	i = 0;
-	while (data->map[i])
-	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			if (data->map[i][j] == 'N'
-				|| data->map[i][j] == 'S'
-				|| data->map[i][j] == 'E'
-				|| data->map[i][j] == 'W')
-			{
-				data->player[1] = (double) i;
-				data->player[0] = (double) j;
-				data->d_player[2] = data->map[i][j];
-				return ;
-			}
-			j++;
-		}
-		i++;
-	}
+	widht_comp = (int)(widht * 0.5);
+	mlx_mouse_get_pos(data->mlx, data->mlx_win, &x, &y);
+	if (x > widht_comp)
+		ft_right(data);
+	else if (x < widht_comp)
+		ft_left(data);
+	mlx_mouse_move(data->mlx, data->mlx_win, widht_comp, (int)(height * 0.5));
+	return (0);
 }

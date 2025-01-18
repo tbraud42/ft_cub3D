@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/17 06:05:34 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/18 13:22:18 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,44 @@ typedef struct s_texture {
 	int		bpp;
 	int		size_line;
 	int		endian;
-} t_texture;
+}	 		t_texture;
+
+typedef struct s_ray
+{
+	int 	dof;
+	int 	mx;
+	int 	my;
+	int 	side;
+	int 	lineH;
+	int 	lineOff;
+	int		tex_x;
+	int 	tex_y;
+	double	rx;
+	double	ry;
+	double	xo;
+	double	yo;
+	double	vx;
+	double	vy;
+	double	ra;
+	double	disV;
+	double	disH;
+	double	Tan;
+}				t_ray;
+
 
 typedef struct s_data
 {
-	char	**map;
-	void	*mlx;
-	void	*mlx_win;
-	void	*img_raycast; // peu etre a changer dans textures
-	double	player[2]; // placement dans la carte, on rajoute ici l'orientation?
-	double	d_player[3]; // direction
-	int		color_top[3]; // couleur toit
-	int		color_floor[3]; // couleur sol
-	t_texture texture[4];
-}			t_data;
+	char		**map;
+	void		*mlx;
+	void		*mlx_win;
+	void		*img_raycast; // peu etre a changer dans textures
+	double		player[2]; // placement dans la carte, on rajoute ici l'orientation?
+	double		d_player[3]; // direction
+	int			color_top[3]; // couleur toit
+	int			color_floor[3]; // couleur sol
+	t_texture	texture[4];
+	t_ray 		ray;
+}				t_data;
 
 //|-----init-----|
 void 		init_data(t_data *data);
@@ -85,11 +109,18 @@ int			get_top_color(t_data *data, char *str);
 int			get_floor_color(t_data *data, char *str);
 int			is_map_valid(t_data *data);
 char		**realloc_copy_map(char **cpy);
+int			check_wall(char **copy_map);
 
 //|----move----|
 int			ft_event(int keycode, t_data *data); // fonction pour les mouvements
 void 		ft_get_position(t_data *data);
 void		init_player_direction(t_data *data);
+void		ft_forward(t_data *data);
+void		ft_backward(t_data *data);
+void		ft_left(t_data *data);
+void		ft_right(t_data *data);
+
+
 
 //|-----utils-----|
 void		ft_free_array(char **map);
@@ -111,7 +142,7 @@ void		*ft_calloc(size_t nmemb, size_t size);
 char 		**ft_copy_tab(char **tab);
 void		ft_free_all(t_data *data);
 int			get_size_line_max(char **arr);
-void		*ft_realloc(void *ptr, size_t newsize);
+void		*ft_realloc(void *ptr, size_t newsize, size_t old_size);
 
 //|-----error-----|
 void		ft_free(char **map);
@@ -121,6 +152,7 @@ int			ft_exit_mlx(t_data *data, int choice); // fonction de free mlx et destruct
 int			error_arg(void);
 int			error_color(int flag);
 int 		error_texture(int flag);
+int			error_map(void);
 
 //|-------tmp-------|
 int	ft_display_window(t_data *data);

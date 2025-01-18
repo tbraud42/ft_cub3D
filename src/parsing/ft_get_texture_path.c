@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_texture_path.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:42:04 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/16 20:46:21 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/18 10:44:23 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@ int	is_valid_path(char *str)
 	len = ft_strlen(str);
 	if (len <= 4)
 		return (1);
-	if (str[len - 4] != '.' || str[len - 3] != 'x' || str[len - 2] != 'p' || str[len
-		- 1] != 'm')
+	if (str[len - 4] != '.' || str[len - 3] != 'x'
+		|| str[len - 2] != 'p' || str[len - 1] != 'm')
 		return (0);
 	return (1);
 }
 
 int	get_no(t_data *data, char *str)
 {
-	int fd;
+	int	fd;
 
 	if (ft_strncmp(str, "NO", 2) == 0)
 	{
 		str += 2;
 		if (ft_isspace(*str) == 0)
 			return (error_texture(1));
-		if	(!is_valid_path(str))
+		if (!is_valid_path(str))
 			return (error_texture(2));
 		while (ft_isspace(*str))
 			str++;
@@ -53,14 +53,14 @@ int	get_no(t_data *data, char *str)
 
 int	get_so(t_data *data, char *str)
 {
-	int fd;
+	int	fd;
 
 	if (ft_strncmp(str, "SO", 2) == 0)
 	{
 		str += 2;
 		if (ft_isspace(*str) == 0)
 			return (error_texture(1));
-		if	(!is_valid_path(str))
+		if (!is_valid_path(str))
 			return (error_texture(2));
 		while (ft_isspace(*str))
 			str++;
@@ -79,14 +79,14 @@ int	get_so(t_data *data, char *str)
 
 int	get_ea(t_data *data, char *str)
 {
-	int fd;
+	int	fd;
 
 	if (ft_strncmp(str, "EA", 2) == 0)
 	{
 		str += 2;
 		if (ft_isspace(*str) == 0)
 			return (error_texture(1));
-		if	(!is_valid_path(str))
+		if (!is_valid_path(str))
 			return (error_texture(2));
 		while (ft_isspace(*str))
 			str++;
@@ -105,14 +105,14 @@ int	get_ea(t_data *data, char *str)
 
 int	get_we(t_data *data, char *str)
 {
-	int fd;
+	int	fd;
 
 	if (ft_strncmp(str, "WE", 2) == 0)
 	{
 		str += 2;
 		if (ft_isspace(*str) == 0)
 			return (error_texture(1));
-		if	(!is_valid_path(str))
+		if (!is_valid_path(str))
 			return (error_texture(2));
 		while (ft_isspace(*str))
 			str++;

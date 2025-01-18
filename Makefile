@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tao <tao@student.42.fr>                    +#+  +:+       +#+         #
+#    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 18:10:28 by tbraud            #+#    #+#              #
-#    Updated: 2024/12/23 04:54:49 by tao              ###   ########.fr        #
+#    Updated: 2025/01/18 12:47:06 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC		:=	src/main.c \
 			src/error/ft_error.c \
 			src/error/parsing_error.c \
 			src/player/ft_direction.c \
+			src/player/ft_mouse.c \
 			src/player/ft_display.c \
 			src/player/ft_move.c \
 			src/player/ft_position.c \

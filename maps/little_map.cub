@@ -1,7 +1,7 @@
-NO ./asset/wall.xpm
-SO ./asset/wall.xpm
-WE ./asset/wall.xpm
-EA ./asset/wall.xpm
+NO ./asset/bluestone.xpm
+SO ./asset/mossy.xpm
+WE ./asset/eagle.xpm
+EA ./asset/redbrick.xpm
 
 F 220,100,0
 C 225,30,0

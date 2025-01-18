@@ -3,52 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_raycasting.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 00:53:07 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/17 22:22:18 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/18 13:01:37 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-// void draw_line(void *mlx, int *win, int x0, int y0, int x1, int y1, int color)
-// {
-// 	int dx = abs(x1 - x0);
-// 	int dy = abs(y1 - y0);
-// 	int sx = (x0 < x1) ? 1 : -1; // direction de x
-// 	int sy = (y0 < y1) ? 1 : -1; // direction de y
-// 	int err = dx - dy; // erreur initiale
-
-// 	(void)mlx;
-// 	while (1) {
-// 		mlx_pixel_put_img(win, x0, y0, color);
-// 		if (x0 == x1 && y0 == y1) // cas d'arret
-// 			break;
-// 		int e2 = 2 * err; // Mise à jour de l'erreur et des coordonnées x et y
-// 		if (e2 > -dy)
-// 		{
-// 			err -= dy;
-// 			x0 += sx;
-// 		}
-// 		if (e2 < dx)
-// 		{
-// 			err += dx;
-// 			y0 += sy;
-// 		}
-// 	}
-// }
-
-double deg_to_rad(double angle) // degree to radiant
+double	deg_to_rad(double angle) // degree to radiant
 {
 	return (angle * M_PI / 180.0);
 }
 
-double fix_ang_rad(double a) // modulo 360 angle en radiant
+double	fix_ang_rad(double a) // modulo 360 angle en radiant
 {
-	if(a > 2 * M_PI)
-		 a -= 2 * M_PI;
-	if(a < 0)
+	if (a > 2 * M_PI)
+		a -= 2 * M_PI;
+	if (a < 0)
 		a += 2 * M_PI;
 	return (a);
 }
@@ -78,7 +51,7 @@ int	ft_hit_avaible(t_data *data, int x, int y)
 	return (0);
 }
 
-void ft_raycasting(t_data *data, char *win)
+void	ft_raycasting(t_data *data, char *win)
 {
 	int dof, mx, my; // rapport raycasting/map
 	double rx, ry, ra, xo, yo, vx, vy; // les doubles pour les points d'intersection
