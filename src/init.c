@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:13:47 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/17 05:17:10 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/19 20:35:36 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,28 @@ void	ft_init_texture(t_data *data)
 	time++;
 }
 
+static void	init_raycast(t_ray *ray)
+{
+	ray->disH = 0;
+	ray->disV = 0;
+	ray->dof = 0;
+	ray->lineH = 0;
+	ray->lineOff = 0;
+	ray->mx = 0;
+	ray->my = 0;
+	ray->ra = 0;
+	ray->rx = 0;
+	ray->ry = 0;
+	ray->side = 0;
+	ray->Tan = 0;
+	ray->tex_x = 0;
+	ray->tex_y = 0;
+	ray->vx = 0;
+	ray->vy = 0;
+	ray->xo = 0;
+	ray->yo = 0;
+}
+
 void init_data(t_data *data)
 {
 	data->mlx = NULL;
@@ -49,4 +71,5 @@ void init_data(t_data *data)
 	data->color_top[1] = 0;
 	data->color_top[2] = 0;
 	data->img_raycast = NULL;
+	init_raycast(&data->ray);
 }
