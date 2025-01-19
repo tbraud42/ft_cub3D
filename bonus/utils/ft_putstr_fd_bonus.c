@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mouse.c                                         :+:      :+:    :+:   */
+/*   ft_putstr_fd_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 12:39:01 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/18 12:42:18 by brguicho         ###   ########.fr       */
+/*   Created: 2024/10/28 09:14:49 by brguicho          #+#    #+#             */
+/*   Updated: 2025/01/19 22:05:41 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3D_bonus.h"
 
-int	ft_mouse(t_data *data)
+static void	ft_putchar_fd(char c, int fd)
 {
-	int	x;
-	int	y;
-	int	widht_comp;
+	write(fd, &c, 1);
+}
 
-	widht_comp = (int)(widht * 0.5);
-	mlx_mouse_get_pos(data->mlx, data->mlx_win, &x, &y);
-	if (x > widht_comp)
-		ft_right(data);
-	else if (x < widht_comp)
-		ft_left(data);
-	mlx_mouse_move(data->mlx, data->mlx_win, widht_comp, (int)(height * 0.5));
-	return (0);
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	index;
+
+	index = 0;
+	if (s == NULL)
+		return ;
+	while (s[index])
+	{
+		ft_putchar_fd(s[index], fd);
+		index++;
+	}
 }

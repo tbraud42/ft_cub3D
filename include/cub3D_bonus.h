@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   cun3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/19 22:33:51 by brguicho         ###   ########.fr       */
+/*   Created: 2025/01/19 21:45:47 by brguicho          #+#    #+#             */
+/*   Updated: 2025/01/19 21:46:06 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include "../mlx/mlx.h"
 # include <errno.h>
@@ -158,6 +158,7 @@ int			error_map(void);
 //|-------tmp-------|
 int	ft_display_window(t_data *data);
 void	ft_raycasting(t_data *data, char *img);
+int	ft_mouse(t_data *data);
 double deg_to_rad(double angle);
 double fix_ang_rad(double a);
 void mlx_pixel_put_img(int *win, int x0, int y0, int color);
@@ -165,4 +166,4 @@ int	create_trgb(int t, int r, int g, int b);
 void	ft_init_texture(t_data *data);
 void draw_col_with_texture(int *win, int i, int column_width, float lineH, float lineOff, double wall_hit_x, double wall_hit_y, int is_vertical, t_data *data);
 
-#endif /*CUB3D_H */
+#endif
