@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 04:56:39 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/18 12:47:43 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/20 20:41:33 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,24 @@
 
 void	ft_forward(t_data *data)
 {
-	if (data->map[(int)((data->player[1] + (data->d_player[1] * 5))) / 64]
-		[(int)((data->player[0] + (data->d_player[0] * 5))) / 64] == '1')
+
+	while (data->map[(int)((data->player[1] + (data->d_player[1]))) / 64]
+		[(int)((data->player[0] + (data->d_player[0]))) / 64] != '1')
 	{
-		while (data->map[(int)((data->player[1] + (data->d_player[1]))) / 64]
-			[(int)((data->player[0] + (data->d_player[0]))) / 64] != '1')
-		{
-			data->player[0] += data->d_player[0];
-			data->player[1] += data->d_player[1];
-		}
-		return ;
+		data->player[0] += data->d_player[0];
+		data->player[1] += data->d_player[1];
 	}
-	data->player[0] += data->d_player[0] * 5;
-	data->player[1] += data->d_player[1] * 5;
 }
 
 void	ft_backward(t_data *data)
 {
-	if (data->map[(int)((data->player[1] - (data->d_player[1] * 5))) / 64]
-		[(int)((data->player[0] - (data->d_player[0] * 5))) / 64] == '1')
+
+	while (data->map[(int)((data->player[1] - (data->d_player[1]))) / 64]
+		[(int)((data->player[0] - (data->d_player[0]))) / 64] != '1')
 	{
-		while (data->map[(int)((data->player[1] - (data->d_player[1]))) / 64]
-			[(int)((data->player[0] - (data->d_player[0]))) / 64] != '1')
-		{
-			data->player[0] -= data->d_player[0];
-			data->player[1] -= data->d_player[1];
-		}
-		return ;
+		data->player[0] -= data->d_player[0];
+		data->player[1] -= data->d_player[1];
 	}
-	data->player[0] -= data->d_player[0] * 5;
-	data->player[1] -= data->d_player[1] * 5;
 }
 
 void	ft_left(t_data *data)

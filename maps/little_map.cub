@@ -1,5 +1,5 @@
 NO ./asset/bluestone.xpm
-SO ./asset/mossy.xpm
+SO ./asset/purplestone.xpm
 WE ./asset/eagle.xpm
 EA ./asset/redbrick.xpm
 
@@ -8,7 +8,12 @@ C 225,30,0
 
 1111111
 1000001
-100N001
 1000001
+1000001
+1001001
+1000001
+1000101
+1001N11
+1000101
 1111111
 
