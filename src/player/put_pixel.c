@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_pixel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 04:43:26 by tao               #+#    #+#             */
-/*   Updated: 2025/01/18 12:58:23 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/20 02:19:32 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	mlx_pixel_put_img(int *win, int x0, int y0, int color)
 {
 	int	*pos;
 
-	if (x0 > widht - 1 || y0 > height || x0 < 0 || y0 < 0)
-		return ;
 	pos = win + (y0 * widht + x0);
 	*pos = color;
 }

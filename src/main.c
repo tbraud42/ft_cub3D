@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:19:33 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/19 22:33:25 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/20 02:20:34 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int	main(int argc, char *argv[])
 		ft_error("pls give me a map with extension .cub\n", 0, 0);
 	if (ft_parse_data(&data, argv[1]) == 0)
 		return (1);
-	data.player[0] *= size_one_block;
-	data.player[1] *= size_one_block;
+	init_player_direction(&data);
 	data.mlx = mlx_init();
 	if (!data.mlx)
 		ft_error("mlx does not launch correctly\n", 1, data.map);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_raycasting.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 00:53:07 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/18 13:01:37 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/20 02:28:53 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ double	fix_ang_rad(double a) // modulo 360 angle en radiant
 	return (a);
 }
 
-double	dist(double ax, double ay, double bx, double by)// , double ang
+double	ft_dist(double ax, double ay, double bx, double by)// , double ang
 {
 	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
 }
@@ -51,159 +51,228 @@ int	ft_hit_avaible(t_data *data, int x, int y)
 	return (0);
 }
 
+
 void	ft_raycasting(t_data *data, char *win)
 {
-	int dof, mx, my; // rapport raycasting/map
-	double rx, ry, ra, xo, yo, vx, vy; // les doubles pour les points d'intersection
-	double disV, disH; // distance verticale et horizontale
-	double Tan;
-	int i = 0;
+	t_ray	math;
+	int	dof;
+	double tan_ra;
+	int	i;
+	double	vx,vy; // a changer
 
-	// Convertir ra en radians une seule fois
-	ra = fix_ang_rad(data->d_player[2] + deg_to_rad(fov / 2));
+	i = 0;
+	math.ray_data[0] = fix_ang_rad(data->d_player[2] + deg_to_rad(fov / 2));
 
 	while (i < num_ray) {
 		// Raycast vertical
-		dof = 0; disV = 100000;
-		Tan = tan(ra);
-		if (fabs(cos(ra)) > 0.001) {  // Rayon vers la gauche ou la droite
-			if (cos(ra) > 0) {  // Vers la droite
-				rx = (((int)data->player[0] >> 6) << 6) + size_one_block;
-				ry = (data->player[0] - rx) * Tan + data->player[1];
-				xo = size_one_block;
-				yo = -xo * Tan;
-			} else {  // Vers la gauche
-				rx = (((int)data->player[0] >> 6) << 6) - 0.0001;
-				ry = (data->player[0] - rx) * Tan + data->player[1];
-				xo = -size_one_block;
-				yo = -xo * Tan;
+		dof = 0; math.dist[0] = 100000;
+		tan_ra = tan(math.ray_data[0]);
+		if (fabs(cos(math.ray_data[0])) > 0.001) {
+			if (cos(math.ray_data[0]) > 0) {
+				math.ray_data[1] = (((int)data->player[0] >> 6) << 6) + size_one_block;
+				math.ray_data[2] = (data->player[0] - math.ray_data[1]) * tan_ra + data->player[1];
+				math.ray_step[0] = size_one_block;
+				math.ray_step[1] = -math.ray_step[0] * tan_ra;
+			} else {
+				math.ray_data[1] = (((int)data->player[0] >> 6) << 6) - 0.0001;
+				math.ray_data[2] = (data->player[0] - math.ray_data[1]) * tan_ra + data->player[1];
+				math.ray_step[0] = -size_one_block;
+				math.ray_step[1] = -math.ray_step[0] * tan_ra;
 			}
-		} else {  // Rayon aligné verticalement
-			rx = data->player[0];
-			ry = data->player[1];
-			dof = 8;
+		} else {
+			math.ray_data[1] = data->player[0];
+			math.ray_data[2] = data->player[1];
+			dof = 30;
 		}
 
-		while (dof < 8) {
-			mx = (int)(rx) >> 6;
-			my = (int)(ry) >> 6;
-			if (ft_hit_avaible(data, mx, my)) {
-				disV = dist(data->player[0], data->player[1], rx, ry);
-				dof = 8;
+		while (dof < 30) {
+			math.map_coords[0] = (int)(math.ray_data[1]) >> 6;
+			math.map_coords[1] = (int)(math.ray_data[2]) >> 6;
+			if (ft_hit_avaible(data, math.map_coords[0], math.map_coords[1])) {
+				math.dist[0] = ft_dist(data->player[0], data->player[1], math.ray_data[1], math.ray_data[2]);
+				dof = 30;
 			} else {
-				rx += xo;
-				ry += yo;
+				math.ray_data[1] += math.ray_step[0];
+				math.ray_data[2] += math.ray_step[1];
 				dof++;
 			}
 		}
-		vx = rx;
-		vy = ry;
+		vx = math.ray_data[1];
+		vy = math.ray_data[2];
 
 		// Raycast horizontal
-		dof = 0; disH = 100000;
-		Tan = 1.0 / Tan;
-		if (fabs(sin(ra)) > 0.001) {  // Rayon vers le haut ou le bas
-			if (sin(ra) > 0) {  // Vers le bas
-				ry = (((int)data->player[1] >> 6) << 6) - 0.0001;
-				rx = (data->player[1] - ry) * Tan + data->player[0];
-				yo = -size_one_block;
-				xo = -yo * Tan;
-			} else {  // Vers le haut
-				ry = (((int)data->player[1] >> 6) << 6) + size_one_block;
-				rx = (data->player[1] - ry) * Tan + data->player[0];
-				yo = size_one_block;
-				xo = -yo * Tan;
+		dof = 0; math.dist[1] = 100000;
+		tan_ra = 1.0 / tan_ra;
+		if (fabs(sin(math.ray_data[0])) > 0.001) {
+			if (sin(math.ray_data[0]) > 0) {
+				math.ray_data[2] = (((int)data->player[1] >> 6) << 6) - 0.0001;
+				math.ray_data[1] = (data->player[1] - math.ray_data[2]) * tan_ra + data->player[0];
+				math.ray_step[1] = -size_one_block;
+				math.ray_step[0] = -math.ray_step[1] * tan_ra;
+			} else {
+				math.ray_data[2] = (((int)data->player[1] >> 6) << 6) + size_one_block;
+				math.ray_data[1] = (data->player[1] - math.ray_data[2]) * tan_ra + data->player[0];
+				math.ray_step[1] = size_one_block;
+				math.ray_step[0] = -math.ray_step[1] * tan_ra;
 			}
-		} else {  // Rayon aligné horizontalement
-			rx = data->player[0];
-			ry = data->player[1];
-			dof = 8;
+		} else {
+			math.ray_data[1] = data->player[0];
+			math.ray_data[2] = data->player[1];
+			dof = 30;
 		}
 
-		while (dof < 8) {
-			mx = (int)(rx) >> 6;
-			my = (int)(ry) >> 6;
-			if (ft_hit_avaible(data, mx, my)) {
-				disH = dist(data->player[0], data->player[1], rx, ry);
-				dof = 8;
-			} else {
-				rx += xo;
-				ry += yo;
+		while (dof < 30) {
+			math.map_coords[0] = (int)(math.ray_data[1]) >> 6;
+			math.map_coords[1] = (int)(math.ray_data[2]) >> 6;
+			if (ft_hit_avaible(data, math.map_coords[0], math.map_coords[1]))
+			{
+				math.dist[1] = ft_dist(data->player[0], data->player[1], math.ray_data[1], math.ray_data[2]);
+				dof = 30;
+			}
+			else
+			{
+				math.ray_data[1] += math.ray_step[0];
+				math.ray_data[2] += math.ray_step[1];
 				dof++;
 			}
 		}
 
-		// Comparer disH et disV pour afficher le point d'impact le plus proche
-		int side = 0;
-		if(disV < disH)
+		math.side = 0;
+		if(math.dist[0] < math.dist[1])
 		{
-			rx = vx;
-			ry = vy;
-			disH = disV;
-			side++;
+			math.ray_data[1] = vx;
+			math.ray_data[2] = vy;
+			math.dist[1] = math.dist[0];
+			math.side++;
 		}
 
-		disH = disH * cos(fix_ang_rad(data->d_player[2] - ra));
+		math.dist[1] = math.dist[1] * cos(fix_ang_rad(data->d_player[2] - math.ray_data[0]));
 
-		// Calcul de la hauteur de la colonne (distance inversement proportionnelle)
-		int lineH = (size_one_block * height) / disH;
-		if (lineH > height) lineH = height; // Limiter la hauteur à la taille de l'écran
-		int lineOff = (height / 2) - (lineH / 2); // Centrer la colonne verticalement
+		math.line_dimensions[0] = (size_one_block * height) / math.dist[1];
+		math.line_dimensions[1] = (height / 2) - (math.line_dimensions[0] / 2);
 
-		// Calculer l'offset dans la texture
-		// int tex_offset = (int)(rx) % data->texture[0].img_w;
-		// Afficher la colonne avec la texture
-
-		draw_col_with_texture((int *)win, i, (widht + num_ray * 0.45) / num_ray, lineH, lineOff,
-                      rx, ry, side, data);
-		// draw_col_with_texture((int *)win, i, (widht + num_ray * 0.45) / num_ray, lineH, lineOff, tex_offset, data); // tmp pour texture
-
-		// draw_col((int *)win, i, (widht + num_ray * 0.45) / num_ray, lineH, lineOff, 0xFFFFFF);
-
-		// draw_line(data->mlx, (int *)win, (int)data->player[0], (int)data->player[1], (int)rx, (int)ry, create_trgb(255, 255, 0, 0));
+		draw_col_with_texture((int *)win, i, widht / num_ray, math.line_dimensions[0], math.line_dimensions[1], math.ray_data[1], math.ray_data[2], math.side,  math.ray_data[0], data);
+		// draw_col_with_texture(data, &math, (int *)win, i);
 		i++;
-		ra = fix_ang_rad(ra - deg_to_rad(fov) / num_ray); // incrementation de ra
+		math.ray_data[0] = fix_ang_rad(math.ray_data[0] - deg_to_rad(fov) / num_ray);
 	}
 }
 
 
-void draw_col_with_texture(int *win, int i, int column_width, float lineH, float lineOff,
-                           double wall_hit_x, double wall_hit_y, int is_vertical, t_data *data)
+void draw_col_with_texture(int *win, int i, int column_width, float lineH, float lineOff, double wall_hit_x, double wall_hit_y, int side, double ray_angle, t_data *data)
 {
-	t_texture tmp = data->texture[0];
+    t_texture *texture;
 	int floor_color = create_trgb(255, data->color_floor[0], data->color_floor[1], data->color_floor[2]);
 	int ceiling_color = create_trgb(255, data->color_top[0], data->color_top[1], data->color_top[2]);
+	int y;
+	int x;
 
-	int x = 0;
-	while (x < column_width) {
-		int y = 0;
-		// plafond
-		while (y < (int)lineOff) {
-			mlx_pixel_put_img(win, i * column_width + x, y, ceiling_color);
-			y++;
-		}
-		// texture
-		while (y < (int)(lineOff + lineH)) {
-			// Calculer la position y dans la texture (mapper la hauteur de la colonne à 64)
-			int tex_y = (int)(((y - lineOff) / lineH) * tmp.img_h) % tmp.img_h;
-			// Calculer la position x dans la texture
-			int tex_x;
-			if (is_vertical) {
-				// Si le mur touché est vertical
-				tex_x = (int)(wall_hit_y) % tmp.img_w;
-			} else {
-				// Si le mur touché est horizontal
-				tex_x = (int)(wall_hit_x) % tmp.img_w;
-			}
-			int color = tmp.data[tex_y * tmp.img_w + tex_x];
-			mlx_pixel_put_img(win, i * column_width + x, y, color);
-			y++;
-		}
-		// sol
-		while (y < height) {
-			mlx_pixel_put_img(win, i * column_width + x, y, floor_color);
-			y++;
-		}
-		x++;
-	}
+    if (side) {
+        if (cos(ray_angle) > 0) {
+            texture = &data->texture[EA];
+        } else {
+            texture = &data->texture[WE];
+        }
+    } else {
+        if (sin(ray_angle) > 0) {
+            texture = &data->texture[SO]; // Mur sud
+        } else {
+            texture = &data->texture[NO]; // Mur nord
+        }
+    }
+
+    x = 0;
+    while (x < column_width) {
+        y = 0;
+        while (y < (int)lineOff) {
+            mlx_pixel_put_img(win, i * column_width + x, y, ceiling_color);
+            y++;
+        }
+
+        // Dessiner la colonne texturée (mur)
+        while (y < (int)(lineOff + lineH) && y < height) {
+            // Calculer la position y dans la texture
+            // Si la colonne est plus grande que l'écran, ajuster le point de départ
+            int tex_y = (int)((y - lineOff) / lineH * texture->img_h);
+
+            // Calculer la position x dans la texture
+            int tex_x;
+            if (side) {
+                tex_x = (int)(wall_hit_y) % texture->img_w;
+            } else {
+                tex_x = (int)(wall_hit_x) % texture->img_w;
+            }
+
+            int color = texture->data[tex_y * texture->img_w + tex_x];
+            mlx_pixel_put_img(win, i * column_width + x, y, color);
+            y++;
+        }
+
+        while (y < height) {
+            mlx_pixel_put_img(win, i * column_width + x, y, floor_color);
+            y++;
+        }
+
+        x++;
+    }
 }
+
+// void draw_col_with_texture(t_data *data, t_ray *math, int *win, int i)
+// {
+// 	t_texture *texture;
+// 	int floor_color = create_trgb(255, data->color_floor[0], data->color_floor[1], data->color_floor[2]);
+// 	int ceiling_color = create_trgb(255, data->color_top[0], data->color_top[1], data->color_top[2]);
+// 	int y;
+// 	int x;
+// 	int tex_x;
+// 	int tex_y;
+// 	int column_width = widht / num_ray;
+
+//     if (math->side) {
+//         if (cos(math->ray_data[0]) > 0) {
+//             texture = &data->texture[EA];
+//         } else {
+//             texture = &data->texture[WE];
+//         }
+//     } else {
+//         if (sin(math->ray_data[0]) > 0) {
+//             texture = &data->texture[SO];
+//         } else {
+//             texture = &data->texture[NO];
+//         }
+//     }
+
+//     x = 0;
+//     while (x < column_width) {
+//         y = 0;
+//         while (y < (int)math->line_dimensions[1]) {
+//             mlx_pixel_put_img(win, i * column_width + x, y, ceiling_color);
+//             y++;
+//         }
+//         while (y < (int)(math->line_dimensions[1] + math->line_dimensions[0]) && y < height) {
+//             tex_y = (int)((y - math->line_dimensions[1]) / math->line_dimensions[0] * texture->img_h);
+
+//             // if (math->side)
+//             //     tex_x = (int)(math->ray_data[2]) % texture->img_w;
+//             // else
+//             //     tex_x = (int)(math->ray_data[1]) % texture->img_w;
+
+// 			// a voir si c'est avec size_one_block ou la taille de l'image
+// 			if (math->side) {
+// 				tex_x = (int)(math->ray_data[2]) % size_one_block;
+// 			} else {
+// 				tex_x = (int)(math->ray_data[1]) % size_one_block;
+// 			}
+// 			tex_x = (tex_x * texture->img_w) / size_one_block;
+
+//     	    int color = texture->data[tex_y * texture->img_w + tex_x];
+//             mlx_pixel_put_img(win, i * column_width + x, y, color);
+//             y++;
+//         }
+//         while (y < height) {
+//             mlx_pixel_put_img(win, i * column_width + x, y, floor_color);
+//             y++;
+//         }
+//         x++;
+//     }
+// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/19 22:33:51 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/20 02:25:44 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define height 512
 
 # define fov 60
-# define num_ray 180
+# define num_ray 1024
 
 # define size_one_block 64
 
@@ -58,24 +58,12 @@ typedef struct s_texture {
 
 typedef struct s_ray
 {
-	int 	dof;
-	int 	mx;
-	int 	my;
-	int 	side;
-	int 	lineH;
-	int 	lineOff;
-	int		tex_x;
-	int 	tex_y;
-	double	rx;
-	double	ry;
-	double	xo;
-	double	yo;
-	double	vx;
-	double	vy;
-	double	ra;
-	double	disV;
-	double	disH;
-	double	Tan;
+	int		side;
+	int		map_coords[2];
+	int		line_dimensions[2];
+	double	ray_data[3];
+	double	ray_step[2];
+	double	dist[2];
 }				t_ray;
 
 
@@ -158,11 +146,12 @@ int			error_map(void);
 //|-------tmp-------|
 int	ft_display_window(t_data *data);
 void	ft_raycasting(t_data *data, char *img);
+int	ft_mouse(t_data *data);
 double deg_to_rad(double angle);
 double fix_ang_rad(double a);
 void mlx_pixel_put_img(int *win, int x0, int y0, int color);
 int	create_trgb(int t, int r, int g, int b);
 void	ft_init_texture(t_data *data);
-void draw_col_with_texture(int *win, int i, int column_width, float lineH, float lineOff, double wall_hit_x, double wall_hit_y, int is_vertical, t_data *data);
+void draw_col_with_texture(int *win, int i, int column_width, float lineH, float lineOff, double wall_hit_x, double wall_hit_y, int is_vertical, double ray_angle, t_data *data);
 
 #endif /*CUB3D_H */
