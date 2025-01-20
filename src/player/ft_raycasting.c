@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 00:53:07 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/20 02:28:53 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/20 22:06:35 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,128 +151,128 @@ void	ft_raycasting(t_data *data, char *win)
 		math.line_dimensions[0] = (size_one_block * height) / math.dist[1];
 		math.line_dimensions[1] = (height / 2) - (math.line_dimensions[0] / 2);
 
-		draw_col_with_texture((int *)win, i, widht / num_ray, math.line_dimensions[0], math.line_dimensions[1], math.ray_data[1], math.ray_data[2], math.side,  math.ray_data[0], data);
-		// draw_col_with_texture(data, &math, (int *)win, i);
+		// draw_col_with_texture((int *)win, i, widht / num_ray, math.line_dimensions[0], math.line_dimensions[1], math.ray_data[1], math.ray_data[2], math.side,  math.ray_data[0], data);
+		draw_col_with_texture(data, &math, (int *)win, i);
 		i++;
 		math.ray_data[0] = fix_ang_rad(math.ray_data[0] - deg_to_rad(fov) / num_ray);
 	}
 }
 
 
-void draw_col_with_texture(int *win, int i, int column_width, float lineH, float lineOff, double wall_hit_x, double wall_hit_y, int side, double ray_angle, t_data *data)
-{
-    t_texture *texture;
-	int floor_color = create_trgb(255, data->color_floor[0], data->color_floor[1], data->color_floor[2]);
-	int ceiling_color = create_trgb(255, data->color_top[0], data->color_top[1], data->color_top[2]);
-	int y;
-	int x;
-
-    if (side) {
-        if (cos(ray_angle) > 0) {
-            texture = &data->texture[EA];
-        } else {
-            texture = &data->texture[WE];
-        }
-    } else {
-        if (sin(ray_angle) > 0) {
-            texture = &data->texture[SO]; // Mur sud
-        } else {
-            texture = &data->texture[NO]; // Mur nord
-        }
-    }
-
-    x = 0;
-    while (x < column_width) {
-        y = 0;
-        while (y < (int)lineOff) {
-            mlx_pixel_put_img(win, i * column_width + x, y, ceiling_color);
-            y++;
-        }
-
-        // Dessiner la colonne texturée (mur)
-        while (y < (int)(lineOff + lineH) && y < height) {
-            // Calculer la position y dans la texture
-            // Si la colonne est plus grande que l'écran, ajuster le point de départ
-            int tex_y = (int)((y - lineOff) / lineH * texture->img_h);
-
-            // Calculer la position x dans la texture
-            int tex_x;
-            if (side) {
-                tex_x = (int)(wall_hit_y) % texture->img_w;
-            } else {
-                tex_x = (int)(wall_hit_x) % texture->img_w;
-            }
-
-            int color = texture->data[tex_y * texture->img_w + tex_x];
-            mlx_pixel_put_img(win, i * column_width + x, y, color);
-            y++;
-        }
-
-        while (y < height) {
-            mlx_pixel_put_img(win, i * column_width + x, y, floor_color);
-            y++;
-        }
-
-        x++;
-    }
-}
-
-// void draw_col_with_texture(t_data *data, t_ray *math, int *win, int i)
+// void draw_col_with_texture(int *win, int i, int column_width, double lineH, double lineOff, double wall_hit_x, double wall_hit_y, int side, double ray_angle, t_data *data)
 // {
-// 	t_texture *texture;
+//     t_texture *texture;
 // 	int floor_color = create_trgb(255, data->color_floor[0], data->color_floor[1], data->color_floor[2]);
 // 	int ceiling_color = create_trgb(255, data->color_top[0], data->color_top[1], data->color_top[2]);
 // 	int y;
 // 	int x;
-// 	int tex_x;
-// 	int tex_y;
-// 	int column_width = widht / num_ray;
 
-//     if (math->side) {
-//         if (cos(math->ray_data[0]) > 0) {
+//     if (side) {
+//         if (cos(ray_angle) > 0) {
 //             texture = &data->texture[EA];
 //         } else {
 //             texture = &data->texture[WE];
 //         }
 //     } else {
-//         if (sin(math->ray_data[0]) > 0) {
-//             texture = &data->texture[SO];
+//         if (sin(ray_angle) > 0) {
+//             texture = &data->texture[SO]; // Mur sud
 //         } else {
-//             texture = &data->texture[NO];
+//             texture = &data->texture[NO]; // Mur nord
 //         }
 //     }
 
 //     x = 0;
 //     while (x < column_width) {
 //         y = 0;
-//         while (y < (int)math->line_dimensions[1]) {
+//         while (y < (int)lineOff) {
 //             mlx_pixel_put_img(win, i * column_width + x, y, ceiling_color);
 //             y++;
 //         }
-//         while (y < (int)(math->line_dimensions[1] + math->line_dimensions[0]) && y < height) {
-//             tex_y = (int)((y - math->line_dimensions[1]) / math->line_dimensions[0] * texture->img_h);
 
-//             // if (math->side)
-//             //     tex_x = (int)(math->ray_data[2]) % texture->img_w;
-//             // else
-//             //     tex_x = (int)(math->ray_data[1]) % texture->img_w;
+//         // Dessiner la colonne texturée (mur)
+//         while (y < (int)(lineOff + lineH) && y < height) {
+//             // Calculer la position y dans la texture
+//             // Si la colonne est plus grande que l'écran, ajuster le point de départ
+//             int tex_y = (int)((y - lineOff) / lineH * texture->img_h);
 
-// 			// a voir si c'est avec size_one_block ou la taille de l'image
-// 			if (math->side) {
-// 				tex_x = (int)(math->ray_data[2]) % size_one_block;
-// 			} else {
-// 				tex_x = (int)(math->ray_data[1]) % size_one_block;
-// 			}
-// 			tex_x = (tex_x * texture->img_w) / size_one_block;
+//             // Calculer la position x dans la texture
+//             int tex_x;
+//             if (side) {
+//                 tex_x = (int)(wall_hit_y) % texture->img_w;
+//             } else {
+//                 tex_x = (int)(wall_hit_x) % texture->img_w;
+//             }
 
-//     	    int color = texture->data[tex_y * texture->img_w + tex_x];
+//             int color = texture->data[tex_y * texture->img_w + tex_x];
 //             mlx_pixel_put_img(win, i * column_width + x, y, color);
 //             y++;
 //         }
+
 //         while (y < height) {
 //             mlx_pixel_put_img(win, i * column_width + x, y, floor_color);
 //             y++;
 //         }
+
 //         x++;
 //     }
 // }
+
+void draw_col_with_texture(t_data *data, t_ray *math, int *win, int i)
+{
+	t_texture *texture;
+	int floor_color = create_trgb(255, data->color_floor[0], data->color_floor[1], data->color_floor[2]);
+	int ceiling_color = create_trgb(255, data->color_top[0], data->color_top[1], data->color_top[2]);
+	int y;
+	int x;
+	int tex_x;
+	int tex_y;
+	int column_width = widht / num_ray;
+
+    if (math->side) {
+        if (cos(math->ray_data[0]) > 0) {
+            texture = &data->texture[EA];
+        } else {
+            texture = &data->texture[WE];
+        }
+    } else {
+        if (sin(math->ray_data[0]) > 0) {
+            texture = &data->texture[SO];
+        } else {
+            texture = &data->texture[NO];
+        }
+    }
+
+    x = 0;
+    while (x < column_width) {
+        y = 0;
+        while (y < (int)math->line_dimensions[1]) {
+            mlx_pixel_put_img(win, i * column_width + x, y, ceiling_color);
+            y++;
+        }
+        while (y < (int)(math->line_dimensions[1] + math->line_dimensions[0]) && y < height) {
+            tex_y = (int)((y - math->line_dimensions[1]) / math->line_dimensions[0] * texture->img_h);
+
+            // if (math->side)
+            //     tex_x = (int)(math->ray_data[2]) % texture->img_w;
+            // else
+            //     tex_x = (int)(math->ray_data[1]) % texture->img_w;
+
+			// a voir si c'est avec size_one_block ou la taille de l'image
+			if (math->side) {
+				tex_x = (int)(math->ray_data[2]) % size_one_block;
+			} else {
+				tex_x = (int)(math->ray_data[1]) % size_one_block;
+			}
+			tex_x = (tex_x * texture->img_w) / size_one_block;
+
+    	    int color = texture->data[tex_y * texture->img_w + tex_x];
+            mlx_pixel_put_img(win, i * column_width + x, y, color);
+            y++;
+        }
+        while (y < height) {
+            mlx_pixel_put_img(win, i * column_width + x, y, floor_color);
+            y++;
+        }
+        x++;
+    }
+}

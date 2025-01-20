@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_move.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 04:56:39 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/20 20:41:33 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/20 21:36:54 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,51 @@
 
 void	ft_forward(t_data *data)
 {
+	int		i;
+	double	step[2];
 
-	while (data->map[(int)((data->player[1] + (data->d_player[1]))) / 64]
-		[(int)((data->player[0] + (data->d_player[0]))) / 64] != '1')
+	i = 0;
+	step[0] = data->d_player[1] * 0.1;
+	step[1] = data->d_player[0] * 0.1;
+	while (data->map[(int)((data->player[1] + step[0])) / 64]
+		[(int)((data->player[0] + step[1])) / 64] != '1' && i < 15)
 	{
-		data->player[0] += data->d_player[0];
-		data->player[1] += data->d_player[1];
+		if (data->map[(int)(data->player[1] + step[0] + 2) / 64][(int)(data->player[0] + step[1] + 2) / 64] == '1')
+			break ;
+		if (data->map[(int)(data->player[1] + step[0] - 2) / 64][(int)(data->player[0] + step[1] - 2) / 64] == '1')
+			break ;
+		if (data->map[(int)(data->player[1] + step[0] + 2) / 64][(int)(data->player[0] + step[1] - 2) / 64] == '1')
+			break ;
+		if (data->map[(int)(data->player[1] + step[0] - 2) / 64][(int)(data->player[0] + step[1] + 2) / 64] == '1')
+			break ;
+		data->player[0] += step[1];
+		data->player[1] += step[0];
+		i++;
 	}
 }
 
 void	ft_backward(t_data *data)
 {
+	int		i;
+	double	step[2];
 
-	while (data->map[(int)((data->player[1] - (data->d_player[1]))) / 64]
-		[(int)((data->player[0] - (data->d_player[0]))) / 64] != '1')
+	i = 0;
+	step[0] = data->d_player[1] * 0.1;
+	step[1] = data->d_player[0] * 0.1;
+	while (data->map[(int)(data->player[1] - step[0]) / 64]
+		[(int)(data->player[0] - step[1]) / 64] != '1' && i < 15)
 	{
-		data->player[0] -= data->d_player[0];
-		data->player[1] -= data->d_player[1];
+		if (data->map[(int)(data->player[1] - step[0] + 2) / 64][(int)(data->player[0] - step[1] + 2) / 64] == '1')
+			break ;
+		if (data->map[(int)(data->player[1] - step[0] - 2) / 64][(int)(data->player[0] - step[1] - 2) / 64] == '1')
+			break ;
+		if (data->map[(int)(data->player[1] - step[0] + 2) / 64][(int)(data->player[0] - step[1] - 2) / 64] == '1')
+			break ;
+		if (data->map[(int)(data->player[1] - step[0] - 2) / 64][(int)(data->player[0] - step[1] + 2) / 64] == '1')
+			break ;
+		data->player[0] -= step[1];
+		data->player[1] -= step[0];
+		i++;
 	}
 }
 
