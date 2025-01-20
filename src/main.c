@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:19:33 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/20 02:20:34 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/20 22:16:13 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static int	ft_test_input(char *av)
 	i = ft_strlen(av);
 	if (i <= 4)
 		return (1);
-	if (av[i - 4] != '.' || av[i - 3] != 'c' || av[i - 2] != 'u' || av[i
-		- 1] != 'b')
+	if (av[i - 4] != '.' || av[i - 3] != 'c' || av[i - 2] != 'u'
+		|| av[i - 1] != 'b')
 		return (1);
 	return (0);
 }

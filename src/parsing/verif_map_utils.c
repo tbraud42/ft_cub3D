@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 09:40:08 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/19 20:58:39 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/20 22:17:35 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,11 @@ int	check_wall(char **copy_map)
 	return (1);
 }
 
-int check_unknow_key(char *str)
+int	check_unknow_key(char *str)
 {
-	if (!ft_strncmp(str, "F", 1) || !ft_strncmp(str, "C", 1) || !ft_strncmp(str, "NO", 2)
-	|| !ft_strncmp(str, "EA", 2) || !ft_strncmp(str, "SO", 2) || !ft_strncmp(str, "WE", 2))
+	if (!ft_strncmp(str, "F", 1) || !ft_strncmp(str, "C", 1)
+		|| !ft_strncmp(str, "NO", 2) || !ft_strncmp(str, "EA", 2)
+		|| !ft_strncmp(str, "SO", 2) || !ft_strncmp(str, "WE", 2))
 		return (1);
 	return (0);
 }

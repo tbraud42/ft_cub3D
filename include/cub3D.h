@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/20 23:06:53 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/20 23:26:23 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@
 
 # define PI 3.1415926535
 
-# define widht 1024
-# define height 512
+# define WIDTH 1024
+# define HEIGHT 512
 
-# define fov 60
-# define num_ray 1024
+# define FOV 60
+# define NUM_RAY 1024
 
-# define size_one_block 64
+# define SIZE_ONE_BLOCK 64
 
 # define NO 0
 # define SO 1

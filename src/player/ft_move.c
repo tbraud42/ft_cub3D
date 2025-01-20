@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_move.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 04:56:39 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/20 21:36:54 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/20 22:19:30 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,17 @@ void	ft_forward(t_data *data)
 	while (data->map[(int)((data->player[1] + step[0])) / 64]
 		[(int)((data->player[0] + step[1])) / 64] != '1' && i < 15)
 	{
-		if (data->map[(int)(data->player[1] + step[0] + 2) / 64][(int)(data->player[0] + step[1] + 2) / 64] == '1')
+		if (data->map[(int)(data->player[1] + step[0] + 2) / 64]
+			[(int)(data->player[0] + step[1] + 2) / 64] == '1')
 			break ;
-		if (data->map[(int)(data->player[1] + step[0] - 2) / 64][(int)(data->player[0] + step[1] - 2) / 64] == '1')
+		if (data->map[(int)(data->player[1] + step[0] - 2) / 64]
+			[(int)(data->player[0] + step[1] - 2) / 64] == '1')
 			break ;
-		if (data->map[(int)(data->player[1] + step[0] + 2) / 64][(int)(data->player[0] + step[1] - 2) / 64] == '1')
+		if (data->map[(int)(data->player[1] + step[0] + 2) / 64]
+			[(int)(data->player[0] + step[1] - 2) / 64] == '1')
 			break ;
-		if (data->map[(int)(data->player[1] + step[0] - 2) / 64][(int)(data->player[0] + step[1] + 2) / 64] == '1')
+		if (data->map[(int)(data->player[1] + step[0] - 2) / 64]
+			[(int)(data->player[0] + step[1] + 2) / 64] == '1')
 			break ;
 		data->player[0] += step[1];
 		data->player[1] += step[0];
@@ -48,13 +52,17 @@ void	ft_backward(t_data *data)
 	while (data->map[(int)(data->player[1] - step[0]) / 64]
 		[(int)(data->player[0] - step[1]) / 64] != '1' && i < 15)
 	{
-		if (data->map[(int)(data->player[1] - step[0] + 2) / 64][(int)(data->player[0] - step[1] + 2) / 64] == '1')
+		if (data->map[(int)(data->player[1] - step[0] + 2) / 64]
+			[(int)(data->player[0] - step[1] + 2) / 64] == '1')
 			break ;
-		if (data->map[(int)(data->player[1] - step[0] - 2) / 64][(int)(data->player[0] - step[1] - 2) / 64] == '1')
+		if (data->map[(int)(data->player[1] - step[0] - 2) / 64]
+			[(int)(data->player[0] - step[1] - 2) / 64] == '1')
 			break ;
-		if (data->map[(int)(data->player[1] - step[0] + 2) / 64][(int)(data->player[0] - step[1] - 2) / 64] == '1')
+		if (data->map[(int)(data->player[1] - step[0] + 2) / 64]
+			[(int)(data->player[0] - step[1] - 2) / 64] == '1')
 			break ;
-		if (data->map[(int)(data->player[1] - step[0] - 2) / 64][(int)(data->player[0] - step[1] + 2) / 64] == '1')
+		if (data->map[(int)(data->player[1] - step[0] - 2) / 64]
+			[(int)(data->player[0] - step[1] + 2) / 64] == '1')
 			break ;
 		data->player[0] -= step[1];
 		data->player[1] -= step[0];
