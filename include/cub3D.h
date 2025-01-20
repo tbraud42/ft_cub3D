@@ -6,7 +6,7 @@
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/20 22:06:57 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/20 23:06:53 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ typedef struct s_texture {
 typedef struct s_ray
 {
 	int		side;
-	int		map_coords[2];
 	double	line_dimensions[2];
 	double	ray_data[3];
 	double	ray_step[2];
@@ -145,7 +144,7 @@ int			error_map(void);
 
 //|-------tmp-------|
 int	ft_display_window(t_data *data);
-void	ft_raycasting(t_data *data, char *img);
+void	ft_raycasting(t_data *data, int *win);
 int	ft_mouse(t_data *data);
 double deg_to_rad(double angle);
 double fix_ang_rad(double a);
@@ -153,6 +152,6 @@ void mlx_pixel_put_img(int *win, int x0, int y0, int color);
 int	create_trgb(int t, int r, int g, int b);
 void	ft_init_texture(t_data *data);
 // void draw_col_with_texture(int *win, int i, int column_width, double lineH, double lineOff, double wall_hit_x, double wall_hit_y, int is_vertical, double ray_angle, t_data *data);
-void draw_col_with_texture(t_data *data, t_ray *math, int *win, int i);
+void draw_col(t_data *data, t_ray *math, int *win, int i, t_texture *texture);
 
 #endif /*CUB3D_H */
