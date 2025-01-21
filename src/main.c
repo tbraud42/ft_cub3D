@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:19:33 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/21 01:02:12 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:59:44 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(int argc, char *argv[])
 	data.mlx_win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "cub3D<3");
 	if (!data.mlx_win)
 		ft_error("somthing wrong with the mlx windows\n", 0, 0);
+	ft_init_texture(&data);
 	mlx_loop_hook(data.mlx, ft_display_window, &data);
 	mlx_hook(data.mlx_win, ON_KEYDOWN, (1L << 0), ft_event, &data);
 	mlx_hook(data.mlx_win, ON_DESTROY, (1L << 0), ft_exit_mlx, &data);

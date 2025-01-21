@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 00:53:07 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/21 00:24:21 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:28:22 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,10 @@ static void	ft_raycasting_vertical(t_data *data, t_ray *math, double tan_ra)
 	int	dof;
 
 	dof = 0;
+	math->dist[0] = 100000;
 	if (fabs(cos(math->ray_data[0])) > 0.001)
 	{
-		if (cos(math->ray_data[0]) > 0)
-		{
-			math->ray_data[1] = (((int)data->player[0] >> 6) << 6)
-				+ SIZE_ONE_BLOCK;
-			math->ray_data[2] = (data->player[0] - math->ray_data[1])
-				* tan_ra + data->player[1];
-			math->ray_step[0] = SIZE_ONE_BLOCK;
-		}
-		else
-		{
-			math->ray_data[1] = (((int)data->player[0] >> 6) << 6) - 0.0001;
-			math->ray_data[2] = (data->player[0] - math->ray_data[1])
-				* tan_ra + data->player[1];
-			math->ray_step[0] = -SIZE_ONE_BLOCK;
-		}
+		calculate_ray_vertical(data, math, tan_ra);
 		math->ray_step[1] = -math->ray_step[0] * tan_ra;
 		ft_raycasting_hit(data, math, dof, 0);
 		return ;
@@ -92,23 +79,10 @@ static void	ft_raycasting_horizontal(t_data *data, t_ray *math, double tan_ra)
 	int	dof;
 
 	dof = 0;
+	math->dist[1] = 100000;
 	if (fabs(sin(math->ray_data[0])) > 0.001)
 	{
-		if (sin(math->ray_data[0]) > 0)
-		{
-			math->ray_data[2] = (((int)data->player[1] >> 6) << 6) - 0.0001;
-			math->ray_data[1] = (data->player[1] - math->ray_data[2])
-				* tan_ra + data->player[0];
-			math->ray_step[1] = -SIZE_ONE_BLOCK;
-		}
-		else
-		{
-			math->ray_data[2] = (((int)data->player[1] >> 6) << 6)
-				+ SIZE_ONE_BLOCK;
-			math->ray_data[1] = (data->player[1] - math->ray_data[2])
-				* tan_ra + data->player[0];
-			math->ray_step[1] = SIZE_ONE_BLOCK;
-		}
+		calculate_ray_horizontal(data, math, tan_ra);
 		math->ray_step[0] = -math->ray_step[1] * tan_ra;
 		ft_raycasting_hit(data, math, dof, 1);
 		return ;
@@ -129,11 +103,9 @@ void	ft_raycasting(t_data *data, int *win)
 	math.ray_data[0] = fix_ang_rad(data->d_player[2] + deg_to_rad(FOV / 2));
 	while (++i < NUM_RAY)
 	{
-		math.dist[0] = 100000;
 		ft_raycasting_vertical(data, &math, tan(math.ray_data[0]));
 		tmp[0] = math.ray_data[1];
 		tmp[1] = math.ray_data[2];
-		math.dist[1] = 100000;
 		ft_raycasting_horizontal(data, &math, 1.0 / tan(math.ray_data[0]));
 		math.side = 0;
 		if (math.dist[0] < math.dist[1])
