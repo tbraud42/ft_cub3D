@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/21 01:00:44 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/21 01:03:03 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ int			ft_display_window(t_data *data);
 void		ft_raycasting(t_data *data, int *win);
 double		deg_to_rad(double angle);
 double		fix_ang_rad(double a);
+double		ft_dist(double ax, double ay, double bx, double by);
 void		mlx_pixel_put_img(int *win, int x0, int y0, int color);
 int			create_trgb(int t, int r, int g, int b);
 void		ft_init_texture(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:19:33 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/20 22:16:13 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/21 01:02:12 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char *argv[])
 	data.mlx = mlx_init();
 	if (!data.mlx)
 		ft_error("mlx does not launch correctly\n", 1, data.map);
-	data.mlx_win = mlx_new_window(data.mlx, widht, height, "cub3D<3");
+	data.mlx_win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "cub3D<3");
 	if (!data.mlx_win)
 		ft_error("somthing wrong with the mlx windows\n", 0, 0);
 	mlx_loop_hook(data.mlx, ft_display_window, &data);
