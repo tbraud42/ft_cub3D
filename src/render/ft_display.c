@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_display.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 04:41:22 by tao               #+#    #+#             */
-/*   Updated: 2025/01/22 23:23:27 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 23:42:28 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,30 @@ static t_texture	*ft_get_texture_by_cardinal(t_data *data, t_ray *math)
 	return (texture);
 }
 
+static int	ft_calc_tex_x(t_data *data, t_texture *texture)
+{
+	int tex_x;
+
+	if (data->ray.side)
+	{
+		if (cos(data->ray.ray_data[0]) > 0)
+			tex_x = (int)(data->ray.ray_data[2]) % SIZE_ONE_BLOCK;
+		else
+			tex_x = SIZE_ONE_BLOCK - (int)(data->ray.ray_data[2]) % SIZE_ONE_BLOCK - 1;
+	}
+	else
+	{
+		if (sin(data->ray.ray_data[0]) > 0)
+			tex_x = (int)(data->ray.ray_data[1]) % SIZE_ONE_BLOCK;
+		else
+			tex_x = SIZE_ONE_BLOCK - (int)(data->ray.ray_data[1]) % SIZE_ONE_BLOCK - 1;
+	}
+	tex_x = (tex_x * texture->img_w) / SIZE_ONE_BLOCK;
+	if (tex_x < 0)
+		tex_x = 0;
+	return (tex_x);
+}
+
 static void	ft_draw_texture(t_data *data, t_texture *texture, int i, int *pos)
 {
 	int	color;
@@ -46,27 +70,7 @@ static void	ft_draw_texture(t_data *data, t_texture *texture, int i, int *pos)
 				/ data->ray.line_dimensions[0] * texture->img_h);
 		if (tex_y < 0)
 			tex_y = 0;
-		if (data->ray.side)
-		{
-			if (cos(data->ray.ray_data[0]) > 0)
-				tex_x = SIZE_ONE_BLOCK - (int)(data->ray.ray_data[2])
-					% SIZE_ONE_BLOCK - 1;
-			else
-				tex_x = (int)(data->ray.ray_data[2]) % SIZE_ONE_BLOCK;
-		}
-		else
-		{
-			if (sin(data->ray.ray_data[0]) > 0)
-				tex_x = (int)(data->ray.ray_data[1]) % SIZE_ONE_BLOCK;
-			else
-				tex_x = SIZE_ONE_BLOCK - (int)(data->ray.ray_data[1])
-					% SIZE_ONE_BLOCK - 1;
-		}
-		tex_x = (tex_x * texture->img_w) / SIZE_ONE_BLOCK;
-		if (tex_x < 0)
-			tex_x = 0;
-		if (data->ray.ray_data[0] > 180)
-			tex_x = texture->img_w - tex_x;
+		tex_x = ft_calc_tex_x(data, texture);
 		color = texture->data[tex_y * texture->img_w + tex_x];
 		mlx_pixel_put_img((int *)data->info_img_raycast, i
 			* (WIDTH / NUM_RAY) + pos[0], pos[1], color);

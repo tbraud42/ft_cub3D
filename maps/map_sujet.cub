@@ -1,7 +1,7 @@
-     NO             ./asset/wood.xpm
-EA 						./asset/eagle.xpm
-WE										 ./asset/eagle.xpm
-SO 									  	./asset/bluestone.xpm 
+     NO             ./asset/loup.xpm
+EA 						./asset/loup.xpm
+WE										 ./asset/loup.xpm
+SO 									  	./asset/loup.xpm
 
   F 220,100,0
    C      225,30,0
