@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_display.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 04:41:22 by tao               #+#    #+#             */
-/*   Updated: 2025/01/22 21:52:36 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/22 22:13:19 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,18 @@ static void	ft_draw_texture(t_data *data, t_texture *texture, int i, int *pos)
 	int	tex_x;
 	int	tex_y;
 
-	while (pos[1] < HEIGHT && pos[1] < (int)(data->ray.line_dimensions[1] + data->ray.line_dimensions[0]))
+	while (pos[1] < HEIGHT && pos[1]
+		< (int)(data->ray.line_dimensions[1] + data->ray.line_dimensions[0]))
 	{
 		tex_y = (int)(((pos[1]) - data->ray.line_dimensions[1])
 				/ data->ray.line_dimensions[0] * texture->img_h);
 		if (tex_y < 0)
 			tex_y = 0;
-		// if (tex_y >= texture->img_h)
-		// 	tex_y = texture->img_h - 1;
-
 		if (data->ray.side)
 		{
 			if (cos(data->ray.ray_data[0]) > 0)
-				tex_x = SIZE_ONE_BLOCK - (int)(data->ray.ray_data[2]) % SIZE_ONE_BLOCK - 1;
+				tex_x = SIZE_ONE_BLOCK - (int)(data->ray.ray_data[2])
+					% SIZE_ONE_BLOCK - 1;
 			else
 				tex_x = (int)(data->ray.ray_data[2]) % SIZE_ONE_BLOCK;
 		}
@@ -60,19 +59,17 @@ static void	ft_draw_texture(t_data *data, t_texture *texture, int i, int *pos)
 			if (sin(data->ray.ray_data[0]) > 0)
 				tex_x = (int)(data->ray.ray_data[1]) % SIZE_ONE_BLOCK;
 			else
-				tex_x = SIZE_ONE_BLOCK - (int)(data->ray.ray_data[1]) % SIZE_ONE_BLOCK - 1;
+				tex_x = SIZE_ONE_BLOCK - (int)(data->ray.ray_data[1])
+					% SIZE_ONE_BLOCK - 1;
 		}
 		tex_x = (tex_x * texture->img_w) / SIZE_ONE_BLOCK;
 		if (tex_x < 0)
 			tex_x = 0;
-		// if (tex_x >= texture->img_w)
-		// 	tex_x = texture->img_w - 1;
 		color = texture->data[tex_y * texture->img_w + tex_x];
 		mlx_pixel_put_img((int *)data->info_img_raycast, i
 			* (WIDTH / NUM_RAY) + pos[0], pos[1], color);
 		(pos[1])++;
 	}
-
 }
 
 static void	draw_col(t_data *data, int *win, int i, t_texture *texture)

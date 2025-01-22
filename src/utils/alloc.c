@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 09:09:45 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/18 10:33:23 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 22:45:41 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	*ft_realloc(void *ptr, size_t newsize, size_t old_size)
 		ft_putstr_fd("Error\n malloc error\n", 2);
 		return (0);
 	}
-	ft_memcpy(ptr, newptr, cursize);
+	ft_memcpy(newptr, ptr, cursize);
 	free(ptr);
 	return (newptr);
 }

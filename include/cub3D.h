@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/22 21:53:51 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/22 22:10:04 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@
 # define WE 2
 # define EA 3
 
-
-
 typedef struct s_texture
 {
 	char	*file;
@@ -75,7 +73,7 @@ typedef struct s_data
 	void		*mlx;
 	void		*mlx_win;
 	void		*img_raycast;
-	char 		*info_img_raycast;
+	char		*info_img_raycast;
 	size_t		map_width;
 	size_t		map_height;
 	double		player[2];
@@ -155,7 +153,7 @@ void		ft_raycasting(t_data *data, int *win);
 double		deg_to_rad(double angle);
 double		fix_ang_rad(double a);
 void		calculate_ray_horizontal(t_data *data, t_ray *math, double tan_ra);
-void 		calculate_ray_vertical(t_data *data, t_ray *math, double tan_ra);
+void		calculate_ray_vertical(t_data *data, t_ray *math, double tan_ra);
 double		ft_dist(double ax, double ay, double bx, double by);
 void		mlx_pixel_put_img(int *win, int x0, int y0, int color);
 int			create_trgb(int t, int r, int g, int b);
