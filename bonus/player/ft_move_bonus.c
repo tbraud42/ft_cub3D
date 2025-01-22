@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_move_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 04:56:39 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/19 22:05:13 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 04:08:52 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	ft_forward(t_data *data)
 		}
 		return ;
 	}
-	data->player[0] += data->d_player[0] * 5;
-	data->player[1] += data->d_player[1] * 5;
+	data->player[0] += data->d_player[0];
+	data->player[1] += data->d_player[1];
 }
 
 void	ft_backward(t_data *data)
@@ -42,22 +42,22 @@ void	ft_backward(t_data *data)
 		}
 		return ;
 	}
-	data->player[0] -= data->d_player[0] * 5;
-	data->player[1] -= data->d_player[1] * 5;
+	data->player[0] -= data->d_player[0];
+	data->player[1] -= data->d_player[1];
 }
 
 void	ft_left(t_data *data)
 {
 	data->d_player[2] = fix_ang_rad(data->d_player[2] + 0.15708);
-	data->d_player[0] = cos(data->d_player[2]) * 5;
-	data->d_player[1] = -sin(data->d_player[2]) * 5;
+	data->d_player[0] = cos(data->d_player[2]);
+	data->d_player[1] = -sin(data->d_player[2]);
 }
 
 void	ft_right(t_data *data)
 {
 	data->d_player[2] = fix_ang_rad(data->d_player[2] - 0.15708);
-	data->d_player[0] = cos(data->d_player[2]) * 5;
-	data->d_player[1] = -sin(data->d_player[2]) * 5;
+	data->d_player[0] = cos(data->d_player[2]);
+	data->d_player[1] = -sin(data->d_player[2]);
 }
 
 int	ft_event(int keycode, t_data *data)
