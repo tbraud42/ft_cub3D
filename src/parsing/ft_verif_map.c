@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 09:25:51 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/22 12:55:39 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:07:43 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	is_map_valid(t_data *data)
 	data->map_height = ft_array_len((void **) data->map);
 	data->map_width = get_size_line_max(data->map);
 	if (!check_map_char(data->map) || is_duplicated_player(data->map)
-	| check_size_map(data))
+		|| check_size_map(data))
 		return (error_map());
 	copy_map = ft_copy_tab(data->map);
 	realloc_copy_map(copy_map);

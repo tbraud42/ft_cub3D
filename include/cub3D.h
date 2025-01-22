@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/22 12:52:38 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:25:18 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@
 # define WE 2
 # define EA 3
 
-
-
 typedef struct s_texture
 {
 	char	*file;
@@ -74,7 +72,7 @@ typedef struct s_data
 	void		*mlx;
 	void		*mlx_win;
 	void		*img_raycast;
-	char 		*info_img_raycast;
+	char		*info_img_raycast;
 	size_t		map_width;
 	size_t		map_height;
 	double		player[2];
@@ -103,7 +101,7 @@ char		**realloc_copy_map(char **cpy);
 int			check_wall(char **copy_map);
 int			check_unknow_key(char *str);
 int			check_size_map(t_data *data);
-
+int			check_len_number(char **tab);
 //|----move----|
 int			ft_event(int keycode, t_data *data); // fonction pour les mouvements
 void		ft_get_position(t_data *data);
@@ -114,7 +112,6 @@ void		ft_left(t_data *data);
 void		ft_right(t_data *data);
 void		ft_right_arrow(t_data *data);
 void		ft_left_arrow(t_data *data);
-
 //|-----utils-----|
 void		ft_free_array(char **map);
 int			ft_strlen(char *arr);
@@ -136,7 +133,6 @@ char		**ft_copy_tab(char **tab);
 void		ft_free_all(t_data *data);
 int			get_size_line_max(char **arr);
 void		*ft_realloc(void *ptr, size_t newsize, size_t old_size);
-
 //|-----error-----|
 void		ft_free(char **map);
 void		ft_error(char *erno, int choice, char **map);
@@ -146,18 +142,16 @@ int			error_arg(void);
 int			error_color(int flag);
 int			error_texture(int flag);
 int			error_map(void);
-
 //|-------render-------|
 int			ft_display_window(t_data *data);
 void		ft_raycasting(t_data *data, int *win);
 double		deg_to_rad(double angle);
 double		fix_ang_rad(double a);
 void		calculate_ray_horizontal(t_data *data, t_ray *math, double tan_ra);
-void 		calculate_ray_vertical(t_data *data, t_ray *math, double tan_ra);
+void		calculate_ray_vertical(t_data *data, t_ray *math, double tan_ra);
 double		ft_dist(double ax, double ay, double bx, double by);
 void		mlx_pixel_put_img(int *win, int x0, int y0, int color);
 int			create_trgb(int t, int r, int g, int b);
 void		ft_init_texture(t_data *data);
 void		ft_config_data_texture(t_data *data, t_ray *math, int *win, int i);
-
 #endif /*CUB3D_H */

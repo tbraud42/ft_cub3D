@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:34:55 by brguicho          #+#    #+#             */
-/*   Updated: 2024/11/28 21:45:23 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:21:37 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ int	get_floor_color(t_data *data, char *str)
 	tmp_tab = ft_split(str, ',');
 	if (!tmp_tab)
 		return (0);
+	if (check_len_number(tmp_tab))
+	{
+		error_color(5);
+		ft_free(tmp_tab);
+		return (0);
+	}
 	if (ft_atoi(tmp_tab[0]) >= 0 && ft_atoi(tmp_tab[0]) <= 255
 		&& ft_atoi(tmp_tab[1]) >= 0 && ft_atoi(tmp_tab[1]) <= 255
 		&& ft_atoi(tmp_tab[2]) >= 0 && ft_atoi(tmp_tab[2]) <= 255)
@@ -41,6 +47,12 @@ int	get_top_color(t_data *data, char *str)
 	tmp_tab = ft_split(str, ',');
 	if (!tmp_tab)
 		return (0);
+	if (check_len_number(tmp_tab))
+	{
+		error_color(4);
+		ft_free(tmp_tab);
+		return (0);
+	}
 	if (ft_atoi(tmp_tab[0]) >= 0 && ft_atoi(tmp_tab[0]) <= 255
 		&& ft_atoi(tmp_tab[1]) >= 0 && ft_atoi(tmp_tab[1]) <= 255
 		&& ft_atoi(tmp_tab[2]) >= 0 && ft_atoi(tmp_tab[2]) <= 255)

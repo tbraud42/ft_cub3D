@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 09:40:08 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/22 11:16:08 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:17:56 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,25 @@ int	check_size_map(t_data *data)
 		return (1);
 	if ((data->map_height * data->map_width)
 		> (1000 * 150))
+		return (1);
+	return (0);
+}
+
+int	check_len_number(char **tab)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (tab[i])
+	{
+		if (ft_strlen(tab[i]) < 1 || ft_strlen(tab[i]) > 3)
+			return (1);
+		count++;
+		i++;
+	}
+	if (count != 3)
 		return (1);
 	return (0);
 }
