@@ -6,7 +6,7 @@
 #    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 18:10:28 by tbraud            #+#    #+#              #
-#    Updated: 2025/01/21 00:05:00 by brguicho         ###   ########.fr        #
+#    Updated: 2025/01/22 07:54:36 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC		:=	src/main.c \
 			src/player/ft_direction.c \
 			src/player/ft_move.c \
 			src/player/ft_position.c \
+			src/player/ft_rotate_camera.c \
 			src/render/ft_display.c \
 			src/render/ft_raycasting_utils.c \
 			src/render/ft_raycasting.c \

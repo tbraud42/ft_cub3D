@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/22 04:27:18 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/22 09:18:51 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_data
 	void		*mlx;
 	void		*mlx_win;
 	void		*img_raycast;
+	char 		*info_img_raycast;
 	double		player[2];
 	double		d_player[3];
 	int			color_top[3];
@@ -108,6 +109,8 @@ void		ft_forward(t_data *data);
 void		ft_backward(t_data *data);
 void		ft_left(t_data *data);
 void		ft_right(t_data *data);
+void		ft_right_arrow(t_data *data);
+void		ft_left_arrow(t_data *data);
 
 //|-----utils-----|
 void		ft_free_array(char **map);

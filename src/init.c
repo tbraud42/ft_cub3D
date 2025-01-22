@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:13:47 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/21 16:57:02 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 09:20:35 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,20 @@ void	ft_init_texture(t_data *data)
 	}
 }
 
+void	init_ray(t_ray *ray)
+{
+	ray->dist[0] = 0;
+	ray->dist[1] = 0;
+	ray->line_dimensions[0] = 0;
+	ray->line_dimensions[1] = 0;
+	ray->ray_data[0] = 0;
+	ray->ray_data[1] = 0;
+	ray->ray_data[2] = 0;
+	ray->ray_step[0] = 0;
+	ray->ray_step[1] = 0;
+	ray->side = 0;
+}
+
 void	init_data(t_data *data)
 {
 	data->mlx = NULL;
@@ -50,4 +64,5 @@ void	init_data(t_data *data)
 	data->color_top[1] = 0;
 	data->color_top[2] = 0;
 	data->img_raycast = NULL;
+	init_ray(&data->ray);
 }

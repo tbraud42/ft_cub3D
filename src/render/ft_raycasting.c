@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 00:53:07 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/21 17:28:22 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 08:28:54 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	ft_raycasting_vertical(t_data *data, t_ray *math, double tan_ra)
 	int	dof;
 
 	dof = 0;
-	math->dist[0] = 100000;
+	math->dist[0] = 100000000000;
 	if (fabs(cos(math->ray_data[0])) > 0.001)
 	{
 		calculate_ray_vertical(data, math, tan_ra);
@@ -79,7 +79,7 @@ static void	ft_raycasting_horizontal(t_data *data, t_ray *math, double tan_ra)
 	int	dof;
 
 	dof = 0;
-	math->dist[1] = 100000;
+	math->dist[1] = 100000000000;
 	if (fabs(sin(math->ray_data[0])) > 0.001)
 	{
 		calculate_ray_horizontal(data, math, tan_ra);
@@ -95,28 +95,29 @@ static void	ft_raycasting_horizontal(t_data *data, t_ray *math, double tan_ra)
 
 void	ft_raycasting(t_data *data, int *win)
 {
-	t_ray	math;
+	t_ray	*math;
 	int		i;
 	double	tmp[2];
 
 	i = -1;
-	math.ray_data[0] = fix_ang_rad(data->d_player[2] + deg_to_rad(FOV / 2));
+	math = &data->ray;
+	math->ray_data[0] = fix_ang_rad(data->d_player[2] + deg_to_rad(FOV / 2));
 	while (++i < NUM_RAY)
 	{
-		ft_raycasting_vertical(data, &math, tan(math.ray_data[0]));
-		tmp[0] = math.ray_data[1];
-		tmp[1] = math.ray_data[2];
-		ft_raycasting_horizontal(data, &math, 1.0 / tan(math.ray_data[0]));
-		math.side = 0;
-		if (math.dist[0] < math.dist[1])
+		ft_raycasting_vertical(data, math, tan(math->ray_data[0]));
+		tmp[0] = math->ray_data[1];
+		tmp[1] = math->ray_data[2];
+		ft_raycasting_horizontal(data, math, 1.0 / tan(math->ray_data[0]));
+		math->side = 0;
+		if (math->dist[0] < math->dist[1])
 		{
-			math.ray_data[1] = tmp[0];
-			math.ray_data[2] = tmp[1];
-			math.dist[1] = math.dist[0];
-			math.side++;
+			math->ray_data[1] = tmp[0];
+			math->ray_data[2] = tmp[1];
+			math->dist[1] = math->dist[0];
+			math->side++;
 		}
-		ft_config_data_texture(data, &math, win, i);
-		math.ray_data[0] = fix_ang_rad(math.ray_data[0]
+		ft_config_data_texture(data, math, win, i);
+		math->ray_data[0] = fix_ang_rad(math->ray_data[0]
 				- deg_to_rad(FOV) / NUM_RAY);
 	}
 }

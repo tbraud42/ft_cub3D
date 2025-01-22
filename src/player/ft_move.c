@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_move.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 04:56:39 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/22 04:21:29 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/22 07:45:35 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,21 +67,6 @@ void	ft_backward(t_data *data)
 		i++;
 	}
 }
-
-void	ft_left_arrow(t_data *data)
-{
-	data->d_player[2] = fix_ang_rad(data->d_player[2] + 0.15708);
-	data->d_player[0] = cos(data->d_player[2]) * 5;
-	data->d_player[1] = -sin(data->d_player[2]) * 5;
-}
-
-void	ft_right_arrow(t_data *data)
-{
-	data->d_player[2] = fix_ang_rad(data->d_player[2] - 0.15708);
-	data->d_player[0] = cos(data->d_player[2]) * 5;
-	data->d_player[1] = -sin(data->d_player[2]) * 5;
-}
-
 
 void	ft_left(t_data *data)
 {

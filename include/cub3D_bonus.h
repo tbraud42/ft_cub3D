@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cun3D_bonus.h                                      :+:      :+:    :+:   */
+/*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 21:45:47 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/19 21:46:06 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 09:17:58 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_data
 	void		*mlx;
 	void		*mlx_win;
 	void		*img_raycast; // peu etre a changer dans textures
+	char 		*info_img_raycast;
 	double		player[2]; // placement dans la carte, on rajoute ici l'orientation?
 	double		d_player[3]; // direction
 	int			color_top[3]; // couleur toit
