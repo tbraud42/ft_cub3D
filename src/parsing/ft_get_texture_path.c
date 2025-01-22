@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:42:04 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/19 20:57:18 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 12:32:03 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	get_no(t_data *data, char *str)
 {
 	int	fd;
 
-	if (!ft_strncmp(str, "NO", 2))
+	if (ft_strncmp(str, "NO", 2) == 0)
 	{
 		str += 2;
 		if (ft_isspace(*str) == 0)

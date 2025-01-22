@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 09:40:08 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/20 22:17:35 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:16:08 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,18 @@ int	check_unknow_key(char *str)
 	if (!ft_strncmp(str, "F", 1) || !ft_strncmp(str, "C", 1)
 		|| !ft_strncmp(str, "NO", 2) || !ft_strncmp(str, "EA", 2)
 		|| !ft_strncmp(str, "SO", 2) || !ft_strncmp(str, "WE", 2))
+		return (1);
+	return (0);
+}
+
+int	check_size_map(t_data *data)
+{
+	if (data->map_height == 0)
+		return (1);
+	if (data->map_width == 0)
+		return (1);
+	if ((data->map_height * data->map_width)
+		> (1000 * 150))
 		return (1);
 	return (0);
 }

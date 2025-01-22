@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/22 09:18:51 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 12:52:38 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct s_data
 	void		*mlx_win;
 	void		*img_raycast;
 	char 		*info_img_raycast;
+	size_t		map_width;
+	size_t		map_height;
 	double		player[2];
 	double		d_player[3];
 	int			color_top[3];
@@ -100,6 +102,7 @@ int			is_map_valid(t_data *data);
 char		**realloc_copy_map(char **cpy);
 int			check_wall(char **copy_map);
 int			check_unknow_key(char *str);
+int			check_size_map(t_data *data);
 
 //|----move----|
 int			ft_event(int keycode, t_data *data); // fonction pour les mouvements

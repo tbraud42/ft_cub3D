@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:13:47 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/22 09:20:35 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 12:45:03 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	init_data(t_data *data)
 	data->texture[WE].file = NULL;
 	data->texture[EA].file = NULL;
 	data->map = NULL;
+	data->map_height = 0;
+	data->map_width = 0;
 	data->color_floor[0] = 0;
 	data->color_floor[1] = 0;
 	data->color_floor[2] = 0;
@@ -64,5 +66,6 @@ void	init_data(t_data *data)
 	data->color_top[1] = 0;
 	data->color_top[2] = 0;
 	data->img_raycast = NULL;
+	data->info_img_raycast = NULL;
 	init_ray(&data->ray);
 }
