@@ -3,53 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_display.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 04:41:22 by tao               #+#    #+#             */
-/*   Updated: 2025/01/22 23:42:28 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/22 23:49:08 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static t_texture	*ft_get_texture_by_cardinal(t_data *data, t_ray *math)
-{
-	t_texture	*texture;
-
-	if (math->side)
-	{
-		if (cos(math->ray_data[0]) > 0)
-			texture = &data->texture[WE];
-		else
-			texture = &data->texture[EA];
-	}
-	else
-	{
-		if (sin(math->ray_data[0]) > 0)
-			texture = &data->texture[SO];
-		else
-			texture = &data->texture[NO];
-	}
-	return (texture);
-}
-
 static int	ft_calc_tex_x(t_data *data, t_texture *texture)
 {
-	int tex_x;
+	int	tex_x;
 
 	if (data->ray.side)
 	{
 		if (cos(data->ray.ray_data[0]) > 0)
 			tex_x = (int)(data->ray.ray_data[2]) % SIZE_ONE_BLOCK;
 		else
-			tex_x = SIZE_ONE_BLOCK - (int)(data->ray.ray_data[2]) % SIZE_ONE_BLOCK - 1;
+			tex_x = SIZE_ONE_BLOCK - (int)(data->ray.ray_data[2])
+				% SIZE_ONE_BLOCK - 1;
 	}
 	else
 	{
 		if (sin(data->ray.ray_data[0]) > 0)
 			tex_x = (int)(data->ray.ray_data[1]) % SIZE_ONE_BLOCK;
 		else
-			tex_x = SIZE_ONE_BLOCK - (int)(data->ray.ray_data[1]) % SIZE_ONE_BLOCK - 1;
+			tex_x = SIZE_ONE_BLOCK - (int)(data->ray.ray_data[1])
+				% SIZE_ONE_BLOCK - 1;
 	}
 	tex_x = (tex_x * texture->img_w) / SIZE_ONE_BLOCK;
 	if (tex_x < 0)

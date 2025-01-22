@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/22 22:10:04 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 23:50:25 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ double		ft_dist(double ax, double ay, double bx, double by);
 void		mlx_pixel_put_img(int *win, int x0, int y0, int color);
 int			create_trgb(int t, int r, int g, int b);
 void		ft_init_texture(t_data *data);
+t_texture	*ft_get_texture_by_cardinal(t_data *data, t_ray *math);
 void		ft_config_data_texture(t_data *data, t_ray *math, int *win, int i);
 
 #endif /*CUB3D_H */

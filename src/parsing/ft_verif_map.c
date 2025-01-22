@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 09:25:51 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/22 23:06:45 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 23:48:13 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,14 @@ static void	ft_spread(char **arr, int x, int y, int nbr_line)
 	i = y;
 	j = x;
 	arr[i][j] = '2';
-	if (i > 0 && (arr[i - 1][j] == '0' 
+	if (i > 0 && (arr[i - 1][j] == '0'
 		|| ft_isspace(arr[i - 1][j])))
 		ft_spread(arr, x, y - 1, nbr_line);
 	if (i < nbr_line && (arr[i + 1][j] == '0'
 		|| ft_isspace(arr[i + 1][j])))
 		ft_spread(arr, x, y + 1, nbr_line);
 	if (j > 0 && (arr[i][j - 1] == '0'
-		||	ft_isspace(arr[i][j - 1])))
+		|| ft_isspace(arr[i][j - 1])))
 		ft_spread(arr, x - 1, y, nbr_line);
 	if (j < ft_strlen(arr[i]) - 1 && (arr[i][j + 1] == '0'
 		|| ft_isspace(arr[i][j + 1])))
