@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 04:41:22 by tao               #+#    #+#             */
-/*   Updated: 2025/01/21 00:21:06 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:59:01 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static t_texture	*ft_get_texture_by_cardinal(t_data *data, t_ray *math)
 	if (math->side)
 	{
 		if (cos(math->ray_data[0]) > 0)
-			texture = &data->texture[EA];
-		else
 			texture = &data->texture[WE];
+		else
+			texture = &data->texture[EA];
 	}
 	else
 	{
@@ -100,7 +100,6 @@ int	ft_display_window(t_data *data)
 	int		c;
 	char	*info_img_raycast;
 
-	ft_init_texture(data);
 	if (data->img_raycast != NULL)
 		mlx_destroy_image(data->mlx, data->img_raycast);
 	data->img_raycast = mlx_new_image(data->mlx, WIDTH, HEIGHT);
