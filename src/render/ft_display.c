@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 04:41:22 by tao               #+#    #+#             */
-/*   Updated: 2025/01/22 22:13:19 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/22 23:23:27 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ static void	ft_draw_texture(t_data *data, t_texture *texture, int i, int *pos)
 		tex_x = (tex_x * texture->img_w) / SIZE_ONE_BLOCK;
 		if (tex_x < 0)
 			tex_x = 0;
+		if (data->ray.ray_data[0] > 180)
+			tex_x = texture->img_w - tex_x;
 		color = texture->data[tex_y * texture->img_w + tex_x];
 		mlx_pixel_put_img((int *)data->info_img_raycast, i
 			* (WIDTH / NUM_RAY) + pos[0], pos[1], color);
