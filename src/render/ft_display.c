@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_display.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tbraud <tbraud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 04:41:22 by tao               #+#    #+#             */
-/*   Updated: 2025/01/23 15:34:29 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/23 15:48:43 by tbraud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static void	ft_draw_texture(t_data *data, t_texture *texture, int i, int *pos)
 			* (WIDTH / NUM_RAY) + pos[0], pos[1], color);
 		(pos[1])++;
 	}
-
 }
 
 static void	draw_col(t_data *data, int *win, int i, t_texture *texture)
