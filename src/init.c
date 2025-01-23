@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:13:47 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/22 12:45:03 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/23 01:54:45 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_init_texture(t_data *data)
 				&data->texture[i].img_h);
 		if (data->texture[i].img == NULL)
 		{
-			printf("error texture");
-			exit(1);
+			write(2, "texture ", 9);
+			ft_exit_mlx(data, 1);
 		}
 		data->texture[i].data = (int *)mlx_get_data_addr(data->texture[i].img,
 				&data->texture[i].bpp, &data->texture[i].size_line,

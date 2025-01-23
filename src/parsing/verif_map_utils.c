@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 09:40:08 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/22 20:17:56 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/23 01:55:22 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 char	**realloc_copy_map(char **cpy)
 {
 	int	i;
+	int	len_max;
 
 	i = 0;
+	len_max = get_size_line_max(cpy);
 	while (cpy[i])
 	{
-		cpy[i] = ft_realloc(cpy[i],
-				get_size_line_max(cpy), ft_strlen(cpy[i]) + 1);
+		cpy[i] = ft_realloc((void *)cpy[i],
+				len_max, ft_strlen(cpy[i]) + 1);
 		i++;
 	}
 	return (cpy);
