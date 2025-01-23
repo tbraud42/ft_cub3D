@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/22 23:50:25 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:57:27 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 
 # define FOV 60
 # define NUM_RAY 1024
-# define RENDER_DIST 2048
+# define RENDER_DIST 2024
 
 # define SIZE_ONE_BLOCK 64
 
