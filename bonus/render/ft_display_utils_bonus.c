@@ -1,53 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   len_bonus.c                                        :+:      :+:    :+:   */
+/*   ft_display_utils_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 22:14:41 by brguicho          #+#    #+#             */
+/*   Created: 2025/01/22 23:49:48 by brguicho          #+#    #+#             */
 /*   Updated: 2025/01/23 15:23:21 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D_bonus.h"
 
-int	ft_strlen(char *arr)
+t_texture	*ft_get_texture_by_cardinal(t_data *data, t_ray *math)
 {
-	int	i;
+	t_texture	*texture;
 
-	if (!arr)
-		return (0);
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
-}
-
-int	ft_array_len(void **array)
-{
-	int	i;
-
-	i = 0;
-	if (!array)
-		return (0);
-	while (array[i])
-		i++;
-	return (i);
-}
-
-int	get_size_line_max(char **arr)
-{
-	int	i;
-	int	size_max;
-
-	i = 0;
-	size_max = 0;
-	while (arr[i])
+	if (math->side)
 	{
-		if (ft_strlen(arr[i]) > size_max)
-			size_max = ft_strlen(arr[i]);
-		i++;
+		if (cos(math->ray_data[0]) > 0)
+			texture = &data->texture[WE];
+		else
+			texture = &data->texture[EA];
 	}
-	return (size_max);
+	else
+	{
+		if (sin(math->ray_data[0]) > 0)
+			texture = &data->texture[SO];
+		else
+			texture = &data->texture[NO];
+	}
+	return (texture);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/19 22:04:52 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:23:21 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ char	**ft_get_file_in_tab(int fd)
 	char	*line;
 	char	*tmp;
 	char	**tmp_tab;
+
 	tmp_tab = NULL;
 	line = get_next_line(fd);
 	tmp = ft_strdup("");

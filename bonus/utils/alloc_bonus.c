@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 09:09:45 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/19 22:05:33 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:23:21 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D_bonus.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dest, const void *src, size_t n, size_t newsize)
 {
 	size_t	i;
 
@@ -24,6 +24,13 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 		((char *)dest)[i] = ((char *)src)[i];
 		i++;
 	}
+	i--;
+	while (i < newsize)
+	{
+		((char *)dest)[i] = ' ';
+		i++;
+	}
+	((char *)dest)[i] = '\0';
 	return (dest);
 }
 
@@ -58,7 +65,7 @@ void	*ft_realloc(void *ptr, size_t newsize, size_t old_size)
 		ft_putstr_fd("Error\n malloc error\n", 2);
 		return (0);
 	}
-	ft_memcpy(ptr, newptr, cursize);
+	ft_memcpy(newptr, ptr, cursize, newsize);
 	free(ptr);
 	return (newptr);
 }

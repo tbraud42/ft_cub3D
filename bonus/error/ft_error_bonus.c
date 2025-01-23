@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:37:39 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/19 22:04:08 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:23:21 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_exit_mlx(t_data *data, int choice)
 	int	i;
 
 	i = 0;
-	while (i > 4)
+	while (i < 4)
 	{
 		if (data->texture[i].img)
 			mlx_destroy_image(data->mlx, data->texture[i].img);

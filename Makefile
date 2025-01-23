@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
+#    By: tao <tao@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 18:10:28 by tbraud            #+#    #+#              #
-#    Updated: 2025/01/22 23:50:41 by brguicho         ###   ########.fr        #
+#    Updated: 2025/01/23 15:15:47 by tao              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,11 +56,14 @@ SRC_BONUS	:=	bonus/main_bonus.c \
 			bonus/error/parsing_error_bonus.c \
 			bonus/player/ft_direction_bonus.c \
 			bonus/player/ft_mouse_bonus.c \
-			bonus/player/ft_display_bonus.c \
 			bonus/player/ft_move_bonus.c \
 			bonus/player/ft_position_bonus.c \
-			bonus/player/ft_raycasting_bonus.c \
-			bonus/player/put_pixel_bonus.c \
+			bonus/player/ft_rotate_camera_bonus.c \
+			bonus/render/ft_display_bonus.c \
+			bonus/render/ft_display_utils_bonus.c \
+			bonus/render/ft_raycasting_utils_bonus.c \
+			bonus/render/ft_raycasting_bonus.c \
+			bonus/render/put_pixel_bonus.c \
 			bonus/parsing/ft_parse_bonus.c \
 			bonus/parsing/ft_get_colors_bonus.c \
 			bonus/parsing/ft_get_texture_path_bonus.c \

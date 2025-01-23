@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_verif_map_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 09:25:51 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/19 22:04:58 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:23:21 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,17 @@ static void	ft_spread(char **arr, int x, int y, int nbr_line)
 	i = y;
 	j = x;
 	arr[i][j] = '2';
-	if (i > 0 && arr[i - 1][j] == '0')
+	if (i > 0 && (arr[i - 1][j] == '0'
+		|| ft_isspace(arr[i - 1][j])))
 		ft_spread(arr, x, y - 1, nbr_line);
-	if (i < nbr_line
-		&& arr[i + 1][j] == '0')
+	if (i < nbr_line && (arr[i + 1][j] == '0'
+		|| ft_isspace(arr[i + 1][j])))
 		ft_spread(arr, x, y + 1, nbr_line);
-	if (j > 0 && arr[i][j - 1] == '0')
+	if (j > 0 && (arr[i][j - 1] == '0'
+		|| ft_isspace(arr[i][j - 1])))
 		ft_spread(arr, x - 1, y, nbr_line);
-	if (j < ft_strlen(arr[i]) - 1 && arr[i][j + 1] == '0')
+	if (j < ft_strlen(arr[i]) - 1 && (arr[i][j + 1] == '0'
+		|| ft_isspace(arr[i][j + 1])))
 		ft_spread(arr, x + 1, y, nbr_line);
 	return ;
 }
@@ -94,10 +97,13 @@ int	is_map_valid(t_data *data)
 {
 	char	**copy_map;
 
-	if (!check_map_char(data->map) || is_duplicated_player(data->map))
+	data->map_height = ft_array_len((void **) data->map);
+	data->map_width = get_size_line_max(data->map);
+	if (!check_map_char(data->map) || is_duplicated_player(data->map)
+		|| check_size_map(data))
 		return (error_map());
 	copy_map = ft_copy_tab(data->map);
-	realloc_copy_map(copy_map);
+	copy_map = realloc_copy_map(copy_map);
 	ft_spread(copy_map, (int)data->player[0],
 		(int)data->player[1], ft_array_len((void **) data->map) - 1);
 	if (check_wall(copy_map) == 0)

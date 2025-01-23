@@ -1,53 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   len_bonus.c                                        :+:      :+:    :+:   */
+/*   ft_rotate_camera_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 22:14:41 by brguicho          #+#    #+#             */
+/*   Created: 2025/01/22 07:45:05 by brguicho          #+#    #+#             */
 /*   Updated: 2025/01/23 15:23:21 by tao              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D_bonus.h"
 
-int	ft_strlen(char *arr)
+void	ft_left_arrow(t_data *data)
 {
-	int	i;
-
-	if (!arr)
-		return (0);
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
+	data->d_player[2] = fix_ang_rad(data->d_player[2] + 0.15708);
+	data->d_player[0] = cos(data->d_player[2]) * 5;
+	data->d_player[1] = -sin(data->d_player[2]) * 5;
 }
 
-int	ft_array_len(void **array)
+void	ft_right_arrow(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	if (!array)
-		return (0);
-	while (array[i])
-		i++;
-	return (i);
-}
-
-int	get_size_line_max(char **arr)
-{
-	int	i;
-	int	size_max;
-
-	i = 0;
-	size_max = 0;
-	while (arr[i])
-	{
-		if (ft_strlen(arr[i]) > size_max)
-			size_max = ft_strlen(arr[i]);
-		i++;
-	}
-	return (size_max);
+	data->d_player[2] = fix_ang_rad(data->d_player[2] - 0.15708);
+	data->d_player[0] = cos(data->d_player[2]) * 5;
+	data->d_player[1] = -sin(data->d_player[2]) * 5;
 }
