@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 02:09:34 by tao               #+#    #+#             */
-/*   Updated: 2024/11/22 11:15:05 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/24 01:26:20 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,11 @@ char	**ft_copy_tab(char **tab)
 	while (tab[i])
 	{
 		copy[i] = ft_strdup(tab[i]);
+		if (!copy[i])
+		{
+			ft_free(copy);
+			return (NULL);
+		}
 		i++;
 	}
 	return (copy);

@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 09:25:51 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/23 01:55:06 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/24 01:29:01 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,11 @@ int	is_map_valid(t_data *data)
 		|| check_size_map(data))
 		return (error_map());
 	copy_map = ft_copy_tab(data->map);
+	if (!copy_map)
+		return (0);
 	copy_map = realloc_copy_map(copy_map);
+	if (!copy_map)
+		return (0);
 	ft_spread(copy_map, (int)data->player[0],
 		(int)data->player[1], ft_array_len((void **) data->map) - 1);
 	if (check_wall(copy_map) == 0)
