@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/23 15:23:21 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/25 14:08:55 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,23 +64,28 @@ static char	**ft_get_map(char **tab, int tab_len, int start)
 int	get_element_from_tab(char **tab, t_data *data)
 {
 	int		i;
-	int		tab_len;
 	char	*tmp;
+	int		count;
 
 	i = 0;
-	tab_len = ft_array_len((void **)tab);
-	while (i < tab_len)
+	count = 0;
+	while (i < ft_array_len((void **)tab))
 	{
 		tmp = tab[i];
 		while (ft_isspace(*tmp))
 			tmp++;
+		ft_strstrim(tab[i]);
 		if (*tmp == '1' || *tmp == '0')
 			break ;
+		if (check_unknow_key(tab[i]))
+			count++;
 		if (get_path_and_colors(data, tab, i))
 			return (0);
 		i++;
 	}
-	data->map = ft_get_map(tab, tab_len, i);
+	if (count != 6)
+		return (error_missing_key());
+	data->map = ft_get_map(tab, ft_array_len((void **)tab), i);
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 21:45:47 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/23 15:11:42 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/25 14:08:31 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ int			error_arg(void);
 int			error_color(int flag);
 int			error_texture(int flag);
 int			error_map(void);
+int			error_missing_key(void);
 
 //|-------render-------|
 int			ft_display_window(t_data *data);

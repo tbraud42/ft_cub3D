@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:30:03 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/23 18:19:36 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/25 13:57:20 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ int			error_arg(void);
 int			error_color(int flag);
 int			error_texture(int flag);
 int			error_map(void);
+int			error_missing_key(void);
 
 //|-------render-------|
 int			ft_display_window(t_data *data);

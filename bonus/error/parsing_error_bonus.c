@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_error_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tao <tao@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 22:01:35 by brguicho          #+#    #+#             */
-/*   Updated: 2025/01/23 15:23:21 by tao              ###   ########.fr       */
+/*   Updated: 2025/01/25 14:08:01 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,12 @@ int	error_map(void)
 {
 	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd("Map is invalid\n", 2);
+	return (0);
+}
+
+int	error_missing_key(void)
+{
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd("Missing key in File\n", 2);
 	return (0);
 }
