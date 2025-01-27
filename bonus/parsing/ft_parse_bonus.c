@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:46:27 by tbraud            #+#    #+#             */
-/*   Updated: 2025/01/25 14:08:55 by brguicho         ###   ########.fr       */
+/*   Updated: 2025/01/27 13:39:31 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	get_path_and_colors(t_data *data, char **arr, size_t i)
 	size_t	error;
 
 	error = 0;
-	ft_strstrim(arr[i]);
+	if (arr[i][0] != '\0')
+		ft_strstrim(arr[i]);
 	if (!check_unknow_key(arr[i]))
 	{
 		error_arg();
@@ -74,9 +75,10 @@ int	get_element_from_tab(char **tab, t_data *data)
 		tmp = tab[i];
 		while (ft_isspace(*tmp))
 			tmp++;
-		ft_strstrim(tab[i]);
 		if (*tmp == '1' || *tmp == '0')
 			break ;
+		if (tab[i][0] != '\0')
+			ft_strstrim(tab[i]);
 		if (check_unknow_key(tab[i]))
 			count++;
 		if (get_path_and_colors(data, tab, i))
